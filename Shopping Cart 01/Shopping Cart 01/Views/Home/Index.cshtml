@@ -1,0 +1,240 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@{
+    Layout = "~/Views/Shared/_ShopLayout.cshtml";
+}
+
+@*<div class="jumbotron">
+    <h1>ASP.NET</h1>
+    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Getting started</h2>
+        <p>
+            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+            enables a clean separation of concerns and gives you full control over markup
+            for enjoyable, agile development.
+        </p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Get more libraries</h2>
+        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Web Hosting</h2>
+        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    </div>
+</div>*@
+
+	<!--banner-starts-->
+@*<div class="bnr" id="home">
+    <div id="top" class="callbacks_container">
+        <ul class="rslides" id="slider4">
+            <li>
+                <img src="~/Template1/images/bnr-1.jpg" alt="" />
+            </li>
+            <li>
+                <img src="~/Template1/images/bnr-2.jpg" alt="" />
+            </li>
+            <li>
+                <img src="~/Template1/images/bnr-3.jpg" alt="" />
+            </li>
+        </ul>
+    </div>
+    <div class="clearfix"> </div>
+</div>*@
+<!--banner-ends-->
+
+<!--Slider-Starts-Here-->
+@*<script src="~/Template1/js/responsiveslides.min.js"></script>*@
+@*<script>
+			    // You can also use "$(window).load(function() {"
+			    $(function () {
+			      // Slideshow 4
+			      $("#slider4").responsiveSlides({
+			        auto: true,
+			        pager: true,
+			        nav: true,
+			        speed: 500,
+			        namespace: "callbacks",
+			        before: function () {
+			          $('.events').append("<li>before event fired.</li>");
+			        },
+			        after: function () {
+			          $('.events').append("<li>after event fired.</li>");
+			        }
+			      });
+
+			    });
+</script>*@
+<!--End-slider-script-->
+
+<!--about-starts-->
+<div class="about">
+    <div class="container">
+        <div class="about-top grid-1">
+            <div class="col-md-4 about-left">
+                <figure class="effect-bubba">
+                    <img class="img-responsive" src="~/Template1/images/abt-1.jpg" alt="" />
+                    <figcaption>
+                        <h2>Nulla maximus nunc</h2>
+                        <p>In sit amet sapien eros Integer dolore magna aliqua</p>
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-md-4 about-left">
+                <figure class="effect-bubba">
+                    <img class="img-responsive" src="~/Template1/images/abt-2.jpg" alt="" />
+                    <figcaption>
+                        <h4>Mauris erat augue</h4>
+                        <p>In sit amet sapien eros Integer dolore magna aliqua</p>
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-md-4 about-left">
+                <figure class="effect-bubba">
+                    <img class="img-responsive" src="~/Template1/images/abt-3.jpg" alt="" />
+                    <figcaption>
+                        <h4>Cras elit mauris</h4>
+                        <p>In sit amet sapien eros Integer dolore magna aliqua</p>
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<!--about-end-->
+<!--product-starts-->
+<div class="product">
+    <div class="container">
+        <div class="product-top">
+            <div class="product-one">
+                <div class="col-md-3 product-left">
+                    <div class="product-main simpleCart_shelfItem">
+                        <a href="single.html" class="mask"><img class="img-responsive zoom-img" src="~/Template1/images/p-1.png" alt="" /></a>
+                        <div class="product-bottom">
+                            <h3>Smart Watches</h3>
+                            <p>Explore Now</p>
+                            <h4><a class="item_add" href="#"><i></i></a> <span class=" item_price">$ 329</span></h4>
+                        </div>
+                        <div class="srch">
+                            <span>-50%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 product-left">
+                    <div class="product-main simpleCart_shelfItem">
+                        <a href="single.html" class="mask"><img class="img-responsive zoom-img" src="~/Template1/images/p-2.png" alt="" /></a>
+                        <div class="product-bottom">
+                            <h3>Smart Watches</h3>
+                            <p>Explore Now</p>
+                            <h4><a class="item_add" href="#"><i></i></a> <span class=" item_price">$ 329</span></h4>
+                        </div>
+                        <div class="srch">
+                            <span>-50%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 product-left">
+                    <div class="product-main simpleCart_shelfItem">
+                        <a href="single.html" class="mask"><img class="img-responsive zoom-img" src="~/Template1/images/p-3.png" alt="" /></a>
+                        <div class="product-bottom">
+                            <h3>Smart Watches</h3>
+                            <p>Explore Now</p>
+                            <h4><a class="item_add" href="#"><i></i></a> <span class=" item_price">$ 329</span></h4>
+                        </div>
+                        <div class="srch">
+                            <span>-50%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 product-left">
+                    <div class="product-main simpleCart_shelfItem">
+                        <a href="single.html" class="mask"><img class="img-responsive zoom-img" src="~/Template1/images/p-4.png" alt="" /></a>
+                        <div class="product-bottom">
+                            <h3>Smart Watches</h3>
+                            <p>Explore Now</p>
+                            <h4><a class="item_add" href="#"><i></i></a> <span class=" item_price">$ 329</span></h4>
+                        </div>
+                        <div class="srch">
+                            <span>-50%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="product-one">
+                <div class="col-md-3 product-left">
+                    <div class="product-main simpleCart_shelfItem">
+                        <a href="single.html" class="mask"><img class="img-responsive zoom-img" src="~/Template1/images/p-5.png" alt="" /></a>
+                        <div class="product-bottom">
+                            <h3>Smart Watches</h3>
+                            <p>Explore Now</p>
+                            <h4><a class="item_add" href="#"><i></i></a> <span class=" item_price">$ 329</span></h4>
+                        </div>
+                        <div class="srch">
+                            <span>-50%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 product-left">
+                    <div class="product-main simpleCart_shelfItem">
+                        <a href="single.html" class="mask"><img class="img-responsive zoom-img" src="~/Template1/images/p-6.png" alt="" /></a>
+                        <div class="product-bottom">
+                            <h3>Smart Watches</h3>
+                            <p>Explore Now</p>
+                            <h4><a class="item_add" href="#"><i></i></a> <span class=" item_price">$ 329</span></h4>
+                        </div>
+                        <div class="srch">
+                            <span>-50%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 product-left">
+                    <div class="product-main simpleCart_shelfItem">
+                        <a href="single.html" class="mask"><img class="img-responsive zoom-img" src="~/Template1/images/p-7.png" alt="" /></a>
+                        <div class="product-bottom">
+                            <h3>Smart Watches</h3>
+                            <p>Explore Now</p>
+                            <h4><a class="item_add" href="#"><i></i></a> <span class=" item_price">$ 329</span></h4>
+                        </div>
+                        <div class="srch">
+                            <span>-50%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 product-left">
+                    <div class="product-main simpleCart_shelfItem">
+                        <a href="single.html" class="mask"><img class="img-responsive zoom-img" src="~/Template1/images/p-8.png" alt="" /></a>
+                        <div class="product-bottom">
+                            <h3>Smart Watches</h3>
+                            <p>Explore Now</p>
+                            <h4><a class="item_add" href="#"><i></i></a> <span class=" item_price">$ 329</span></h4>
+                        </div>
+                        <div class="srch">
+                            <span>-50%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--product-end-->
+<!--start-menu-->
+<script src="~/Template1/js/simpleCart.min.js"> </script>
+<link href="~/Template1/css/memenu.css" rel="stylesheet" type="text/css" media="all" />
+<script type="text/javascript" src="~/Template1/js/memenu.js"></script>
+<script>$(document).ready(function(){$(".memenu").memenu();});</script>
+<!--dropdown-->
+<script src="~/Template1/js/jquery.easydropdown.js"></script>	

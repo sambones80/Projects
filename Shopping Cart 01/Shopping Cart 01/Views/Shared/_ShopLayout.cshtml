@@ -1,0 +1,327 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Sam's Time Pieces</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/Template1/jquery.easydropdown.js")
+    @Styles.Render("~/Template1/css/memenu.css")
+    @Scripts.Render("~/Template1/simpleCart.min.js")
+    @Scripts.Render("~/Template1/memenu.js")
+    @Styles.Render("~/Template1/css/style.css")
+
+    <!--dropdown-->
+    <script src="js/jquery.easydropdown.js"></script>			
+
+</head>
+<body>
+    <!--top-header-->
+    <div class="top-header">
+        <div class="container">
+            <div class="top-header-main">
+                <div class="col-md-6 top-header-left">
+                    @*<div class="drop">
+                        <div class="box">
+                            <select tabindex="4" class="dropdown drop">
+                                <option value="" class="label">Dollar :</option>
+                                <option value="1">Dollar</option>
+                                <option value="2">Euro</option>
+                            </select>
+                        </div>
+                        <div class="box1">
+                            <select tabindex="4" class="dropdown">
+                                <option value="" class="label">English :</option>
+                                <option value="1">English</option>
+                                <option value="2">French</option>
+                                <option value="3">German</option>
+                            </select>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>*@
+                </div>
+                <div class="col-md-6 top-header-left">
+                    <div class="cart box_1">
+                        <a href="checkout.html">
+                            <div class="total">
+                                <span class="simpleCart_total"></span>
+                            </div>
+                            <img src="~/Template1/images/cart-1.png" alt="" />
+                        </a>
+                        <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
+                        <div class="clearfix"> </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <!--top-header-->
+    <!--start-logo-->
+    <div class="logo">
+        <a href="~/Views/Home/Index.cshtml"><h1>Samuel's Luxury Time Pieces</h1></a>
+    </div>
+    <!--start-logo-->
+    <!--bottom-header-->
+    <div class="header-bottom">
+        <div class="container">
+            <div class="header">
+                <div class="col-md-9 header-left">
+                    <div class="top-nav">
+                        <ul class="memenu skyblue">
+                            <li class="active"><a href="index.html">Home</a></li>
+                            <li class="grid">
+                                <a href="#">Men</a>
+                                <div class="mepanel">
+                                    <div class="row">
+                                        <div class="col1 me-one">
+                                            <h4>Shop</h4>
+                                            <ul>
+                                                <li><a href="products.html">New Arrivals</a></li>
+                                                <li><a href="products.html">Blazers</a></li>
+                                                <li><a href="products.html">Swem Wear</a></li>
+                                                <li><a href="products.html">Accessories</a></li>
+                                                <li><a href="products.html">Handbags</a></li>
+                                                <li><a href="products.html">T-Shirts</a></li>
+                                                <li><a href="products.html">Watches</a></li>
+                                                <li><a href="products.html">My Shopping Bag</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col1 me-one">
+                                            <h4>Style Zone</h4>
+                                            <ul>
+                                                <li><a href="products.html">Shoes</a></li>
+                                                <li><a href="products.html">Watches</a></li>
+                                                <li><a href="products.html">Brands</a></li>
+                                                <li><a href="products.html">Coats</a></li>
+                                                <li><a href="products.html">Accessories</a></li>
+                                                <li><a href="products.html">Trousers</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col1 me-one">
+                                            <h4>Popular Brands</h4>
+                                            <ul>
+                                                <li><a href="products.html">499 Store</a></li>
+                                                <li><a href="products.html">Fastrack</a></li>
+                                                <li><a href="products.html">Casio</a></li>
+                                                <li><a href="products.html">Fossil</a></li>
+                                                <li><a href="products.html">Maxima</a></li>
+                                                <li><a href="products.html">Timex</a></li>
+                                                <li><a href="products.html">TomTom</a></li>
+                                                <li><a href="products.html">Titan</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="grid">
+                                <a href="#">Women</a>
+                                <div class="mepanel">
+                                    <div class="row">
+                                        <div class="col1 me-one">
+                                            <h4>Shop</h4>
+                                            <ul>
+                                                <li><a href="products.html">New Arrivals</a></li>
+                                                <li><a href="products.html">Blazers</a></li>
+                                                <li><a href="products.html">Swem Wear</a></li>
+                                                <li><a href="products.html">Accessories</a></li>
+                                                <li><a href="products.html">Handbags</a></li>
+                                                <li><a href="products.html">T-Shirts</a></li>
+                                                <li><a href="products.html">Watches</a></li>
+                                                <li><a href="products.html">My Shopping Bag</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col1 me-one">
+                                            <h4>Style Zone</h4>
+                                            <ul>
+                                                <li><a href="products.html">Shoes</a></li>
+                                                <li><a href="products.html">Watches</a></li>
+                                                <li><a href="products.html">Brands</a></li>
+                                                <li><a href="products.html">Coats</a></li>
+                                                <li><a href="products.html">Accessories</a></li>
+                                                <li><a href="products.html">Trousers</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col1 me-one">
+                                            <h4>Popular Brands</h4>
+                                            <ul>
+                                                <li><a href="products.html">499 Store</a></li>
+                                                <li><a href="products.html">Fastrack</a></li>
+                                                <li><a href="products.html">Casio</a></li>
+                                                <li><a href="products.html">Fossil</a></li>
+                                                <li><a href="products.html">Maxima</a></li>
+                                                <li><a href="products.html">Timex</a></li>
+                                                <li><a href="products.html">TomTom</a></li>
+                                                <li><a href="products.html">Titan</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="grid">
+                                <a href="#">Kids</a>
+                                <div class="mepanel">
+                                    <div class="row">
+                                        <div class="col1 me-one">
+                                            <h4>Shop</h4>
+                                            <ul>
+                                                <li><a href="products.html">New Arrivals</a></li>
+                                                <li><a href="products.html">Blazers</a></li>
+                                                <li><a href="products.html">Swem Wear</a></li>
+                                                <li><a href="products.html">Accessories</a></li>
+                                                <li><a href="products.html">Handbags</a></li>
+                                                <li><a href="products.html">T-Shirts</a></li>
+                                                <li><a href="products.html">Watches</a></li>
+                                                <li><a href="products.html">My Shopping Bag</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col1 me-one">
+                                            <h4>Style Zone</h4>
+                                            <ul>
+                                                <li><a href="products.html">Shoes</a></li>
+                                                <li><a href="products.html">Watches</a></li>
+                                                <li><a href="products.html">Brands</a></li>
+                                                <li><a href="products.html">Coats</a></li>
+                                                <li><a href="products.html">Accessories</a></li>
+                                                <li><a href="products.html">Trousers</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col1 me-one">
+                                            <h4>Popular Brands</h4>
+                                            <ul>
+                                                <li><a href="products.html">499 Store</a></li>
+                                                <li><a href="products.html">Fastrack</a></li>
+                                                <li><a href="products.html">Casio</a></li>
+                                                <li><a href="products.html">Fossil</a></li>
+                                                <li><a href="products.html">Maxima</a></li>
+                                                <li><a href="products.html">Timex</a></li>
+                                                <li><a href="products.html">TomTom</a></li>
+                                                <li><a href="products.html">Titan</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="grid">
+                                <a href="typo.html">Blog</a>
+                            </li>
+                            <li class="grid">
+                                <a href="contact.html">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+                <div class="col-md-3 header-right">
+                    <div class="search-bar">
+                        <input type="text" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
+                        <input type="submit" value="">
+                    </div>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+    <!--bottom-header-->
+
+
+    @*<div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>*@
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            @*<p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>*@
+        </footer>
+    </div>
+
+    <!--information-starts-->
+    <div class="information">
+        <div class="container">
+            <div class="infor-top">
+                <div class="col-md-3 infor-left">
+                    <h3>Follow Us</h3>
+                    <ul>
+                        <li><a href="#"><span class="fb"></span><h6>Facebook</h6></a></li>
+                        <li><a href="#"><span class="twit"></span><h6>Twitter</h6></a></li>
+                        <li><a href="#"><span class="google"></span><h6>Google+</h6></a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 infor-left">
+                    <h3>Information</h3>
+                    <ul>
+                        <li><a href="#"><p>Specials</p></a></li>
+                        <li><a href="#"><p>New Products</p></a></li>
+                        <li><a href="#"><p>Our Stores</p></a></li>
+                        <li><a href="contact.html"><p>Contact Us</p></a></li>
+                        <li><a href="#"><p>Top Sellers</p></a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 infor-left">
+                    <h3>My Account</h3>
+                    <ul>
+                        <li>@Html.ActionLink("My Account", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                        @*<li><a href="account.html"><p>My Account</p></a></li>*@
+                        <li><a href="#"><p>My Credit slips</p></a></li>
+                        <li><a href="#"><p>My Merchandise returns</p></a></li>
+                        <li><a href="#"><p>My Personal info</p></a></li>
+                        <li><a href="#"><p>My Addresses</p></a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 infor-left">
+                    <h3>Store Information</h3>
+                    <h4>
+                        Samuel's Luxury Time Pieces,
+                        <span>Charlotte, North Carolina</span>
+                    </h4>
+                    <h5>800.877.4313</h5>
+                    <p><a href="mailto:example@email.com">Samuel@SamsWatches.com</a></p>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <!--information-end-->
+    <!--footer-starts-->
+    <div class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="col-md-6 footer-left">
+                    <form>
+                        <input type="text" value="Enter Your Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter Your Email';}">
+                        <input type="submit" value="Subscribe">
+                    </form>
+                </div>
+                <div class="col-md-6 footer-right">
+                    <p>© 2017 Sam's Luxury Watches | All Rights Reserved | Design by: Samuel Gray
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <!--footer-end-->
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
