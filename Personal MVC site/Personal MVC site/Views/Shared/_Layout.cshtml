@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sam Gray | Web Developer @ViewBag.Title</title>
+    @Styles.Render("~/Content/bootstrap.min.css")
+    @*@Styles.Render("~/Content/css")*@
+    @Styles.Render("~/Content/creative.min.css")
+    @Styles.Render("~/Content/grayscale.min.css")
+    @*@Scripts.Render("~/bundles/modernizr")*@
+    @Styles.Render("https://fonts.googleapis.com/css?family=Kreon:300,400")
+    @Styles.Render("https://fonts.googleapis.com/css?family=Montserrat:400,700")
+    @Styles.Render("https://fonts.googleapis.com/css?family=Vast+Shadow")
+    @Styles.Render("https://fonts.googleapis.com/css?family=Roboto+Slab:700")
+
+    @Styles.Render("~/fonts/bootstrap/fonts/glyphicons-halflings-regular.eot")
+    @Styles.Render("~/fonts/bootstrap/fonts/glyphicons-halflings-regular.svg")
+    @Styles.Render("~/fonts/bootstrap/fonts/glyphicons-halflings-regular.ttf")
+    @Styles.Render("~/fonts/bootstrap/fonts/glyphicons-halflings-regular.woff")
+
+    @Styles.Render("~/fonts/font-awesome/css/font-awesome.min.css")
+    @Styles.Render("~/fonts/font-awesome/fonts/fontawesome-webfont.eot")
+    @Styles.Render("~/fonts/font-awesome/fonts/fontawesome-webfont.svg")
+    @Styles.Render("~/fonts/font-awesome/fonts/fontawesome-webfont.ttf")
+    @Styles.Render("~/fonts/font-awesome/fonts/fontawesome-webfont.woff")
+    @Styles.Render("~/fonts/font-awesome/fonts/FontAwesome.otf")
+    @Styles.Render("~/fonts/font-awesome/fonts/fontawesome-webfont.woff2")
+    @Styles.Render("~/Content/lightbox.css")
+</head>
+
+<body>
+    @RenderBody()
+    <footer>
+        <div class="container text-center">
+            <p>Copyright &copy; Samuel Gray @DateTime.Now.Year</p>
+        </div>
+    </footer>
+
+    @Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
+    @Scripts.Render("~/Scripts/bootstrap.min.js")
+    @Scripts.Render("https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js")
+    @Scripts.Render("~/Scripts/grayscale.min.js")
+    @Scripts.Render("~/Scripts/creative.min.js")
+    @Scripts.Render("~/Scripts/lightbox.js")
+    @RenderSection("scripts", required: false)
+    </body>
+</html>

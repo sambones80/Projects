@@ -1,0 +1,405 @@
+/*!
+ * Start Bootstrap - Grayscale v3.3.7+1 (http://startbootstrap.com/template-overviews/grayscale)
+ * Copyright 2013-2016 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
+ */
+
+body, html {
+    height: 100%;
+    width: 100%;
+}
+
+.navbar-custom, body {
+    background-color: #000;
+}
+
+.intro, body, html {
+    width: 100%;
+}
+
+/*** Body Font ***/
+
+body {
+    font-family: Kreon,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 300;
+    color: #fff;
+    webkit-tap-highlight-color: rgba(255,255,255,.2);
+}
+
+.btn, .navbar-custom, h1, h3, h4, h5, h6 {
+    text-transform: uppercase;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0 0 35px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/*** Body Headlines ***/
+
+h2 {
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: #77C0F4;
+}
+
+p {
+    margin: 0 0 25px;
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+@media (min-width:768px) {
+    p {
+        margin: 0 0 35px;
+        font-size: 20px;
+        line-height: 1.6;
+    }
+}
+
+a {
+    color: #88C8F5;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+    a:focus, a:hover {
+        text-decoration: none;
+        color: #5990B7;
+    }
+
+.light {
+    font-weight: 400;
+}
+
+/*** Navigation ***/
+
+.navbar-custom {
+    margin-bottom: 0;
+    border-bottom: 1px solid rgba(255,255,255,.3);
+    -webkit-transition: background .3s ease-in-out;
+    -moz-transition: background .3s ease-in-out;
+    transition: background .3s ease-in-out;
+}
+
+    .navbar-custom .navbar-toggle {
+        color: #fff;
+        background-color: rgba(255,255,255,.2);
+        font-size: 12px;
+    }
+
+    .navbar-custom .nav li a:active, .navbar-custom .nav li a:focus, .navbar-custom .nav li a:hover {
+        background-color: transparent;
+        outline: 0;
+    }
+
+    .navbar-custom .navbar-toggle:active, .navbar-custom .navbar-toggle:focus {
+        outline: 0;
+    }
+
+    .navbar-custom .navbar-brand {
+        font-weight: 700;
+    }
+
+        .navbar-custom .navbar-brand:focus {
+            outline: 0;
+        }
+
+    .navbar-custom a {
+        color: #fff;
+    }
+
+        .top-nav:hover {
+            color: rgba(255,255,255,.5);
+        }
+
+    .navbar-custom .nav li.active {
+        outline: 0;
+    }
+
+        .navbar-custom .nav li.active a {
+            background-color: rgba(255,255,255,.3);
+        }
+
+            .navbar-custom .nav li.active a:hover {
+                background-color: rgba(255,255,255,.2);
+            }
+
+@media (min-width:768px) {
+    .navbar-custom {
+        padding: 20px 0;
+        border-bottom: none;
+        letter-spacing: 1px;
+        background: 0 0;
+        -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
+        -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
+        transition: background .5s ease-in-out,padding .5s ease-in-out;
+    }
+
+        .navbar-custom.top-nav-collapse {
+            padding: 0;
+            background: #000;
+            border-bottom: 1px solid rgba(255,255,255,.3);
+        }
+}
+
+/*** Hero Image ***/
+
+.intro {
+    display: table;
+    height: auto;
+    padding: 100px 0;
+    text-align: center;
+    color: #fff;
+    background: url('../img/CityHole02.jpg') bottom center no-repeat #000;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    box-shadow: inset 0 -180px 130px -130px #000;
+    -moz-box-shadow: inset 0 -180px 130px -130px #000;
+    -webkit-box-shadow: inset 0 -180px 130px -130px #000;
+}
+
+.intro-blog {
+    padding: 50px 0;
+    text-align: center;
+    color: #fff;
+    background: url(../img/BrooklynBridgeLt2.jpg) center center no-repeat #000;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    box-shadow: inset 0 -180px 130px -130px #000;
+    -moz-box-shadow: inset 0 -180px 130px -130px #000;
+    -webkit-box-shadow: inset 0 -180px 130px -130px #000;
+}
+
+.intro .intro-body {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.intro-body-blog {
+    padding-top: 100px;
+}
+
+/*** SAM GRAY Headline ***/
+
+.brand-heading {
+    font-family: 'Vast Shadow';
+    font-weight: normal;
+    font-size: 68px;
+    color: #77C0F4;
+}
+
+@media (min-width:480px) {
+    .intro-text {
+        font-size: 22px;
+    }
+}
+
+@media (min-width:768px) {
+    .intro {
+        height: 100%;
+        padding: 0;
+        background-attachment: fixed;
+    }
+
+    .brand-heading {
+        font-size: 100px;
+    }
+
+    .intro-text {
+        font-size: 26px;
+    }
+}
+
+/*** Circle Buttons ***/
+
+.btn-circle {
+    width: 70px;
+    height: 70px;
+    margin-top: 15px;
+    padding: 7px 16px;
+    border: 2px solid #fff;
+    border-radius: 100% !important;
+    font-size: 40px;
+    color: #fff;
+    background: 0 0;
+    -webkit-transition: background .3s ease-in-out;
+    -moz-transition: background .3s ease-in-out;
+    transition: background .3s ease-in-out;
+}
+
+    .btn-circle:focus, .btn-circle:hover {
+        outline: 0;
+        color: #fff;
+        background: rgba(255,255,255,.15);
+    }
+
+    .btn-circle i.animated {
+        -webkit-transition-property: -webkit-transform;
+        -webkit-transition-duration: 1s;
+        -moz-transition-property: -moz-transform;
+        -moz-transition-duration: 1s;
+    }
+
+    .btn-circle:hover i.animated {
+        -webkit-animation-name: pulse;
+        -moz-animation-name: pulse;
+        -webkit-animation-duration: 1.5s;
+        -moz-animation-duration: 1.5s;
+        -webkit-animation-iteration-count: infinite;
+        -moz-animation-iteration-count: infinite;
+        -webkit-animation-timing-function: linear;
+        -moz-animation-timing-function: linear;
+    }
+
+@-webkit-keyframes pulse {
+    0%,100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+
+    50% {
+        -webkit-transform: scale(1.2);
+        transform: scale(1.2);
+    }
+}
+
+@-moz-keyframes pulse {
+    0%,100% {
+        -moz-transform: scale(1);
+        transform: scale(1);
+    }
+
+    50% {
+        -moz-transform: scale(1.2);
+        transform: scale(1.2);
+    }
+}
+
+.content-section {
+    padding-top: 100px;
+}
+
+.download-section {
+    width: 100%;
+    padding: 50px 0;
+    color: #fff;
+    background: url(../img/BrooklynBridgeDk2.jpg) center center no-repeat #000;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+@media (min-width:767px) {
+    .content-section {
+        padding-top: 200px;
+    }
+
+    .download-section {
+        padding: 100px 0;
+    }
+}
+
+/*** Square Buttons ***/
+
+.btn {
+    font-weight: 400;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+    border-radius: 0;
+}
+
+.btn-default {
+    border: 1px solid #88C8F5;
+    color: #88C8F5;
+    background-color: transparent;
+}
+
+    .btn-default:focus, .btn-default:hover {
+        border: 1px solid #77C0F4;
+        outline: 0;
+        color: #000;
+        background-color: #77C0F4;
+    }
+
+ul.banner-social-buttons {
+    margin-top: 0;
+}
+
+/*** Social Buttons Responsive ***/
+
+@media (max-width:1199px) {
+    ul.banner-social-buttons, ul.banner-social-buttons-sm {
+        margin-top: 15px;
+    }
+}
+
+@media (max-width:767px) {
+    ul.banner-social-buttons li {
+        display: none;
+    }
+    ul.banner-social-buttons-sm {
+        padding-top: 14px;
+    }
+}
+
+@media (min-width:768px) {
+    ul.banner-social-buttons-sm li {
+        display: none;
+    }
+}
+
+footer {
+    padding: 50px 0;
+}
+
+    footer p {
+        margin: 0;
+    }
+
+::-moz-selection {
+    text-shadow: none;
+    background: #fcfcfc;
+    background: rgba(255,255,255,.2);
+}
+
+::selection {
+    text-shadow: none;
+    background: #fcfcfc;
+    background: rgba(255,255,255,.2);
+}
+
+img::selection {
+    background: 0 0;
+}
+
+img::-moz-selection {
+    background: 0 0;
+}
+
+/*** My Customizations ***/
+
+#ph {
+    font-size: 1.75em;
+}
+
+#profile-pic {
+    border-radius: 105px;
+}
+
+.back-to-top {
+    margin: 0 auto;
+    padding: 50px 0 0;
+}
+
+#about-topspace {
+    padding-top: 150px;
+}

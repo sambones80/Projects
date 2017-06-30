@@ -1,0 +1,870 @@
+﻿@{
+    ViewBag.Title = "JS & C# Applications";
+}
+@{
+    Layout = "";
+}
+<title>JS & C# Applications</title>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/Content/bootswatch-flatly.css">
+    <link rel="stylesheet" href="~/Content/numbers.css">
+    <link href="~/script-highlighter/styles/shCore.css" rel="stylesheet" />
+    <link href="~/script-highlighter/styles/shThemeDefault.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header"> <a class="navbar-brand" href="#">JavaScript & C# Applications</a> </div>
+        </div>
+    </nav>
+    <div class="container">
+        <section id="numbers">
+            <br />
+            <br />
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Number Calculator</h2>
+                    <p>This is a simple tool written in JavaScript that performs five different calculations on a set of numbers.</p>
+                    <!---------------------- Modal - Number Calculator ---------------------->
+                    <div class="row">
+                        <div class="col-sm-4 buttons-2-col">
+                            <button class="btn btn-info" type="button" data-toggle="modal" data-target="#nummodal">Open the Number Calculator</button>
+                            <div class="modal fade" id="nummodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                                            <h1 class="modal-title" id="myModalLabel">Number Calculator</h1>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!---------------------- Modal Content ---------------------->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <h4>Enter some numbers</h4>
+                                                    <form>
+                                                        <div class="form-group">
+                                                            <label>to see their calculations:</label>
+                                                            <input id="first" type="number" class="form-control" placeholder="type a number" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input id="second" type="number" class="form-control" placeholder="type a number" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input id="third" type="number" class="form-control" placeholder="type a number" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input id="fourth" type="number" class="form-control" placeholder="type a number" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input id="fifth" type="number" class="form-control" placeholder="type a number" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <button id="calculate" class="btn btn-info" type="submit">Calculate</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <br />
+                                                    <br />
+                                                    <br />
+                                                    <div class="form-group">
+                                                        <label>Least: </label>
+                                                        <label id="least"></label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Greatest: </label>
+                                                        <label id="greatest"></label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Mean: </label>
+                                                        <label id="mean"></label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Sum: </label>
+                                                        <label id="sum"></label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Product: </label>
+                                                        <label id="product"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!---------------------- End Content ---------------------->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!---------------------- End Modal - Number Calculator ---------------------->
+                        <!---------------------- Modal - Num Calc Code ---------------------->
+                        <div class="col-sm-8 buttons-2-col">
+                            <button class="btn btn-success" type="button" data-toggle="modal" data-target="#numcodemodal">See the Code</button>
+                            <div class="modal fade" id="numcodemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                                            <h1 class="modal-title" id="myModalLabel">Number Calculator JS</h1>
+                                        </div>
+                                        <!---------------------- Modal Content ---------------------->
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <pre class="brush: js;">
+    // Initialize Values
+    $("#calculate").click(calcNumbers);
+    function calcNumbers() {
+        var firstNum = 0;
+        var secondNum = 0;
+        var thirdNum = 0;
+        var fourthNum = 0;
+        var fifthNum = 0;
+    // Parse String Number Data Into Number Data
+        var firstNum = parseInt($('#first').val());
+        var secondNum = parseInt($('#second').val());
+        var thirdNum = parseInt($('#third').val());
+        var fourthNum = parseInt($('#fourth').val());
+        var fifthNum = parseInt($('#fifth').val());
+    // Calculate Numbers
+        var minimum = Math.min(firstNum, secondNum, thirdNum, fourthNum, fifthNum);
+        var maximum = Math.max(firstNum, secondNum, thirdNum, fourthNum, fifthNum);
+        var total = firstNum + secondNum + thirdNum + fourthNum + fifthNum;
+        var array = [firstNum, secondNum, thirdNum, fourthNum, fifthNum];
+        var average = total / array.length;
+        var multiply = firstNum * secondNum * thirdNum * fourthNum * fifthNum;
+    // Print Results
+        $('#least').html(minimum);
+        $('#greatest').html(maximum);
+        $('#sum').html(total);
+        $('#mean').html(average);
+        $('#product').html(multiply);
+    }
+                                            </pre>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!---------------------- End Content ---------------------->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!---------------------- End Modal - Num Calc Code ---------------------->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <hr />
+        <section id="factorial">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Factorial</h2>
+                    <p>This tool, also written in JavaScript, will calculate the factorial of a number.</p>
+                </div>
+            </div>
+            <!---------------------- Modal - Factorial ---------------------->
+            <div class="row">
+                <div class="col-sm-4 buttons-2-col">
+                    <button class="btn btn-info" type="button" data-toggle="modal" data-target="#factmodal">Open the Factorial</button>
+                    <div class="modal fade" id="factmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                                    <h1 class="modal-title" id="myModalLabel">Factorial</h1>
+                                </div>
+                                <!---------------------- Modal Content ---------------------->
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h4>Enter a number</h4>
+                                            <form id="NumberInput">
+                                                <div class="form-group">
+                                                    <label for="number1">to see its factorial:</label>
+                                                    <input class="form-control" type="number" id="number1" name="number1" placeholder="type a number" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <button id="calculateFactorial" class="btn btn-info" type="submit">Calculate</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <br />
+                                            <br />
+                                            <br />
+                                            <label>Factorial Result: </label>
+                                            <div class="form-group"> <span id="factorialOutput"></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!---------------------- End Content ---------------------->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!---------------------- End Modal - Factorial ---------------------->
+                <!---------------------- Modal - Factorial Code ---------------------->
+                <div class="col-sm-8 buttons-2-col">
+                    <button class="btn btn-success" type="button" data-toggle="modal" data-target="#factcodemodal">See the Code</button>
+                    <div class="modal fade" id="factcodemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                                    <h1 class="modal-title" id="myModalLabel">Factorial JS</h1>
+                                </div>
+                                <!---------------------- Modal Content ---------------------->
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <pre class="brush: js;">
+    // Initialize Value
+    $('#calculateFactorial').click(calcFactorial);
+    function calcFactorial() {
+        var factNum = 0;
+    
+    // Parse String Number Data Into Number Data
+        var factNum = parseInt($('#number1').val());
+    // Calculate Factorial
+        var result = 1;
+        for (var i = factNum; i > 0; i--) {
+            result = result * i;
+        };
+    // Print Result
+        $('#factorialOutput').html(result)
+    }
+                                            </pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!---------------------- End Content ---------------------->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!---------------------- End Modal - Factorial Code ---------------------->
+        </section>
+        <hr />
+        <section id="fizzbuzz">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Fizz Buzz</h2>
+                    <p>Upon entering two numbers, this tool will use JavaScript to calculate the multiples of each number up to 100.</p>
+                </div>
+            </div>
+            <!---------------------- Modal - Fizz Buzz ---------------------->
+            <div class="row">
+                <div class="col-sm-4 buttons-2-col">
+                    <button class="btn btn-info" type="button" data-toggle="modal" data-target="#fbmodal">Open Fizz Buzz</button>
+                    <div class="modal fade" id="fbmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                                    <h1 class="modal-title" id="myModalLabel">Fizz Buzz</h1>
+                                </div>
+                                <!---------------------- Modal Content ---------------------->
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h4>Enter two numbers</h4>
+                                            <form id="fizzBuzzInput">
+                                                <div class="form-group">
+                                                    <label>to see their multiples up to 100:</label>
+                                                    <input id="fizzBuzz1" type="number" class="form-control" placeholder="type a number less than 100" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <input id="fizzBuzz2" type="number" class="form-control" placeholder="type another number less than 100" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <button id="calculateFizzBuzz" class="btn btn-info" type="submit">Calculate</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="col-sm-12 answers-2-col">
+                                                <br />
+                                                <br />
+                                                <br />
+                                                <label>Fizz Buzz Result: </label>
+                                            </div>
+                                            <div class="col-sm-12 answers-2-col" id="answers-scroll">
+                                                <div class="col-sm-3">
+                                                    <div class="form-group"><span id="fizzBuzz100"></span></div>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <div class="form-group"> <span id="fizzBuzzOutput"></span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!---------------------- End Content ---------------------->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!---------------------- End Modal - Fizz Buzz ---------------------->
+                <!---------------------- Modal - Fizz Buzz Code ---------------------->
+                <div class="col-sm-8 buttons-2-col">
+                    <button class="btn btn-success" type="button" data-toggle="modal" data-target="#fbcodemodal">See the Code</button>
+                    <div class="modal fade" id="fbcodemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                                    <h1 class="modal-title" id="myModalLabel">Fizz Buzz JS</h1>
+                                </div>
+                                <!---------------------- Modal Content ---------------------->
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <pre class="brush: js;">
+    // Initialize Value
+    $('#calculateFizzBuzz').click(calcFizzBuzz);
+    function calcFizzBuzz() {
+        var fbNum1 = 0;
+        var fbNum2 = 0;
+    // Clear Previous Answers
+        $('#fizzBuzz100').html('')
+        $('#fizzBuzzOutput').html('')
+    // Print 1 - 100
+        for (var i = 1; i <= 100; i++) {
+            $('#fizzBuzz100').append('<br>' + i);
+        }
+    // Parse String Number Data Into Number Data
+        var fbNum1 = parseInt($('#fizzBuzz1').val());
+        var fbNum2 = parseInt($('#fizzBuzz2').val());
+    // Calculate Fizz Buzz
+        for (var i = 1; i <= 100; i++) {
+            if (i % fbNum1 !== 0 && i % fbNum2 !== 0)
+                // If modulus returns a remainder for both user numbers - print 1-100 number
+                $('#fizzBuzzOutput').append('<br>' + i);
+            else if (i % fbNum1 === 0 && i % fbNum2 === 0)
+                // If modulus returns NO remainder for both user numbers - print "Fizz Buzz"
+                $('#fizzBuzzOutput').append('<br>' + 'Fizz Buzz');
+            else if (i % fbNum1 === 0)
+                // If modulus returns NO remainder for first user number - print "Fizz"
+                $('#fizzBuzzOutput').append('<br>' + 'Fizz');
+            else if (i % fbNum2 === 0)
+                // If modulus returns NO remainder for second user number - print "Buzz"
+                $('#fizzBuzzOutput').append('<br>' + 'Buzz');
+        }
+    }
+                                            </pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!---------------------- End Content ---------------------->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!---------------------- End Modal - Fizz Buzz Code ---------------------->
+        </section>
+        <hr />
+        <section id="palindrome">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Palindrome Checker</h2>
+                    <p>This is a fun little tool written in JavaScript that will determine if a word or a phrase is a palindrome.</p>
+                </div>
+            </div>
+            <!---------------------- Modal - Palindrome ---------------------->
+            <div class="row">
+                <div class="col-sm-4 buttons-2-col">
+                    <button class="btn btn-info" type="button" data-toggle="modal" data-target="#palmodal">Open the Palindrome Checker</button>
+                    <div class="modal fade" id="palmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                                    <h1 class="modal-title" id="myModalLabel">Palindrome Checker</h1>
+                                </div>
+                                <!---------------------- Modal Content ---------------------->
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h4>Enter a word</h4>
+                                            <form id="palindromeInput">
+                                                <div class="form-group">
+                                                    <label>to see if it's a palindrome:</label>
+                                                    <input id="palindromeWord" type="text" class="form-control" placeholder="type a word or a sentence" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <button id="calculatePalindrome" class="btn btn-info" type="submit">Calculate</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <br />
+                                            <br />
+                                            <br />
+                                            <label>Palindrome Result: </label>
+                                            <div class="form-group"> <span id="palindromeOutput"></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!---------------------- End Content ---------------------->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!---------------------- End Modal - Palindrome ---------------------->
+                <!---------------------- Modal - Palindrome Code ---------------------->
+                <div class="col-sm-8 buttons-2-col">
+                    <button class="btn btn-success btn-under" type="button" data-toggle="modal" data-target="#palcodemodal">See the Code</button>
+                    <div class="modal fade" id="palcodemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                                    <h1 class="modal-title" id="myModalLabel">Palindrome JS</h1>
+                                </div>
+                                <!---------------------- Modal Content ---------------------->
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <pre class="brush: js;">
+    // Initialize Value
+    $('#calculatePalindrome').click(calcPalindrome);
+    function calcPalindrome() {
+        var palWord = '';
+    // Get Palindrome String from Form Data
+        var palWord = $('#palindromeWord').val();
+    // Break apart string, reverse it, join back together and determine if palindrome
+            // Remove spaces from string
+        var noSpace = palWord.split(' ').join('');
+            // Split string into array of separate characters
+        var splitWord = noSpace.split('');
+            // Reverse the array
+        var reverseWord = splitWord.reverse();
+            // Join the characters from array back to a string
+        var joinWord = reverseWord.join('');
+            // Determine if string is a palindrome and print result
+        if (noSpace === joinWord) {
+            $('#palindromeOutput').html('Congratulations, you\'ve discovered a palindrome!');
+        } else {
+            $('#palindromeOutput').html('Sorry, this word is not a palindrome.');
+        }
+    }
+                                            </pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!---------------------- End Content ---------------------->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!---------------------- End Modal - Palindrome Code ---------------------->
+        </section>
+        <hr />
+        <section id="maxfiveC">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Max of Five</h2>
+                    <p>This is a C# console program that will accept five numbers and determine which one is the greatest.</p>
+                </div>
+            </div>
+            <!---------------------- Modal - C# Max of Five Code ---------------------->
+            <div class="row">
+                <div class="col-sm-8 buttons-2-col">
+                    <button class="btn btn-success btn-under" type="button" data-toggle="modal" data-target="#maxFiveModal">See the Code</button>
+                    <div class="modal fade" id="maxFiveModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                                    <h1 class="modal-title" id="myModalLabel">Max of Five C# Code</h1>
+                                </div>
+                                <!---------------------- Modal Content ---------------------->
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <pre class="brush: csharp;">
+namespace Max_of_Five
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Initialize the values
+            int num1 = 0;
+            int num2 = 0;
+            int num3 = 0;
+            int num4 = 0;
+            int num5 = 0;
+            // Introduction
+            Console.WriteLine("--- Max of Five ---");
+            Console.WriteLine("");
+            Console.WriteLine("This program will accept five numbers and determine which one is the greatest");
+            Console.WriteLine("");
+            // Ask user to input each number and parse string to integer
+            Console.WriteLine("Enter the first number:");
+            bool result1 = Int32.TryParse(Console.ReadLine(), out num1);
+            Console.WriteLine("Enter the second number:");
+            bool result2 = Int32.TryParse(Console.ReadLine(), out num2);
+            Console.WriteLine("Enter the third number:");
+            bool result3 = Int32.TryParse(Console.ReadLine(), out num3);
+            Console.WriteLine("Enter the fourth number:");
+            bool result4 = Int32.TryParse(Console.ReadLine(), out num4);
+            Console.WriteLine("Enter the fifth number:");
+            bool result5 = Int32.TryParse(Console.ReadLine(), out num5);
+            // Create a list for the numbers
+            List<int> numbers = new List<int>();
+            // Add each number to the list
+            numbers.Add(num1);
+            numbers.Add(num2);
+            numbers.Add(num3);
+            numbers.Add(num4);
+            numbers.Add(num5);
+            // Find the largest integer
+            int maximum = numbers.Max();
+            // Print the result
+            Console.WriteLine("");
+            Console.WriteLine("The largest number is {0}", maximum);
+            Console.Read();
+        }
+    }
+}
+                                            </pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!---------------------- End Content ---------------------->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!---------------------- End Modal - C# Max of Five Code ---------------------->
+        </section>
+        <hr />
+        <section id="palindromeC">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Palindrome Checker</h2>
+                    <p>This is a C# console program that will accept a word and determine if it is a palindrome.</p>
+                </div>
+            </div>
+            <!---------------------- Modal - C# Palindrome Code ---------------------->
+            <div class="row">
+                <div class="col-sm-8 buttons-2-col">
+                    <button class="btn btn-success btn-under" type="button" data-toggle="modal" data-target="#palModal">See the Code</button>
+                    <div class="modal fade" id="palModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                                    <h1 class="modal-title" id="myModalLabel">Palindrome Checker C# Code</h1>
+                                </div>
+                                <!---------------------- Modal Content ---------------------->
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <pre class="brush: csharp;">
+namespace Palindrome
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Initialize the value
+            string palWord = "";
+            // Introduction
+            Console.WriteLine("--- Palindrome Checker ---");
+            Console.WriteLine("");
+            Console.WriteLine("This program will accept a word and determine if it is a palindrome.");
+            Console.WriteLine("");
+            // Ask user to input a word
+            Console.WriteLine("Enter a word to see if it's a palindrome:");
+            palWord = Console.ReadLine();
+            // Break string apart to array of characters
+            char[] palArray = palWord.ToCharArray();
+            // Reverse the order of characters in the array
+            Array.Reverse(palArray);
+            // Create new string from the reversed array
+            string revWord = new string(palArray);
+            // Compare user's original word to the reversed word and print results
+            if (palWord == revWord)
+            {
+                Console.WriteLine("");
+                Console.WriteLine("{0} is a palindrome!", palWord);
+            }
+            else
+            {
+                Console.WriteLine("");
+                Console.WriteLine("{0} is not a palindrome.", palWord);
+            }
+            Console.Read();
+        }
+    }
+}
+                                            </pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!---------------------- End Content ---------------------->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!---------------------- End Modal - C# Palindrome Code ---------------------->
+        </section>
+        <hr />
+        <section id="longShortC">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Longest & Shortest Word Finder</h2>
+                    <p>This is a C# console program that will accept a sentence and determine which word contains the largest amount of letters and which word contains the smallest amount of letters.</p>
+                </div>
+            </div>
+            <!---------------------- Modal - C# Longest Shortest Code ---------------------->
+            <div class="row">
+                <div class="col-sm-8 buttons-2-col">
+                    <button class="btn btn-success btn-under" type="button" data-toggle="modal" data-target="#longShortModal">See the Code</button>
+                    <div class="modal fade" id="longShortModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                                    <h1 class="modal-title" id="myModalLabel">Longest & Shortest Word Finder C# Code</h1>
+                                </div>
+                                <!---------------------- Modal Content ---------------------->
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <pre class="brush: csharp;">
+namespace Longest_Word
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Initialize the value
+            string sentence = string.Empty;
+            // Introduction
+            Console.WriteLine("--- Longest and Shortest Word Finder ---");
+            Console.WriteLine("");
+            Console.WriteLine("This program will accept a sentence and determine which word contains the largest amount of letters and which word contains the smallest amount of letters.");
+            Console.WriteLine("");
+            // Ask user to input a sentence
+            Console.WriteLine("Type a sentence to find the longest and shortest words:");
+            sentence = Console.ReadLine();
+            // Break sentence apart into an array of strings
+            string[] wordArray = sentence.Split(' ');
+            // Sort the array by word length
+            var sorted = wordArray.OrderBy(w => w.Length);
+            // Create variables for the last (longest) and the first (shortest) words
+            var longest = sorted.LastOrDefault();
+            var shortest = sorted.FirstOrDefault();
+            // Print the results
+            Console.WriteLine("");
+            Console.WriteLine("\"{0}\" is the longest word.", longest);
+            Console.WriteLine("\"{0}\" is the shortest word.", shortest);
+            Console.Read();
+        }
+    }
+}
+                                            </pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!---------------------- End Content ---------------------->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!---------------------- End Modal - C# Longest Shortest Code ---------------------->
+        </section>
+        <hr />
+        <section id="filterC">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Word Filter</h2>
+                    <p>This is a C# console program that will accept a sentence and a number of letters, then it will list the words that are longer than the specified number of letters.</p>
+                </div>
+            </div>
+            <!---------------------- Modal - C# Word Filter Code ---------------------->
+            <div class="row">
+                <div class="col-sm-8 buttons-2-col">
+                    <button class="btn btn-success btn-under" type="button" data-toggle="modal" data-target="#filterModal">See the Code</button>
+                    <div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                                    <h1 class="modal-title" id="myModalLabel">Word Filter C# Code</h1>
+                                </div>
+                                <!---------------------- Modal Content ---------------------->
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <pre class="brush: csharp;">
+namespace Word_Filter
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Initialize the values
+            string sentence = string.Empty;
+            string[] words = { };
+            string longWord = string.Empty;
+            int minLimit = 0;
+            string response = string.Empty;
+            // Ask user to input a sentence
+            Console.WriteLine("--- Word Filter ---");
+            Console.WriteLine("");
+            Console.WriteLine("Type a sentence:");
+            sentence = Console.ReadLine();
+            // Ask user for the minimum character number
+            Console.WriteLine("");
+            Console.WriteLine("This program will list the words longer than a certain number of letters.");
+            Console.WriteLine("Enter the minimum number of letters:");
+            bool result = Int32.TryParse(Console.ReadLine(), out minLimit);
+            // Split sentence into individual words
+            words = sentence.Split(' ');
+            // Sort out the words that equal or exceed the minimum number of characters
+            List<string> sortedList = words.OrderByDescending(w => w.Length).ToList();
+            List<string> uniqueList = new List<string>();
+            foreach (string word in sortedList)
+            {
+                if (word.Length >= minLimit)
+                {
+                    var item = uniqueList.Find(x => x == word);
+                    if (item == null)
+                    {
+                        uniqueList.Add(word);
+                    }
+                }
+            }
+            // Print results to console
+            Console.WriteLine("");
+            Console.WriteLine("The words that are longer than {0} letters are ", minLimit);
+            foreach (string word in uniqueList)
+            {
+                Console.WriteLine(word);
+            }
+            Console.Read();
+        }
+    }
+}
+                                            </pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!---------------------- End Content ---------------------->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!---------------------- End Modal - C# Word Filter ---------------------->
+        </section>
+        <hr />
+        <section id="longShortC">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Word Frequency Finder</h2>
+                    <p>This is a C# console program that will accept a sentence and determine how many times each word appears in the sentence.</p>
+                </div>
+            </div>
+            <!---------------------- Modal - C# Word Frequency Code ---------------------->
+            <div class="row">
+                <div class="col-sm-8 buttons-2-col">
+                    <button class="btn btn-success btn-under" type="button" data-toggle="modal" data-target="#freqModal">See the Code</button>
+                    <div class="modal fade" id="freqModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                                    <h1 class="modal-title" id="myModalLabel">Word Frequency Finder C# Code</h1>
+                                </div>
+                                <!---------------------- Modal Content ---------------------->
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <pre class="brush: csharp;">
+namespace Word_Frequency
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Initialize the values
+            string sentence = string.Empty;
+            string[] words = { };
+            string longWord = string.Empty;
+            // Introduction
+            Console.WriteLine("--- Word Frequency Finder ---");
+            Console.WriteLine("");
+            Console.WriteLine("This program will accept a sentence and determine how many times each word appears in the sentence.");
+            Console.WriteLine("");
+            // Ask user to input a sentence
+            Console.WriteLine("Type a sentence to see the frequency of each word:");
+            sentence = Console.ReadLine();
+            // Split sentence into individual words
+            words = sentence.Split(' ');
+            // Sort the list
+            List<string> sortedList = words.OrderBy(w => w).ToList();
+            // Counting list and Garbage list
+            List<string> freqList = new List<string>();
+            List<string> usedList = new List<string>();
+            foreach (string word in sortedList)
+            {
+                freqList = sortedList.FindAll(x => x == word);
+                // Ignore previously counted word
+                var item = usedList.Find(x => x == word);
+                if (item == null)
+                {
+                    usedList.Add(word);
+                    // Print results
+                    Console.WriteLine("\n{0} appears {1} time(s)", word, freqList.Count);
+                }
+            }
+            Console.Read();
+        }
+    }
+}
+                                            </pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!---------------------- End Content ---------------------->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!---------------------- End Modal - C# Word Frequency Code ---------------------->
+        </section>
+        <hr />
+    </div>
+    <!-- Footer -->
+    <footer>
+        <div class="container text-center">
+            <p>Copyright &copy; Samuel Gray 2017</p>
+        </div>
+    </footer>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/Numbers.js"></script>
+    <script src="~/script-highlighter/scripts/shCore.js"></script>
+    <script src="~/script-highlighter/scripts/shBrushJScript.js"></script>
+    <script src="~/script-highlighter/scripts/shBrushCSharp.js"></script>
+    <script type="text/javascript">SyntaxHighlighter.all()</script>
+</body>
+</html>

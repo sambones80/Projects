@@ -1,0 +1,118 @@
+﻿/*!
+ * Start Bootstrap - Creative v3.3.7+1 (http://startbootstrap.com/template-overviews/creative)
+ * Copyright 2013-2016 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)  */
+/* .navbar-default, a {
+    -webkit-transition: all .35s;
+    -moz-transition: all .35s;
+}*/
+
+/*** Portfolio Tiles ***/
+
+.portfolio-box-caption {
+    position: center;
+}
+
+.text-faded {
+    color: rgba(255, 255, 255,.8);
+}
+
+.portfolio-box .portfolio-box-caption-content {
+    border: 1px solid #88C8F5;
+    color: #88C8F5;
+    background: rgba(0, 0, 0,.75);
+    padding: 10px 16px;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    text-transform: uppercase;
+    font-size: 20px;
+    line-height: 1.3333333;
+    width: 80%;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-50%);
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+
+.portfolio-box:hover .portfolio-box-caption-content {
+    color: #000;
+    background: #77C0F4;
+}
+
+.portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-category {
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-name {
+    font-size: 14px;
+}
+
+/*** Small Screens ***/
+
+@media (min-width:480px) {
+    .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-category {
+        font-size: 14px;
+    }
+
+    .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-name {
+        font-size: 18px;
+    }
+}
+
+/*** Medium Screens ***/
+
+@media (min-width:768px) {
+    .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-category {
+        font-size: 16px;
+    }
+
+    .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-name {
+        font-size: 20px;
+    }
+}
+
+.no-gutter > [class*=col-] {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+/*** Large Screens (2 Column) ***/
+
+@media (min-width:992px) {
+        .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-category {
+        font-size: 16px;
+    }
+
+    .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-name {
+        font-size: 22px;
+    }
+}
+
+/*** Large Screens (3 Column) ***/
+
+@media (min-width:1200px) {
+    .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-category {
+        font-size: 16px;
+    }
+
+    .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-name {
+        font-size: 20px;
+    }
+}
+
+/*** XL Screens ***/
+
+@media (min-width:1600px) {
+        .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-category {
+        font-size: 18px;
+    }
+
+    .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-name {
+        font-size: 24px;
+    }
+}

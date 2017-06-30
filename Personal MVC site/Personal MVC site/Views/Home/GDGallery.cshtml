@@ -1,0 +1,172 @@
+﻿@{
+    ViewBag.Title = "Graphic Design";
+}
+<script src="~/Content/dist/jquery.magnific-popup.js"></script>
+<script src="~/Content/dist/jquery.magnific-popup.min.js"></script>
+<link href="~/Content/dist/magnific-popup.css" rel="stylesheet" />
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    Menu <i class="fa fa-bars"></i>
+                </button>
+                @*<a class="navbar-brand page-scroll" href="#page-top">*@
+                @*<i class="fa fa-play-circle"></i> <span class="light">Sam</span> Gray*@
+                <a href='@Url.Action("Index")#page-top' class="navbar-brand page-scroll">
+                    <span class="light">Sam</span> Gray
+                </a>
+                @*</a>*@
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        @*<a href="#page-top"></a>*@
+                        <a href='@Url.Action("Index")#page-top' class="page-scroll"></a>
+                    </li>
+                    <li>
+                        @*<a class="page-scroll" href="#about">About</a>*@
+                        <a href='@Url.Action("Index")#about' class="page-scroll">About</a>
+                    </li>
+                    <li>
+                        @*<a class="page-scroll" href="#resume">Resumé</a>*@
+                        <a href='@Url.Action("Index")#resume' class="page-scroll">Resumé</a>
+                    </li>
+                    <li>
+                        @*<a class="page-scroll" href="#portfolio">Portfolio</a>*@
+                        <a href='@Url.Action("Index")#portfolio' class="page-scroll">Portfolio</a>
+                    </li>
+                    <li>
+                        @*<a class="page-scroll" href="#contact">Contact</a>*@
+                        <a href='@Url.Action("Index")#contact' class="page-scroll">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+    </nav>
+
+    <!-- About Section -->
+    <section id="about-topspace" class="container content-section text-center portfolio-content">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>My Graphic Design Portfolio</h2>
+                <p>Here are a few of my favorite graphic design projects.</p>
+            </div>
+        </div>
+    </section>
+    <!-- Portfolio Tiles -->
+    <section class="no-padding" id="portfolio">
+        <div class="container-fluid">
+            <div class="row no-gutter popup-gallery">
+                <div class="col-lg-4 col-xs-6">
+                    <a href="~/img/gd-gallery-fullsize/logos.jpg" class="portfolio-box" data-lightbox="GDimages" data-title="Logos that I designed for varoius clients">
+                        <img src="~/img/GD-gallery-thumbs/Logo-skew.jpg" class="img-responsive" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-name">
+                                    Logos
+                                </div>
+                                <div class="project-category text-faded">
+                                    Various Clients
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-xs-6">
+                    <a href="~/img/GD-gallery-fullsize/NewhouseBR.jpg" class="portfolio-box" data-lightbox="GDimages" data-title="Flyers for homes being marketed by Newhouse Realty">
+                        <img src="~/img/GD-gallery-thumbs/NewhouseBR-skew.jpg" class="img-responsive" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-name">
+                                    Brochures
+                                </div>
+                                <div class="project-category text-faded">
+                                    Newhouse Realty
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-xs-6">
+                    <a href="~/img/GD-gallery-fullsize/Cards.jpg" class="portfolio-box" data-lightbox="GDimages" data-title="Business Cards that I created for various clients">
+                        <img src="~/img/GD-gallery-thumbs/Cards-skew.jpg" class="img-responsive" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-name">
+                                    Business Cards
+                                </div>
+                                <div class="project-category text-faded">
+                                    Various Clients
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-xs-6">
+                    <a href="~/img/GD-gallery-fullsize/Flyers.jpg" class="portfolio-box" data-lightbox="GDimages" data-title="Flyers for EOS Med Spa and Door Hangers for O'Donnell Brothers Roofing">
+                        <img src="~/img/GD-gallery-thumbs/Flyers-skew.jpg" class="img-responsive" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-name">
+                                    Flyers
+                                </div>
+                                <div class="project-category text-faded">
+                                    <div class="project-category text-faded">
+                                        Various Clients
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-xs-6">
+                    <a href="~/img/GD-gallery-fullsize/Tshirts.jpg" class="portfolio-box" data-lightbox="GDimages" data-title="T-Shirts for Avett Nation, an Avett Brothers fan club">
+                        <img src="~/img/GD-gallery-thumbs/Tshirts-skew.jpg" class="img-responsive" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-name">
+                                    T-Shirts
+                                </div>
+                                <div class="project-category text-faded">
+                                    Avett Nation
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-xs-6">
+                    <a href="~/img/GD-gallery-fullsize/PopUps.jpg" class="portfolio-box" data-lightbox="GDimages" data-title="Retractable Banners that I created for various clients">
+                        <img src="~/img/GD-gallery-thumbs/PopUps-skew.jpg" class="img-responsive" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-name">
+                                    Retractable Banners
+                                </div>
+                                <div class="project-category text-faded">
+                                    Various Clients
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="about" class="container content-section text-center portfolio-content">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <p>I hope you've enjoyed it.</p>
+                <a href='@Url.Action("Index")#portfolio' class="btn btn-default btn-lg">Go Back to Portfolio</a>
+            </div>
+        </div>
+    </section>
+
+</body>
