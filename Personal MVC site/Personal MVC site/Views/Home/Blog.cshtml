@@ -13,8 +13,6 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                     Menu <i class="fa fa-bars"></i>
                 </button>
-                @*<a class="navbar-brand page-scroll" href="#page-top">*@
-                @*<i class="fa fa-play-circle"></i> <span class="light">Sam</span> Gray*@
                 <a href='@Url.Action("Index")#page-top' class="navbar-brand page-scroll top-nav">
                     <span class="light">Sam</span> Gray
                 </a>
@@ -26,23 +24,18 @@
                 <ul class="nav navbar-nav">
                     <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
                     <li class="hidden">
-                        @*<a href="#page-top"></a>*@
                         <a href='@Url.Action("Index")#page-top' class="page-scroll top-nav"></a>
                     </li>
                     <li>
-                        @*<a class="page-scroll" href="#about">About</a>*@
                         <a href='@Url.Action("Index")#about' class="page-scroll top-nav">About</a>
                     </li>
                     <li>
-                        @*<a class="page-scroll" href="#resume">Resumé</a>*@
                         <a href='@Url.Action("Index")#resume' class="page-scroll top-nav">Resumé</a>
                     </li>
                     <li>
-                        @*<a class="page-scroll" href="#portfolio">Portfolio</a>*@
                         <a href='@Url.Action("Index")#portfolio' class="page-scroll top-nav">Portfolio</a>
                     </li>
                     <li>
-                        @*<a class="page-scroll" href="#contact">Contact</a>*@
                         <a href='@Url.Action("Index")#contact' class="page-scroll top-nav">Contact</a>
                     </li>
                 </ul>
@@ -53,10 +46,10 @@
 
     <!-- Intro Header -->
     <header class="intro-blog" id="page-top">
-        <div class="intro-body-blog">
+        <div class="intro-body-smaller">
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-8 col-sm-offset-2">
+                    <div class="col-sm-12">
                         <h1 class="brand-heading">Sam Gray</h1>
                         <p class="intro-text">The road to becoming a developer.</p>
                     </div>
@@ -73,7 +66,7 @@
                 <p>5/29/2017</p>
                 <p>I think we're off to a good start. We learned how to create a new project in Visual Studio and use it to build a website. We've mostly been using Codecademy and W3Schools to learn a little HTML and CSS. Since I already knew the basics, a lot of it was kind of a review but there was a lot of new knowledge to be gained from W3Schools and I've still got a ways to go.</p>
                 <p>Then we learned how to incorporate Bootstrap and utilize templates which is proving to be a little more tricky than I originally thought. I'm finding it rather difficult to combine code from different templates and have it work as expected, specifically with my image gallery. I think once I learn some Javascript, I'll be able to link it all up and make my gallery work the way that I'd like.</p>
-                <a href='@Url.Action("Index")#portfolio' class="btn btn-default btn-lg">Go Back to Portfolio</a>
+                <a href='@Url.Action("Index")#portfolio' class="btn btn-default btn-lg"><i class="fa fa-chevron-circle-left"></i> Go Back to Portfolio</a>
             </div>
         </div>
         <div class="back-to-top">

@@ -219,11 +219,13 @@
     <Content Include="img\BrooklynBridgeLt2.jpg" />
     <Content Include="img\BrooklynBridgeLt3.jpg" />
     <Content Include="img\close.png" />
+    <Content Include="img\LakeGlenville01.jpg" />
     <Content Include="img\loading.gif" />
     <Content Include="img\loading01.gif" />
     <Content Include="img\next.png" />
     <Content Include="img\portfolio-thumbnails\Watch Gears 03.jpg" />
     <Content Include="img\prev.png" />
+    <Content Include="img\Profile.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -271,7 +273,6 @@
     <Content Include="img\portfolio-thumbnails\Bug.jpg" />
     <Content Include="img\portfolio-thumbnails\Pen.jpg" />
     <Content Include="img\portfolio-thumbnails\SG-card.jpg" />
-    <Content Include="img\ProfileBW.jpg" />
     <Content Include="Scripts\creative.min.js" />
     <Content Include="Scripts\grayscale.js" />
     <Content Include="Scripts\grayscale.min.js" />
