@@ -1,0 +1,7 @@
+﻿#answers-scroll {
+    max-height: 332px;
+    overflow-y: auto;
+}
+.answers-2-col {
+    padding: 0;
+}
