@@ -215,13 +215,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="img\BrooklynBridgeLt1.jpg" />
     <Content Include="img\BrooklynBridgeLt2.jpg" />
-    <Content Include="img\BrooklynBridgeLt3.jpg" />
     <Content Include="img\close.png" />
     <Content Include="img\LakeGlenville01.jpg" />
     <Content Include="img\loading.gif" />
-    <Content Include="img\loading01.gif" />
     <Content Include="img\next.png" />
     <Content Include="img\portfolio-thumbnails\Watch Gears 03.jpg" />
     <Content Include="img\prev.png" />
@@ -231,6 +228,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="img\Sam Gray Resume 2017.pdf" />
     <None Include="Properties\PublishProfiles\sgray-portfolio - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\sgray-portfolio - Web Deploy.pubxml" />
     <Content Include="sass\_variables.sass" />
@@ -254,7 +252,6 @@
     <Content Include="Content\creative.min.css" />
     <Content Include="Content\grayscale.min.css" />
     <Content Include="Content\numbers.css" />
-    <Content Include="img\BrooklynBridgeDk2.jpg" />
     <Content Include="img\CityHole02.jpg" />
     <Content Include="img\GD-gallery-fullsize\Cards.jpg" />
     <Content Include="img\GD-gallery-fullsize\Flyers.jpg" />
@@ -363,7 +360,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="img\Sam Gray Resume 2015.pdf" />
     <Content Include="fonts\font-awesome\fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\font-awesome\fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\font-awesome\fonts\fontawesome-webfont.woff" />
