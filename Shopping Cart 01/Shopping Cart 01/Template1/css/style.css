@@ -3082,3 +3082,30 @@ th {
 footer {
     text-align: center;
 }
+
+/*** Under Construction Header ***/
+
+.const-header {
+    z-index: 1;
+    position: fixed;
+    width: 100%;
+}
+
+.const1, .const2 {
+    color: white;
+    background-color: rgba(10, 10, 10, .85);
+    text-align: center;
+    margin: 0 auto;
+}
+
+.const1 {
+        padding: 5px 0 0;
+}
+
+.const2 {
+        padding: 0 0 4px;
+}
+
+.top-header-main {
+    margin-top: 50px;
+}

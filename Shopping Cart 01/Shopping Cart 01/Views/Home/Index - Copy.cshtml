@@ -1,0 +1,245 @@
+﻿@model IEnumerable<Shopping_Cart_01.Models.Item>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@{
+    Layout = "~/Views/Shared/_ShopLayout.cshtml";
+}
+
+<!--about-starts-->
+<div class="about">
+    <div class="container">
+        <div class="about-top grid-1 row">
+            <div class="col-md-4 about-left">
+                <figure class="effect-bubba">
+                    <img class="img-responsive" src="~/Template1/images/abt-1.jpg" alt="" />
+                    <figcaption>
+                        <h2>Nulla maximus nunc</h2>
+                        <p>In sit amet sapien eros Integer dolore magna aliqua</p>
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-md-4 about-left">
+                <figure class="effect-bubba">
+                    <img class="img-responsive" src="~/Template1/images/abt-2.jpg" alt="" />
+                    <figcaption>
+                        <h4>Mauris erat augue</h4>
+                        <p>In sit amet sapien eros Integer dolore magna aliqua</p>
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-md-4 about-left">
+                <figure class="effect-bubba">
+                    <img class="img-responsive" src="~/Template1/images/abt-3.jpg" alt="" />
+                    <figcaption>
+                        <h4>Cras elit mauris</h4>
+                        <p>In sit amet sapien eros Integer dolore magna aliqua</p>
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="about-top grid-1 row">
+            <div class="col-md-4 about-left">
+                <figure class="effect-bubba">
+                    <img class="img-responsive" src="~/Template1/images/abt-1.jpg" alt="" />
+                    <figcaption>
+                        <h2>Nulla maximus nunc</h2>
+                        <p>In sit amet sapien eros Integer dolore magna aliqua</p>
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-md-4 about-left">
+                <figure class="effect-bubba">
+                    <img class="img-responsive" src="~/Template1/images/abt-2.jpg" alt="" />
+                    <figcaption>
+                        <h4>Mauris erat augue</h4>
+                        <p>In sit amet sapien eros Integer dolore magna aliqua</p>
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-md-4 about-left">
+                <figure class="effect-bubba">
+                    <img class="img-responsive" src="~/Template1/images/abt-3.jpg" alt="" />
+                    <figcaption>
+                        <h4>Cras elit mauris</h4>
+                        <p>In sit amet sapien eros Integer dolore magna aliqua</p>
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<!--about-end-->
+
+@foreach (var item in Model)
+{
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.MediaUrl)*@
+                @if (item.MediaUrl != null)
+                {
+                    <img class="img-responsive" src="@item.MediaUrl" alt="" style="width: 100px;" />
+                }
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.Description)*@
+                @Html.Raw(item.Description)
+            </td>
+            <td class="col-xs-1">
+                @Html.DisplayFor(modelItem => item.Created)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Updated)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                @Html.ActionLink("Details", "Details", new { id = item.Id })
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    </tbody>
+}
+
+
+<!--product-starts-->
+<div class="product">
+    <div class="container">
+        <div class="product-top">
+            <div class="product-one">
+                @{
+                foreach (var item in Model)
+                {
+                            <div class="col-md-3 product-left">
+                                <div class="product-main simpleCart_shelfItem">
+                                    <a href="single.html" class="mask"><img class="img-responsive zoom-img" src="@item.MediaUrl" alt="" /></a>
+                                    <div class="product-bottom">
+                                        <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
+                                        <p>Explore Now</p>
+                                        <h4><a class="item_add" href="#"><i></i></a> <span class=" item_price">$@Html.DisplayFor(modelItem => item.Price)</span></h4>
+                                    </div>
+                                    <div class="srch">
+                                        <span>-50%</span>
+                                    </div>
+                                </div>
+                            </div>
+                    }
+                }
+                            @*<div class="col-md-3 product-left">
+                                <div class="product-main simpleCart_shelfItem">
+                                    <a href="single.html" class="mask"><img class="img-responsive zoom-img" src="~/Template1/images/p-2.png" alt="" /></a>
+                                    <div class="product-bottom">
+                                        <h3>Smart Watches</h3>
+                                        <p>Explore Now</p>
+                                        <h4><a class="item_add" href="#"><i></i></a> <span class=" item_price">$ 329</span></h4>
+                                    </div>
+                                    <div class="srch">
+                                        <span>-50%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 product-left">
+                                <div class="product-main simpleCart_shelfItem">
+                                    <a href="single.html" class="mask"><img class="img-responsive zoom-img" src="~/Template1/images/p-3.png" alt="" /></a>
+                                    <div class="product-bottom">
+                                        <h3>Smart Watches</h3>
+                                        <p>Explore Now</p>
+                                        <h4><a class="item_add" href="#"><i></i></a> <span class=" item_price">$ 329</span></h4>
+                                    </div>
+                                    <div class="srch">
+                                        <span>-50%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 product-left">
+                                <div class="product-main simpleCart_shelfItem">
+                                    <a href="single.html" class="mask"><img class="img-responsive zoom-img" src="~/Template1/images/p-4.png" alt="" /></a>
+                                    <div class="product-bottom">
+                                        <h3>Smart Watches</h3>
+                                        <p>Explore Now</p>
+                                        <h4><a class="item_add" href="#"><i></i></a> <span class=" item_price">$ 329</span></h4>
+                                    </div>
+                                    <div class="srch">
+                                        <span>-50%</span>
+                                    </div>
+                                </div>
+                            </div>*@
+                <div class="clearfix"></div>
+            </div>
+            @*<div class="product-one">
+                <div class="col-md-3 product-left">
+                    <div class="product-main simpleCart_shelfItem">
+                        <a href="single.html" class="mask"><img class="img-responsive zoom-img" src="~/Template1/images/p-5.png" alt="" /></a>
+                        <div class="product-bottom">
+                            <h3>Smart Watches</h3>
+                            <p>Explore Now</p>
+                            <h4><a class="item_add" href="#"><i></i></a> <span class=" item_price">$ 329</span></h4>
+                        </div>
+                        <div class="srch">
+                            <span>-50%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 product-left">
+                    <div class="product-main simpleCart_shelfItem">
+                        <a href="single.html" class="mask"><img class="img-responsive zoom-img" src="~/Template1/images/p-6.png" alt="" /></a>
+                        <div class="product-bottom">
+                            <h3>Smart Watches</h3>
+                            <p>Explore Now</p>
+                            <h4><a class="item_add" href="#"><i></i></a> <span class=" item_price">$ 329</span></h4>
+                        </div>
+                        <div class="srch">
+                            <span>-50%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 product-left">
+                    <div class="product-main simpleCart_shelfItem">
+                        <a href="single.html" class="mask"><img class="img-responsive zoom-img" src="~/Template1/images/p-7.png" alt="" /></a>
+                        <div class="product-bottom">
+                            <h3>Smart Watches</h3>
+                            <p>Explore Now</p>
+                            <h4><a class="item_add" href="#"><i></i></a> <span class=" item_price">$ 329</span></h4>
+                        </div>
+                        <div class="srch">
+                            <span>-50%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 product-left">
+                    <div class="product-main simpleCart_shelfItem">
+                        <a href="single.html" class="mask"><img class="img-responsive zoom-img" src="~/Template1/images/p-8.png" alt="" /></a>
+                        <div class="product-bottom">
+                            <h3>Smart Watches</h3>
+                            <p>Explore Now</p>
+                            <h4><a class="item_add" href="#"><i></i></a> <span class=" item_price">$ 329</span></h4>
+                        </div>
+                        <div class="srch">
+                            <span>-50%</span>
+                        </div>
+                    </div>
+                </div>*@
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--product-end-->
+<!--start-menu-->
+<script src="~/Template1/js/simpleCart.min.js"> </script>
+<link href="~/Template1/css/memenu.css" rel="stylesheet" type="text/css" media="all" />
+<script type="text/javascript" src="~/Template1/js/memenu.js"></script>
+<script>$(document).ready(function () { $(".memenu").memenu(); });</script>
+<!--dropdown-->
+<script src="~/Template1/js/jquery.easydropdown.js"></script>	

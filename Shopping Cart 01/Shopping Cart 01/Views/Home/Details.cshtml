@@ -1,0 +1,40 @@
+﻿@model Shopping_Cart_01.Models.Item
+
+@{
+    ViewBag.Title = "Details";
+}
+
+@{
+    Layout = "~/Views/Shared/_ShopLayout.cshtml";
+}
+
+<h2>@Html.DisplayFor(model => model.Name)</h2>
+
+<div>
+    <hr />
+        <div class="row">
+            <div class="col-md-6">
+                @if (Model.MediaUrl != null)
+                {
+                    <img class="img-responsive" src="@Model.MediaUrl" alt="" style="width: 500px;" />
+                }
+            </div>
+            <div class="col-md-6">
+                <div>
+                    @Html.Raw(Model.Description)
+                </div>
+                <div>
+                    <h2>$@Html.DisplayFor(model => model.Price)</h2>
+                </div>
+                <div>
+                    @Html.ActionLink("Add to Cart", "Create",
+                    new { controller = "ShoppingCarts" },
+                    new { @class = "btn btn-default" })
+                </div>
+                <br />
+                <p>
+                    @Html.ActionLink("Back to Items", "Index")
+                </p>
+            </div>
+        </div>
+</div>

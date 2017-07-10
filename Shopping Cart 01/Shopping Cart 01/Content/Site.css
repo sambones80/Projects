@@ -21,3 +21,8 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/*** Separate Rows of Product Images ***/
+.product-left {
+    padding: 15px 15px;
+}

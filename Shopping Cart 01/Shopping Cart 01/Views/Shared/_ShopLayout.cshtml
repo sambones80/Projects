@@ -18,6 +18,10 @@
 </head>
 <body>
     <!--top-header-->
+    <div class="const-header">
+            <h2 class="const1">This Site is Still Under Construction</h2>
+            <h4 class="const2">Certain links are not yet functional</h4>
+    </div>
     <div class="top-header">
         <div class="container">
             <div class="top-header-main">
@@ -60,11 +64,11 @@
     <!--top-header-->
     <!--start-logo-->
     <div class="logo">
-        <a href="~/Views/Home/Index.cshtml"><h1>Samuel's Luxury Time Pieces</h1></a>
+        <a href=@Url.Action("Index", "Home")><h1>Samuel's Luxury Time Pieces</h1></a>
     </div>
     <!--start-logo-->
     <!--bottom-header-->
-    <div class="header-bottom">
+    @*<div class="header-bottom">
         <div class="container">
             <div class="header">
                 <div class="col-md-9 header-left">
@@ -222,7 +226,7 @@
                 <div class="clearfix"> </div>
             </div>
         </div>
-    </div>
+    </div>*@
     <!--bottom-header-->
 
 
@@ -257,8 +261,8 @@
     <!--information-starts-->
     <div class="information">
         <div class="container">
-            <div class="infor-top">
-                <div class="col-md-3 infor-left">
+            <div class="row infor-top">
+                <div class="col-sm-3 col-sm-offset-2 infor-left">
                     <h3>Follow Us</h3>
                     <ul>
                         <li><a href="#"><span class="fb"></span><h6>Facebook</h6></a></li>
@@ -266,7 +270,7 @@
                         <li><a href="#"><span class="google"></span><h6>Google+</h6></a></li>
                     </ul>
                 </div>
-                <div class="col-md-3 infor-left">
+                @*<div class="col-md-3 infor-left">
                     <h3>Information</h3>
                     <ul>
                         <li><a href="#"><p>Specials</p></a></li>
@@ -275,19 +279,19 @@
                         <li><a href="contact.html"><p>Contact Us</p></a></li>
                         <li><a href="#"><p>Top Sellers</p></a></li>
                     </ul>
-                </div>
-                <div class="col-md-3 infor-left">
+                </div>*@
+                <div class="col-sm-3 infor-left">
                     <h3>My Account</h3>
                     <ul>
-                        <li>@Html.ActionLink("My Account", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                        <li>@Html.ActionLink("Log Into My Account", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
                         @*<li><a href="account.html"><p>My Account</p></a></li>*@
-                        <li><a href="#"><p>My Credit slips</p></a></li>
-                        <li><a href="#"><p>My Merchandise returns</p></a></li>
+                        @*<li><a href="#"><p>My Credit slips</p></a></li>*@
+                        @*<li><a href="#"><p>My Merchandise returns</p></a></li>*@
                         <li><a href="#"><p>My Personal info</p></a></li>
                         <li><a href="#"><p>My Addresses</p></a></li>
                     </ul>
                 </div>
-                <div class="col-md-3 infor-left">
+                <div class="col-sm-3 infor-left">
                     <h3>Store Information</h3>
                     <h4>
                         Samuel's Luxury Time Pieces,

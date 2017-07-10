@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Shopping_Cart_01.Models;
+using System.IO;
 
 namespace Shopping_Cart_01.Controllers
 {
@@ -37,11 +38,15 @@ namespace Shopping_Cart_01.Controllers
         }
 
         // GET: ShoppingCarts/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
-            ViewBag.CustomerId = new SelectList(db.Users, "Id", "FirstName");
+            Item item = db.Items.Find(id);
             ViewBag.ItemId = new SelectList(db.Items, "Id", "Name");
-            return View();
+            ViewBag.ItemPrice = new SelectList(db.Items, "Id", "Price");
+            ViewBag.CustomerId = new SelectList(db.Users, "Id", "FirstName");
+            ////// WTF?????
+            ViewBag.Created = DateTimeOffset.Now;
+            return RedirectToAction("Index");
         }
 
         // POST: ShoppingCarts/Create
@@ -49,7 +54,7 @@ namespace Shopping_Cart_01.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ItemId,CustomerId,Count,Created")] ShoppingCart shoppingCart)
+        public ActionResult Create([Bind(Include = "Id,ItemId,ItemPrice,CustomerId,Count,Created")] ShoppingCart shoppingCart)
         {
             if (ModelState.IsValid)
             {

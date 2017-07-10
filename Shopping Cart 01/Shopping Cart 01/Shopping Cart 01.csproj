@@ -228,6 +228,8 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\sgray-ecommerce - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\sgray-ecommerce - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -429,6 +431,18 @@
     <Content Include="Template1\register.html" />
     <Content Include="Template1\single.html" />
     <Content Include="Template1\typo.html" />
+    <Content Include="Uploads\Bulova Diamond blue.jpg" />
+    <Content Include="Uploads\Rolex-Submariner-black.jpg" />
+    <Content Include="Uploads\Rolex-Submariner-gold.jpg" />
+    <Content Include="Uploads\Sam and Dogs sm.jpg" />
+    <Content Include="Uploads\Seamaster blue.jpg" />
+    <Content Include="Uploads\Seiko core silv.jpg" />
+    <Content Include="Uploads\Seiko credor.jpg" />
+    <Content Include="Uploads\Seiko prospex blk.jpg" />
+    <Content Include="Uploads\Seiko prospex silv.jpg" />
+    <Content Include="Uploads\Seiko recraft blue.jpg" />
+    <Content Include="Uploads\Seiko recraft grn.jpg" />
+    <Content Include="Uploads\Speedmaster blk.jpg" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -499,10 +513,11 @@
     <Content Include="Template1\fonts\Muli-Regular.ttf" />
     <Content Include="Template1\fonts\Philosopher-Regular.ttf" />
     <Content Include="Views\Shared\_ShopLayout.cshtml" />
+    <Content Include="Views\Home\Index - Copy.cshtml" />
+    <Content Include="Views\Home\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
