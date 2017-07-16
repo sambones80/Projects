@@ -1,26 +1,29 @@
-﻿@{
+﻿@model IEnumerable<Personal_MVC_site.Models.BlogPost>
+
+@{
     ViewBag.Title = "Blog";
 }
 
-<!DOCTYPE html>
+@{
+    Layout = "~/Views/Shared/_LayoutSecondary.cshtml";
+}
 
 <html>
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
-        <div class="container">
+    @*<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">*@
+        @*<div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                     Menu <i class="fa fa-bars"></i>
                 </button>
-                <a href='@Url.Action("Index")#page-top' class="navbar-brand page-scroll top-nav">
+                <a href='@Url.Action("Index", "Home")#page-top' class="navbar-brand page-scroll top-nav">
                     <span class="light">Sam</span> Gray
                 </a>
-                @*</a>*@
-            </div>
+            </div>*@
 
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+            @*<div class="collapse navbar-collapse navbar-right navbar-main-collapse">
                 <ul class="nav navbar-nav">
                     <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
                     <li class="hidden">
@@ -42,7 +45,7 @@
             </div>
             <!-- /.navbar-collapse -->
         </div>
-    </nav>
+    </nav>*@
 
     <!-- Intro Header -->
     <header class="intro-blog" id="page-top">
@@ -58,16 +61,15 @@
         </div>
     </header>
 
-    <!-- About Section -->
+    <!-- Blog Section -->
     <section class="container content-section text-center portfolio-content">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
                 <h2>Week 1</h2>
-                <p>5/29/2017</p>
+                <p>5/27/17</p>
                 <p>I think we're off to a good start. We learned how to create a new project in Visual Studio and use it to build a website. We've mostly been using Codecademy and W3Schools to learn a little HTML and CSS. Since I already knew the basics, a lot of it was kind of a review but there was a lot of new knowledge to be gained from W3Schools and I've still got a ways to go.</p>
                 <p>Then we learned how to incorporate Bootstrap and utilize templates which is proving to be a little more tricky than I originally thought. I'm finding it rather difficult to combine code from different templates and have it work as expected, specifically with my image gallery. I think once I learn some Javascript, I'll be able to link it all up and make my gallery work the way that I'd like.</p>
-                <a href='@Url.Action("Index")#portfolio' class="btn btn-default btn-lg"><i class="fa fa-chevron-circle-left"></i> Go Back to Portfolio</a>
-            </div>
+            </div> 
         </div>
         <div class="back-to-top">
             <a href="#page-top" class="btn btn-circle page-scroll">
@@ -75,5 +77,19 @@
             </a>
         </div>
     </section>
+        @*<section class="container content-section text-center portfolio-content">*@
+        @*@{
+            foreach (var blogPost in Model)
+            {
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <h2>@Html.DisplayFor(modelBlogPost => blogPost.Title)</h2>
+                        <p>@Html.DisplayFor(modelBlogPost => blogPost.Created)</p>
+                        <p>@Html.DisplayFor(modelBlogPost => blogPost.Body)</p>
+                        <a href='@Url.Action("Index")#portfolio' class="btn btn-default btn-lg"><i class="fa fa-chevron-circle-left"></i> Go Back to Portfolio</a>
+                    </div>
+                </div>
+                }
+            }*@
 </body>
 </html>
