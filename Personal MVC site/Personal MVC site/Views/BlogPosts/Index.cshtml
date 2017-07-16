@@ -9,7 +9,7 @@
 }
 
     <!-- Intro Header -->
-<header class="intro-blog" id="page-top">
+@*<header class="intro-blog" id="page-top">
     <div class="intro-body-smaller">
         <div class="container">
             <div class="row">
@@ -20,14 +20,15 @@
             </div>
         </div>
     </div>
-</header>
+</header>*@
 
 <div class="container">
-    <h2>Index</h2>
-
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
+    <div class="text-center">
+        <h2 class="text-center topspace">Blog Posts</h2>
+        <a href='@Url.Action("Create")' class="btn btn-default">Create New Post</a>
+    </div>
+    <br />
+    <br />
     <table class="table">
         <tr>
             <th>
