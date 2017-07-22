@@ -52,15 +52,7 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Body)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.MediaURL)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.MediaURL)
+                @Html.Raw(Model.Body)
             </dd>
 
             <dt>
@@ -69,6 +61,21 @@
 
             <dd>
                 @Html.DisplayFor(model => model.Published)
+            </dd>
+
+            @*<dt>
+                @Html.DisplayNameFor(model => model.MediaURL)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MediaURL)
+            </dd>*@
+
+            <dd>
+                @if (Model.MediaURL != null)
+            {
+                    <img class="img-responsive" src="@Model.MediaURL" alt="" style="width: 360px;" />
+                }
             </dd>
 
         </dl>
@@ -80,7 +87,7 @@
                 <a href='@Url.Action("Index")' class="btn btn-default">Back</a>
             </li>
             <li>
-                <a href='@Url.Action("Edit", new { id = Model.Id })' class="btn btn-default">Edit</a>
+                <a href='@Url.Action("Edit", new { slug = Model.Slug })' class="btn btn-default">Edit</a>
             </li>
         </ul>
     </section>

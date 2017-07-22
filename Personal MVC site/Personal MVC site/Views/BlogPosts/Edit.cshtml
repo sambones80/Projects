@@ -12,7 +12,8 @@
 
     <h2 class="text-center topspace">Edit Blog Post</h2>
 
-    @using (Html.BeginForm())
+    @*@using (Html.BeginForm())*@
+    @using (Html.BeginForm("Edit", "BlogPosts", FormMethod.Post, new { enctype = "Multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
 
@@ -22,9 +23,9 @@
             @Html.HiddenFor(model => model.Id)
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Created, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.HiddenFor(model => model.Created, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Created, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.HiddenFor(model => model.Created, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Created, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -45,13 +46,13 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            @*<div class="form-group">
                 @Html.LabelFor(model => model.Slug, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.Slug, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Slug, "", new { @class = "text-danger" })
                 </div>
-            </div>
+            </div>*@
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Body, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -64,8 +65,9 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.MediaURL, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.MediaURL, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.MediaURL, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.MediaURL, new { htmlAttributes = new { @class = "form-control" } })
+                    <input name="image" type="file" class="form-control" id="fileUpload" />
+                    @*@Html.ValidationMessageFor(model => model.MediaURL, "", new { @class = "text-danger" })*@
                 </div>
             </div>
 
@@ -92,3 +94,14 @@
 </div>
     }
 </div>
+@section Scripts {
+    <script src="~/Scripts/tinymce/tinymce.min.js"></script>
+    <script src="~/Scripts/tinymce/jquery.tinymce.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            tinymce.init({
+                selector: '#Body'
+            })
+        })
+    </script>
+}

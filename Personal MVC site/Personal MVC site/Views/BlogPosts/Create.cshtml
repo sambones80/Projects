@@ -12,7 +12,7 @@
     
     <h2 class="text-center topspace">New Blog Post</h2>
 
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("Create", "BlogPosts", FormMethod.Post, new { enctype = "Multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
 
@@ -62,8 +62,9 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.MediaURL, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.MediaURL, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.MediaURL, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.MediaURL, new { htmlAttributes = new { @class = "form-control" } })
+                    <input name="image" type="file" class="form-control" id="fileUpload" />
+                    @*@Html.ValidationMessageFor(model => model.MediaURL, "", new { @class = "text-danger" })*@
                 </div>
             </div>
 
@@ -91,3 +92,15 @@
         </div>
     }
 </div>
+
+@section Scripts {
+    <script src="~/Scripts/tinymce/tinymce.min.js"></script>
+    <script src="~/Scripts/tinymce/jquery.tinymce.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            tinymce.init({
+                selector: '#Body'
+            })
+        })
+    </script>
+}

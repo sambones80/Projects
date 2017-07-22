@@ -28,6 +28,16 @@ namespace Personal_MVC_site
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            // blog post slug route - Edit
+            routes.MapRoute(
+                name: "EditSlug",
+                url: "Blog/Edit/{slug}",
+                defaults: new
+                {
+                    controller = "BlogPosts",
+                    action = "Edit",
+                    slug = UrlParameter.Optional
+                });
         }
     }
 }

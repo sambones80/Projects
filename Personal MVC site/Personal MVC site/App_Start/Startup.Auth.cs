@@ -54,15 +54,15 @@ namespace Personal_MVC_site
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "1889192441331781",
+               appSecret: "8526b6e7d9c8fbac6aaf1a7fb47b7895");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "998062600424-og47srgotv87mfq0jnh9cq9tmjfvtshr.apps.googleusercontent.com",
+                ClientSecret = "lnsSim7S4WmwVd1hnHXeVDNe"
+            });
         }
     }
 }

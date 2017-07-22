@@ -1,4 +1,7 @@
-﻿@model IEnumerable<Personal_MVC_site.Models.BlogPost>
+﻿@using PagedList;
+@using PagedList.Mvc;
+@*@model IEnumerable<Personal_MVC_site.Models.BlogPost>*@
+@model IPagedList<Personal_MVC_site.Models.BlogPost>
 
 @{
     ViewBag.Title = "Index";
@@ -31,26 +34,32 @@
     <br />
     <table class="table">
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Created)
+            <th class="col-md-1">
+                @*@Html.DisplayNameFor(model => model.Created)*@
+                Created
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Updated)
+            <th class="col-md-1">
+                @*@Html.DisplayNameFor(model => model.Updated)*@
+                Updated
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
+            <th class="col-md-2">
+                @*@Html.DisplayNameFor(model => model.Title)*@
+                Title
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.Slug)
+            </th>*@
+            <th class="col-md-5">
+                @*@Html.DisplayNameFor(model => model.Body)*@
+                Body
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Body)
+            <th class="col-md-2">
+                @*@Html.DisplayNameFor(model => model.MediaURL)*@
+                Image
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MediaURL)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Published)
+            <th class="col-md-1">
+                @*@Html.DisplayNameFor(model => model.Published)*@
+                Published
             </th>
             <th></th>
         </tr>
@@ -67,25 +76,34 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.Slug)
+                </td>*@
+                <td>
+                    <div class="scroll-box">
+                        @*@Html.DisplayFor(modelItem => item.Body)*@
+                        @Html.Raw(item.Body)
+                    </div>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Body)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MediaURL)
+                    @*@Html.DisplayFor(modelItem => item.MediaURL)*@
+                    @if (item.MediaURL != null)
+                    {
+                        <img class="img-responsive" src="@item.MediaURL" alt="" style="height: 110px;" />
+                    }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Published)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { slug = item.Slug }) |
+                    @Html.ActionLink("Edit", "Edit", new { slug = item.Slug })
+                    @Html.ActionLink("Details", "Details", new { slug = item.Slug })
                     @Html.ActionLink("Delete", "Delete", new { id = item.Id })
                 </td>
             </tr>
         }
 
     </table>
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
 </div>
