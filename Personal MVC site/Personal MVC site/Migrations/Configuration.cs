@@ -18,7 +18,8 @@ namespace Personal_MVC_site.Migrations
         protected override void Seed(Personal_MVC_site.Models.ApplicationDbContext context)
         {
             var roleManager = new RoleManager<IdentityRole>(
-                new RoleStore<IdentityRole>(context));
+            new RoleStore<IdentityRole>(context));
+            // Admin
             if (!context.Roles.Any(r => r.Name == "Admin"))
             {
                 roleManager.Create(new IdentityRole { Name = "Admin" });
@@ -36,8 +37,27 @@ namespace Personal_MVC_site.Migrations
                     DisplayName = "Sam"
                 }, "spaceball1");
             }
-            var userId = userManager.FindByEmail("sambones80@gmail.com").Id;
-            userManager.AddToRole(userId, "Admin");
+            var adminId = userManager.FindByEmail("sambones80@gmail.com").Id;
+            userManager.AddToRole(adminId, "Admin");
+
+            // Moderator
+            if (!context.Roles.Any(r => r.Name == "Moderator"))
+            {
+                roleManager.Create(new IdentityRole { Name = "Moderator" });
+            }
+            if (!context.Users.Any(u => u.Email == "sam@sgcreative.net"))
+            {
+                userManager.Create(new ApplicationUser
+                {
+                    UserName = "sam@sgcreative.net",
+                    Email = "sam@sgcreative.net",
+                    FirstName = "Samuel",
+                    LastName = "Gray",
+                    DisplayName = "Sam-Moderator"
+                }, "Pig$h4rk");
+            }
+            var modId = userManager.FindByEmail("sam@sgcreative.net").Id;
+            userManager.AddToRole(modId, "Moderator");
         }
     }
 }

@@ -442,6 +442,10 @@ img::-moz-selection {
     padding-top: 150px;
 }
 
+#logoutForm {
+    padding: 15px 15px;
+}
+
 /*** Blog Input Forms ***/
 
 .form-control {
@@ -468,16 +472,10 @@ th {
     overflow-y: hidden;
 }
 
-.post-block {
-    background-color: #353535;
-    padding: 40px 20px 20px;
-    margin-bottom: 50px;
-    border-radius: 10px;
-}
+/*** Blog User Index ***/
 
 .post-info {
-    padding: 38px 20px 0;
-    text-align: right;
+    padding: 6px 20px 0;
 }
 
 .post-head {
@@ -491,9 +489,18 @@ th {
     margin-bottom: 16px;
 }
 
+.post-img {
+    display
+}
+
 .post-body {
     background-color: #353535;
     padding: 20px 20px 36px;
     margin-bottom: 50px;
     border-radius: 0 0 10px 10px;
+}
+
+.scroll-box-blog {
+    max-height: 198px;
+    overflow-y: hidden;
 }

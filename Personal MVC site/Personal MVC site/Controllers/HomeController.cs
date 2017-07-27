@@ -79,14 +79,15 @@ namespace Personal_MVC_site.Controllers
                         IsBodyHtml = true
                     };
                     var svc = new PersonalEmail();
-                        await svc.SendAsync(email);
-                        return RedirectToAction("Sent");
-                } catch (Exception ex)
+                    await svc.SendAsync(email);
+                    return RedirectToAction("Sent");
+                }
+                catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                     await Task.FromResult(0);
                 }
-        }
+            }
             return View();
         }
     }

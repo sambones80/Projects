@@ -18,16 +18,27 @@ namespace Personal_MVC_site.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        public ActionResult Blog(int? page)
+        {
+            ViewBag.Message = "Blog";
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            var posts = db.Posts.OrderBy(p => p.Created).ToPagedList(pageNumber, pageSize);
+            return View(posts);
+        }
+
         // GET: BlogPosts
+        [Authorize(Roles = "Admin")]
         public ActionResult Index(int? page)
         {
-            int pageSize = 25;
+            int pageSize = 20;
             int pageNumber = (page ?? 1);
             var posts = db.Posts.OrderBy(p => p.Created).ToPagedList(pageNumber, pageSize);
             return View(posts);
         }
 
         // GET: BlogPosts/Details/5
+        [Authorize(Roles ="Admin")]
         public ActionResult Details(string Slug)
         {
             if (String.IsNullOrWhiteSpace(Slug))
@@ -42,7 +53,23 @@ namespace Personal_MVC_site.Controllers
             return View(blogPost);
         }
 
+        // GET: BlogPosts/Post
+        public ActionResult Post(string Slug)
+        {
+            if (String.IsNullOrWhiteSpace(Slug))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            BlogPost blogPost = db.Posts.FirstOrDefault(p => p.Slug == Slug);
+            if (blogPost == null)
+            {
+                return HttpNotFound();
+            }
+            return View(blogPost);
+        }
+
         // GET: BlogPosts/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -53,6 +80,7 @@ namespace Personal_MVC_site.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "Id,Title,Body,MediaURL,Published")] BlogPost blogPost, HttpPostedFileBase image)
         {
             if (image != null && image.ContentLength > 0)
@@ -95,10 +123,11 @@ namespace Personal_MVC_site.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(blogPost);
+            return View();
         }
 
         // GET: BlogPosts/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(string Slug)
         {
             if (String.IsNullOrWhiteSpace(Slug))
@@ -118,6 +147,7 @@ namespace Personal_MVC_site.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "Id,Created,Title,Body,MediaURL,Published")] BlogPost blogPost, HttpPostedFileBase image)
         {
             if (image != null && image.ContentLength > 0)
@@ -160,10 +190,11 @@ namespace Personal_MVC_site.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(blogPost);
+            return View();
         }
 
         // GET: BlogPosts/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -181,6 +212,7 @@ namespace Personal_MVC_site.Controllers
         // POST: BlogPosts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             BlogPost blogPost = db.Posts.Find(id);
