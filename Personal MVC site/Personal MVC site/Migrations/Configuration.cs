@@ -58,6 +58,36 @@ namespace Personal_MVC_site.Migrations
             }
             var modId = userManager.FindByEmail("sam@sgcreative.net").Id;
             userManager.AddToRole(modId, "Moderator");
+
+            // Eric-Mod
+            if (!context.Users.Any(u => u.Email == "ewatkins@coderfoundry.com"))
+            {
+                userManager.Create(new ApplicationUser
+                {
+                    UserName = "ewatkins@coderfoundry.com",
+                    Email = "ewatkins@coderfoundry.com",
+                    FirstName = "Eric",
+                    LastName = "Watkins",
+                    DisplayName = "EricMod"
+                }, "password1");
+            }
+            var modIdEric = userManager.FindByEmail("ewatkins@coderfoundry.com").Id;
+            userManager.AddToRole(modIdEric, "Moderator");
+
+            // Sean-Mod
+            if (!context.Users.Any(u => u.Email == "sszpunar@coderfoundry.com"))
+            {
+                userManager.Create(new ApplicationUser
+                {
+                    UserName = "sszpunar@coderfoundry.com",
+                    Email = "sszpunar@coderfoundry.com",
+                    FirstName = "Sean",
+                    LastName = "Szpunar",
+                    DisplayName = "SeanMod"
+                }, "password1");
+            }
+            var modIdSean = userManager.FindByEmail("sszpunar@coderfoundry.com").Id;
+            userManager.AddToRole(modIdSean, "Moderator");
         }
     }
 }

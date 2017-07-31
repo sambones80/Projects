@@ -17,8 +17,8 @@
   margin-left: -1px;
   line-height: 1.428571429;
   text-decoration: none;
-  background-color: #494949;
-  border: 1px solid #494949;
+  background-color: #2e2e2e;
+  border: 1px solid #2e2e2e;
 }
 
 .pagination > li:first-child > a,
@@ -38,8 +38,8 @@
 .pagination > li > span:hover,
 .pagination > li > a:focus,
 .pagination > li > span:focus {
-  background-color: #353535;
-  border-color: #353535;
+  background-color: #212121;
+  border-color: #212121;
 }
 
 .pagination > .active > a,
@@ -49,7 +49,7 @@
 .pagination > .active > a:focus,
 .pagination > .active > span:focus {
   z-index: 2;
-  color: #353535;
+  color: #212121;
   cursor: default;
   background-color: #77C0F4;
   border-color: #77C0F4;
@@ -61,8 +61,8 @@
 .pagination > .disabled > a:focus {
   color: #999999;
   cursor: not-allowed;
-  background-color: #353535;
-  border-color: #353535;
+  background-color: #212121;
+  border-color: #212121;
 }
 
 .pagination-lg > li > a,
@@ -136,15 +136,15 @@
 .pager li > span {
   display: inline-block;
   padding: 5px 14px;
-  background-color: #494949;
-  border: 1px solid #494949;
+  background-color: #2e2e2e;
+  border: 1px solid #2e2e2e;
   border-radius: 15px;
 }
 
 .pager li > a:hover,
 .pager li > a:focus {
   text-decoration: none;
-  background-color: #353535;
+  background-color: #212121;
 }
 
 .pager .next > a,
@@ -163,5 +163,5 @@
 .pager .disabled > span {
   color: #999999;
   cursor: not-allowed;
-  background-color: #353535;
+  background-color: #212121;
 }

@@ -449,12 +449,86 @@ img::-moz-selection {
 /*** Blog Input Forms ***/
 
 .form-control {
-    background-color: #353535;
+    background-color: #212121;
     color: #fff;
-    border: 1px solid #2b2b2b;
+    border: 1px solid #1b1b1b;
 }
 
-/*** Blog Index Body Font ***/
+/*** Blog User Index & Comments ***/
+
+.lower-blog-head{
+    margin-bottom: 0;
+}
+
+.lower-blog-head-login {
+    font-size: 1.5em;
+    color: #fff;
+    margin-bottom: 0;
+}
+
+    .lower-blog-head-login:hover {
+        color: rgba(255,255,255,.5);
+    }
+
+.post-info {
+    padding: 6px 20px 0;
+}
+
+.post-head {
+    background-color: #212121;
+    border: 1px solid #1b1b1b;
+    padding: 20px 20px 0;
+    margin-bottom: 1px;
+    border-radius: 4px 4px 0 0;
+}
+
+.post-head h2, .post-head p {
+    margin-bottom: 16px;
+}
+
+.com-text {
+    color: #88C8F5;
+}
+
+.post-img {
+    display
+}
+
+.post-body {
+    background-color: #212121;
+    border: 1px solid #1b1b1b;
+    padding: 20px 20px 36px;
+    margin-bottom: 50px;
+    border-radius: 0 0 4px 4px;
+}
+
+.post-body-com {
+    background-color: #212121;
+    border: 1px solid #1b1b1b;
+    padding: 20px 20px 20px;
+    margin-bottom: 50px;
+    border-radius: 0 0 4px 4px;
+}
+
+.scroll-box-blog {
+    color: #fff;
+    max-height: 285px;
+    overflow-y: hidden;
+}
+
+.scroll-box {
+    color: #fff;
+    max-height: 114px;
+    overflow-y: hidden;
+}
+
+.blog-img {
+    height: 220px;
+    float: right;
+    padding: 0 0 20px 20px;
+}
+
+/*** Blog Admin Index Body Font ***/
 
 td p {
     font-size: 14px;
@@ -467,40 +541,8 @@ th {
 .table tbody tr th, .table tbody tr td {
     border-top: 1px solid #494949;
 }
-.scroll-box {
-    max-height: 110px;
-    overflow-y: hidden;
-}
 
-/*** Blog User Index ***/
-
-.post-info {
-    padding: 6px 20px 0;
-}
-
-.post-head {
-    background-color: #353535;
-    padding: 20px 20px 0;
-    margin-bottom: 2px;
-    border-radius: 10px 10px 0 0;
-}
-
-.post-head h2, .post-head p {
-    margin-bottom: 16px;
-}
-
-.post-img {
-    display
-}
-
-.post-body {
-    background-color: #353535;
-    padding: 20px 20px 36px;
-    margin-bottom: 50px;
-    border-radius: 0 0 10px 10px;
-}
-
-.scroll-box-blog {
-    max-height: 198px;
-    overflow-y: hidden;
+/*** Hover for Blog Index NEEDS WORK ***/
+.blog-block:hover {
+    background-color : #1b1b1b;
 }

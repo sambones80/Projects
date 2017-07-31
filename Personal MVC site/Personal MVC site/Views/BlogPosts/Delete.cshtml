@@ -5,7 +5,7 @@
 }
 
 @{
-    Layout = "~/Views/Shared/_LayoutSecondary.cshtml";
+    Layout = "~/Views/Shared/_LayoutBlog.cshtml";
 }
 
 <div class="container">
@@ -62,16 +62,19 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.MediaURL)
+                @if (Model.MediaURL != null)
+                {
+                    <img class="img-responsive" src="@Model.MediaURL" style="height: 220px;" />
+                }
             </dd>
 
-            <dt>
+            @*<dt>
                 @Html.DisplayNameFor(model => model.Published)
-            </dt>
+            </dt>*@
 
-            <dd>
+            @*<dd>
                 @Html.DisplayFor(model => model.Published)
-            </dd>
+            </dd>*@
 
         </dl>
 
@@ -82,10 +85,13 @@
             <section class="text-center">
                 <ul class="list-inline center-block">
                     <li>
-                        <a href='@Url.Action("Index")' class="btn btn-default">Cancel</a>
+                        <input type="submit" value="Delete" class="btn btn-default" />
                     </li>
                     <li>
-                        <input type="submit" value="Delete" class="btn btn-default" />
+                        <a href='@Url.Action("IndexAdmin")' class="btn btn-default">Admin Index</a>
+                    </li>
+                    <li>
+                        <a href='@Url.Action("Index")' class="btn btn-default">Blog</a>
                     </li>
                 </ul>
             </section>

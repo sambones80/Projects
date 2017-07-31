@@ -559,9 +559,9 @@
     <Content Include="Views\Home\Numbers.cshtml" />
     <Content Include="Views\BlogPosts\Create.cshtml" />
     <Content Include="Views\BlogPosts\Delete.cshtml" />
-    <Content Include="Views\BlogPosts\Details.cshtml" />
+    <Content Include="Views\BlogPosts\DetailsAdmin.cshtml" />
     <Content Include="Views\BlogPosts\Edit.cshtml" />
-    <Content Include="Views\BlogPosts\Index.cshtml" />
+    <Content Include="Views\BlogPosts\IndexAdmin.cshtml" />
     <Content Include="Views\Comments\Create.cshtml" />
     <Content Include="Views\Comments\Delete.cshtml" />
     <Content Include="Views\Comments\Details.cshtml" />
@@ -576,10 +576,11 @@
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.eot" />
     <Content Include="Scripts\tinymce\langs\readme.md" />
     <Content Include="Views\Home\Sent.cshtml" />
-    <Content Include="Views\BlogPosts\Blog.cshtml" />
+    <Content Include="Views\BlogPosts\Index.cshtml" />
     <Content Include="Views\Account\ResendEmailConfirmation.cshtml" />
     <Content Include="Views\Account\ConfirmationSent.cshtml" />
-    <Content Include="Views\BlogPosts\Post.cshtml" />
+    <Content Include="Views\BlogPosts\Details.cshtml" />
+    <Content Include="Views\Shared\_LayoutBlog.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

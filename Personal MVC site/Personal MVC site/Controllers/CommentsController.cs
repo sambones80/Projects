@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Personal_MVC_site.Models;
+using Microsoft.AspNet.Identity;
 
 namespace Personal_MVC_site.Controllers
 {
@@ -15,7 +16,6 @@ namespace Personal_MVC_site.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Comments
-        [Authorize(Roles = "Admin, Moderator")]
         public ActionResult Index()
         {
             var comments = db.Comments.Include(c => c.Author).Include(c => c.Post);
@@ -23,7 +23,6 @@ namespace Personal_MVC_site.Controllers
         }
 
         // GET: Comments/Details/5
-        [Authorize(Roles = "Admin, Moderator")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -39,7 +38,6 @@ namespace Personal_MVC_site.Controllers
         }
 
         // GET: Comments/Create
-        [Authorize(Roles = "Admin, Moderator, User")]
         public ActionResult Create()
         {
             ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName");
@@ -52,14 +50,19 @@ namespace Personal_MVC_site.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin, Moderator, User")]
+        //[Authorize(Roles = "Admin, Moderator")]
         public ActionResult Create([Bind(Include = "Id,PostId,AuthorId,Body,Created,Updated,UpdateReason")] Comment comment)
         {
             if (ModelState.IsValid)
             {
+                comment.AuthorId = User.Identity.GetUserId();
+                comment.Created = DateTimeOffset.Now;
                 db.Comments.Add(comment);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                var thisPost = db.Posts.Find(comment.PostId);
+                if (thisPost != null) {
+                    return RedirectToAction("Details", "BlogPosts", new { slug = thisPost.Slug });
+                }
             }
 
             ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName", comment.AuthorId);
@@ -68,7 +71,6 @@ namespace Personal_MVC_site.Controllers
         }
 
         // GET: Comments/Edit/5
-        [Authorize(Roles = "Admin, Moderator, User")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -90,14 +92,17 @@ namespace Personal_MVC_site.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin, Moderator, User")]
         public ActionResult Edit([Bind(Include = "Id,PostId,AuthorId,Body,Created,Updated,UpdateReason")] Comment comment)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(comment).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                var thisPost = db.Posts.Find(comment.PostId);
+                if (thisPost != null)
+                {
+                    return RedirectToAction("Details", "BlogPosts", new { slug = thisPost.Slug });
+                }
             }
             ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName", comment.AuthorId);
             ViewBag.PostId = new SelectList(db.Posts, "Id", "Title", comment.PostId);
@@ -105,7 +110,6 @@ namespace Personal_MVC_site.Controllers
         }
 
         // GET: Comments/Delete/5
-        [Authorize(Roles = "Admin, Moderator")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -123,13 +127,17 @@ namespace Personal_MVC_site.Controllers
         // POST: Comments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin, Moderator")]
         public ActionResult DeleteConfirmed(int id)
         {
             Comment comment = db.Comments.Find(id);
             db.Comments.Remove(comment);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            var thisPost = db.Posts.Find(comment.PostId);
+            if (thisPost != null)
+            {
+                return RedirectToAction("Details", "BlogPosts", new { slug = thisPost.Slug });
+            }
+            return View(comment);
         }
 
         protected override void Dispose(bool disposing)

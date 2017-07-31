@@ -5,7 +5,7 @@
 }
 
 @{
-    Layout = "~/Views/Shared/_LayoutSecondary.cshtml";
+    Layout = "~/Views/Shared/_LayoutBlog.cshtml";
 }
 
 <section id="about-topspace" class="container content-section text-center portfolio-content">
@@ -43,9 +43,20 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10 text-left">
-                                <input type="submit" value="Log in" class="btn btn-default" />
-                                <a href='@Url.Action("Register")' class="btn btn-default">Register as a new user</a>
-                                <a href='@Url.Action("ForgotPassword")' class="btn btn-default">Forgot Password</a>
+                                <ul class="list-inline">
+                                    <li>
+                                        <input type="submit" value="Log in" class="btn btn-default" />
+                                    </li>
+                                    <li>
+                                        <a href='@Url.Action("Register")' class="btn btn-default">Register as a new user</a>
+                                    </li>
+                                    <li>
+                                        <a href='@Url.Action("ForgotPassword")' class="btn btn-default">Forgot Password</a>
+                                    </li>
+                                    <li>
+                                        <a href='@Url.Action("Index", "BlogPosts")' class="btn btn-default">Cancel</a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                 }

@@ -1,109 +1,135 @@
 ﻿@using PagedList;
 @using PagedList.Mvc;
+@using Microsoft.AspNet.Identity;
+
 @*@model IEnumerable<Personal_MVC_site.Models.BlogPost>*@
 @model IPagedList<Personal_MVC_site.Models.BlogPost>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Blog";
 }
 
 @{
-    Layout = "~/Views/Shared/_LayoutSecondary.cshtml";
+    Layout = "~/Views/Shared/_LayoutBlog.cshtml";
 }
 
+<html>
+<body>
+
     <!-- Intro Header -->
-@*<header class="intro-blog" id="page-top">
-    <div class="intro-body-smaller">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <h1 class="brand-heading">Sam Gray</h1>
-                    <p class="intro-text">The road to becoming a developer.</p>
+    <header class="intro-blog" id="page-top">
+        <div class="intro-body-smaller">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h1 class="brand-heading">Sam Gray</h1>
+                        <p class="intro-text">The road to becoming a developer.</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</header>*@
+    </header>
 
-<div class="container">
-    <div class="text-center">
-        <h2 class="text-center topspace">Blog Posts</h2>
-        <a href='@Url.Action("Create")' class="btn btn-default">Create New Post</a>
+    <!-- Search -->
+    <div class="container portfolio-content">
+        <div class="row">
+            <div class="col-md-4">
+                <ul class="list-inline">
+                    <li>
+                        @using (Html.BeginForm("Index", "BlogPosts", FormMethod.Get, htmlAttributes: new { @class = "form" }))
+                        {
+                            <div class="controls controls-row search-row">
+                                <input id="searchStr" name="searchStr" class="input-sm" type="text" placeholder="Search" />
+                                <button id="searchStr" name="searchStr" class="btn btn-default" type="submit">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        }
+                    </li>
+                    <li>
+                        @if (Request.IsAuthenticated)
+                        {
+                            if (User.IsInRole("Admin"))
+                            {
+                                <a href='@Url.Action("IndexAdmin")#contact' class="btn btn-default">Admin</a>
+                            }
+                        }
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-8 text-right">
+                @if (Request.IsAuthenticated)
+                {
+                    <p class="lower-blog-head">Welcome: @User.Identity.Name</p>
+                }
+                else
+                {
+                    <a href='@Url.Action("Login", "Account")' class="lower-blog-head-login">Welcome guest. Please log in if you would like to comment.</a>
+                }
+            </div>
+        </div>
+        <hr />
     </div>
-    <br />
-    <br />
-    <table class="table">
-        <tr>
-            <th class="col-md-1">
-                @*@Html.DisplayNameFor(model => model.Created)*@
-                Created
-            </th>
-            <th class="col-md-1">
-                @*@Html.DisplayNameFor(model => model.Updated)*@
-                Updated
-            </th>
-            <th class="col-md-2">
-                @*@Html.DisplayNameFor(model => model.Title)*@
-                Title
-            </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.Slug)
-            </th>*@
-            <th class="col-md-5">
-                @*@Html.DisplayNameFor(model => model.Body)*@
-                Body
-            </th>
-            <th class="col-md-2">
-                @*@Html.DisplayNameFor(model => model.MediaURL)*@
-                Image
-            </th>
-            <th class="col-md-1">
-                @*@Html.DisplayNameFor(model => model.Published)*@
-                Published
-            </th>
-            <th></th>
-        </tr>
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Created)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Updated)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                @*<td>
-                    @Html.DisplayFor(modelItem => item.Slug)
-                </td>*@
-                <td>
-                    <div class="scroll-box">
-                        @*@Html.DisplayFor(modelItem => item.Body)*@
-                        @Html.Raw(item.Body)
+    <!-- Blog Section -->
+    <section class="container content-section text-center portfolio-content">
+        @{
+            foreach (var blogPost in Model)
+            {
+                <div class="row">
+                    <div class="col-lg-1 col-lg-offset-1 post-info">
+                        <div>
+                            <img src="~/img/Profile.jpg" id="profile-pic" height="80" alt="Sam's Picture" />
+                        </div>
+                        <br />
+                        @if (Request.IsAuthenticated)
+                        {
+                            if (User.IsInRole("Admin"))
+                            {
+                                <div class="text-right">
+                                    @Html.ActionLink("Edit", "Edit", new { slug = blogPost.Slug })
+                                    @Html.ActionLink("Details", "DetailsAdmin", new { slug = blogPost.Slug })
+                                    @Html.ActionLink("Delete", "Delete", new { id = blogPost.Id })
+                                </div>
+                            }
+                        }
                     </div>
-                </td>
-                <td>
-                    @*@Html.DisplayFor(modelItem => item.MediaURL)*@
-                    @if (item.MediaURL != null)
-                    {
-                        <img class="img-responsive" src="@item.MediaURL" alt="" style="height: 110px;" />
-                    }
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Published)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { slug = item.Slug })
-                    @Html.ActionLink("Details", "Details", new { slug = item.Slug })
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                </td>
-            </tr>
+                    <a href='@Url.Action("Details", new { slug = blogPost.Slug })'>
+                        <div class="col-lg-9">
+                            <div class="row">
+                                <div class="col-lg-12 post-head">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <h2 class="text-left">@Html.DisplayFor(modelBlogPost => blogPost.Title)</h2>
+                                        </div>
+                                        <div class="col-sm-6 text-right scroll-box-blog">
+                                            <p>@Html.DisplayFor(modelBlogPost => blogPost.Created)</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 post-body">
+                                    <div class="row">
+                                        <div class="col-md-12 text-left scroll-box-blog">
+                                            @if (blogPost.MediaURL != null)
+                                            {
+                                                <img class="img-responsive blog-img" src="@blogPost.MediaURL" alt="" />
+                                            }
+                                            @Html.Raw(blogPost.Body)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
         }
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchStr = ViewBag.Search }))
+    </section>
+</body>
+</html>
 
-    </table>
-    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
-</div>
+@*<a href='@Url.Action("Create", "Comments", new { slug = blogPost.Slug })' class="btn btn-default">Read Full Post</a>*@

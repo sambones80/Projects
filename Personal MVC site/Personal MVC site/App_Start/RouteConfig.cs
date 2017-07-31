@@ -13,13 +13,24 @@ namespace Personal_MVC_site
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+
+            routes.MapRoute(
+               name: "OldSlug",
+               url: "BlogPosts/Details/{slug}",
+               defaults: new
+               {
+                   controller = "BlogPosts",
+                   action = "Details",
+                   slug = UrlParameter.Optional
+               });
+
             routes.MapRoute(
                 name: "NewSlug",
                 url: "Blog/{slug}",
                 defaults: new
                 {
                     controller = "BlogPosts",
-                    action = "Defaults",
+                    action = "Details",
                     slug = UrlParameter.Optional
                 });
 

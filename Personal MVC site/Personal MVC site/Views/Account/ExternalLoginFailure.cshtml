@@ -2,7 +2,16 @@
     ViewBag.Title = "Login Failure";
 }
 
-<hgroup>
-    <h2>@ViewBag.Title.</h2>
-    <h3 class="text-danger">Unsuccessful login with service.</h3>
-</hgroup>
+@{
+    Layout = "~/Views/Shared/_LayoutBlog.cshtml";
+}
+
+<body>
+    <section id="about-topspace" class="container content-section text-center portfolio-content">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h3 class="text-danger">Unsuccessful login with service.</h3>
+            </div>
+        </div>
+    </section>
+</body>

@@ -1,95 +1,132 @@
-﻿@model Personal_MVC_site.Models.BlogPost
+﻿@using Microsoft.AspNet.Identity
+@model Personal_MVC_site.Models.BlogPost
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Blog Post";
 }
 
 @{
-    Layout = "~/Views/Shared/_LayoutSecondary.cshtml";
+    Layout = "~/Views/Shared/_LayoutBlog.cshtml";
 }
+
 
 <div class="container">
-
-    <h2 class="text-center topspace">Blog Post</h2>
-
-    <div>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Created)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Created)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Updated)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Updated)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Title)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Title)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Slug)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Slug)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Body)
-            </dt>
-
-            <dd>
-                @Html.Raw(Model.Body)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Published)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Published)
-            </dd>
-
-            @*<dt>
-                @Html.DisplayNameFor(model => model.MediaURL)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.MediaURL)
-            </dd>*@
-
-            <dd>
-                @if (Model.MediaURL != null)
+    <h2 class="text-center topspace">@Html.DisplayFor(modelBlogPost => Model.Title)</h2>
+    <p class="text-center">@Html.DisplayFor(model => model.Created)</p>
+    <div class="row">
+        <div class="col-md-6">
+            <a href='@Url.Action("Index")' class="btn btn-default">Back</a>
+        </div>
+        <div class="col-md-6 text-right">
+            @if (Request.IsAuthenticated)
             {
-                    <img class="img-responsive" src="@Model.MediaURL" alt="" style="width: 360px;" />
-                }
-            </dd>
-
-        </dl>
+                <p class="lower-blog-head">Welcome: @User.Identity.Name</p>
+            }
+            else
+            {
+                <a href='@Url.Action("Login", "Account")' class="lower-blog-head-login">Welcome guest. Please log in if you would like to comment.</a>
+            }
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-6 text-left">
+            @Html.Raw(Model.Body)
+        </div>
+        <div class="col-md-6 post-img">
+            @if (Model.MediaURL != null)
+            {
+                <img class="img-responsive" src="@Model.MediaURL" />
+            }
+        </div>
     </div>
 
+    <section class="container content-section text-center portfolio-content">
+        @{
+            foreach (var comment in Model.Comments.OrderBy(c => c.Created))
+            {
+                <div class="row">
+                    <div class="col-lg-10 col-lg-offset-1">
+                        <div class="row">
+                            <div class="col-lg-12 post-head">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <p class="com-text text-left">
+                                            Comment by 
+                                            @if (comment.Author.UserName != null)
+                                            {
+                                                @comment.Author.UserName
+                                            }
+                                            else
+                                            {
+                                                @comment.Author.Email
+                                            }
+                                        </p>
+                                    </div>
+                                    <div class="col-sm-6 text-right">
+                                        <p>@Html.DisplayFor(modelComment => comment.Created)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 post-body-com">
+                                <div class="row">
+                                    <div class="col-lg-12 text-left">
+                                        <p>@comment.Body</p>
+                                    </div>
+                                </div>
+                                @if (Request.IsAuthenticated)
+                                {
+                                    string sameUser = User.Identity.GetUserId();
+                                    if (User.IsInRole("Admin") || User.IsInRole("Moderator") || sameUser == comment.AuthorId)
+                                    {
+                                        <div class="text-center">
+                                            <ul class="list-inline">
+                                                <li>
+                                                    <a href='@Url.Action("Edit", "Comments", new { comment.Id })' class="btn btn-default">Edit</a>
+                                                </li>
+                                                <li>
+                                                    <a href='@Url.Action("Delete", "Comments", new { comment.Id })' class="btn btn-default">Delete</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                @if (Request.IsAuthenticated)
+            {
+                using (Html.BeginForm("Create", "Comments", FormMethod.Post))
+                {
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="PostId" value="@Model.Id" />
+                        <div class="form-group">
+                            <label for="comment-new_textarea" class="sr-only">Enter your comment</label>
+
+                            <textarea class="form-control" rows="3" id="body" name="body" placeholder="Post a comment"></textarea>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-default">Send Comment</button>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+    </section>
+
+    <br />
+
     <section class="text-center">
-        <ul class="list-inline center-block">
-            <li>
-                <a href='@Url.Action("Index")' class="btn btn-default">Back</a>
-            </li>
-            <li>
-                <a href='@Url.Action("Edit", new { slug = Model.Slug })' class="btn btn-default">Edit</a>
-            </li>
-        </ul>
+        <a href='@Url.Action("Index")' class="btn btn-default">Back</a>
     </section>
 
 </div>

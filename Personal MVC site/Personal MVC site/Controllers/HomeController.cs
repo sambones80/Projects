@@ -49,12 +49,12 @@ namespace Personal_MVC_site.Controllers
 
             return View();
         }
-        public ActionResult Blog()
-        {
-            ViewBag.Message = "Blog";
+        //public ActionResult Blog()
+        //{
+        //    ViewBag.Message = "Blog";
 
-            return View();
-        }
+        //    return View();
+        //}
         public ActionResult Numbers()
         {
             ViewBag.Message = "Numbers";

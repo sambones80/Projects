@@ -18,27 +18,60 @@ namespace Personal_MVC_site.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public ActionResult Blog(int? page)
+        // GET: BlogPosts (User Index)
+        public ActionResult Index(int? page, string searchStr)
         {
             ViewBag.Message = "Blog";
+            ViewBag.Search = searchStr;
+            var blogList = IndexSearch(searchStr);
             int pageSize = 10;
             int pageNumber = (page ?? 1);
             var posts = db.Posts.OrderBy(p => p.Created).ToPagedList(pageNumber, pageSize);
-            return View(posts);
+            return View(blogList.ToPagedList(pageNumber, pageSize));
         }
 
-        // GET: BlogPosts
-        [Authorize(Roles = "Admin")]
-        public ActionResult Index(int? page)
+        public IQueryable<BlogPost> IndexSearch(string searchStr)
         {
+            IQueryable<BlogPost> result = null;
+            if (searchStr != null)
+            {
+                result = db.Posts.AsQueryable();
+                result = result.Where(p => p.Title.Contains(searchStr) || p.Body.Contains(searchStr) || p.Comments.Any(c => c.Body.Contains(searchStr) || c.Author.FirstName.Contains(searchStr) || c.Author.LastName.Contains(searchStr) || c.Author.DisplayName.Contains(searchStr) || c.Author.Email.Contains(searchStr)));
+            }
+            else
+            {
+                result = db.Posts.AsQueryable();
+            }
+            return result.OrderByDescending(p => p.Created);
+        }
+
+        // GET: BlogPosts (IndexAdmin)
+        [Authorize(Roles = "Admin")]
+        public ActionResult IndexAdmin(int? page, string searchStrAdmin)
+        {
+            ViewBag.Search = searchStrAdmin;
+            var blogList = AdminSearch(searchStrAdmin);
             int pageSize = 20;
             int pageNumber = (page ?? 1);
             var posts = db.Posts.OrderBy(p => p.Created).ToPagedList(pageNumber, pageSize);
-            return View(posts);
+            return View(blogList.ToPagedList(pageNumber, pageSize));
+        }
+        public IQueryable<BlogPost> AdminSearch(string searchStrAdmin)
+        {
+            IQueryable<BlogPost> result = null;
+            if (searchStrAdmin != null)
+            {
+                result = db.Posts.AsQueryable();
+                result = result.Where(p => p.Title.Contains(searchStrAdmin) || p.Body.Contains(searchStrAdmin) || p.Comments.Any(c => c.Body.Contains(searchStrAdmin) || c.Author.FirstName.Contains(searchStrAdmin) || c.Author.LastName.Contains(searchStrAdmin) || c.Author.DisplayName.Contains(searchStrAdmin) || c.Author.Email.Contains(searchStrAdmin)));
+            }
+            else
+            {
+                result = db.Posts.AsQueryable();
+            }
+            return result.OrderByDescending(p => p.Created);
         }
 
         // GET: BlogPosts/Details/5
-        [Authorize(Roles ="Admin")]
         public ActionResult Details(string Slug)
         {
             if (String.IsNullOrWhiteSpace(Slug))
@@ -53,8 +86,9 @@ namespace Personal_MVC_site.Controllers
             return View(blogPost);
         }
 
-        // GET: BlogPosts/Post
-        public ActionResult Post(string Slug)
+        // GET: BlogPosts/Details (NEW)
+        [Authorize(Roles = "Admin")]
+        public ActionResult DetailsAdmin(string Slug)
         {
             if (String.IsNullOrWhiteSpace(Slug))
             {
@@ -81,7 +115,7 @@ namespace Personal_MVC_site.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult Create([Bind(Include = "Id,Title,Body,MediaURL,Published")] BlogPost blogPost, HttpPostedFileBase image)
+        public ActionResult Create([Bind(Include = "Id,Title,Body,MediaURL")] BlogPost blogPost, HttpPostedFileBase image)
         {
             if (image != null && image.ContentLength > 0)
             {
@@ -148,7 +182,7 @@ namespace Personal_MVC_site.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult Edit([Bind(Include = "Id,Created,Title,Body,MediaURL,Published")] BlogPost blogPost, HttpPostedFileBase image)
+        public ActionResult Edit([Bind(Include = "Id,Created,Title,Body,MediaURL")] BlogPost blogPost, HttpPostedFileBase image)
         {
             if (image != null && image.ContentLength > 0)
             {

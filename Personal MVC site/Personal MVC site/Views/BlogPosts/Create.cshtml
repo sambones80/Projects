@@ -5,7 +5,7 @@
 }
 
 @{
-    Layout = "~/Views/Shared/_LayoutSecondary.cshtml";
+    Layout = "~/Views/Shared/_LayoutBlog.cshtml";
 }
 
 <div class="container">
@@ -68,7 +68,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            @*<div class="form-group">
                 @Html.LabelFor(model => model.Published, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     <div class="checkbox">
@@ -76,15 +76,18 @@
                         @Html.ValidationMessageFor(model => model.Published, "", new { @class = "text-danger" })
                     </div>
                 </div>
-            </div>
+            </div>*@
 
             <section class="text-center">
                 <ul class="list-inline center-block">
                     <li>
-                        <a href='@Url.Action("Index")' class="btn btn-default">Cancel</a>
+                        <input type="submit" value="Create" class="btn btn-default" />
                     </li>
                     <li>
-                        <input type="submit" value="Create" class="btn btn-default" />
+                        <a href='@Url.Action("IndexAdmin")' class="btn btn-default">Admin Index</a>
+                    </li>
+                    <li>
+                        <a href='@Url.Action("Index")' class="btn btn-default">Blog</a>
                     </li>
                 </ul>
             </section>

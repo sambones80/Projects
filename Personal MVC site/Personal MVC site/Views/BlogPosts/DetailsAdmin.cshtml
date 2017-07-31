@@ -1,0 +1,153 @@
+﻿@model Personal_MVC_site.Models.BlogPost
+
+@{
+    ViewBag.Title = "Details";
+}
+
+@{
+    Layout = "~/Views/Shared/_LayoutBlog.cshtml";
+}
+
+<div class="container">
+
+    <h2 class="text-center topspace">Blog Post</h2>
+
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Created)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Created)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Updated)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Updated)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Slug)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Slug)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Body)
+            </dt>
+
+            <dd>
+                @Html.Raw(Model.Body)
+            </dd>
+
+            @*<dt>
+                @Html.DisplayNameFor(model => model.Published)
+            </dt>*@
+
+            @*<dd>
+                @Html.DisplayFor(model => model.Published)
+            </dd>*@
+
+            @*<dt>
+                @Html.DisplayNameFor(model => model.MediaURL)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MediaURL)
+            </dd>*@
+
+            <dt>
+                Image
+            </dt>
+
+            <dd>
+                @if (Model.MediaURL != null)
+                {
+                    <img class="img-responsive" src="@Model.MediaURL" alt="" style="width: 360px;" />
+                }
+            </dd>
+
+        </dl>
+
+        <dl class="dl-horizontal">
+
+            @foreach (var comment in Model.Comments)
+            {
+                <dt></dt>
+
+                <dd>
+                    <p>User Comment</p>
+                </dd>
+
+                <dt>
+                    Created
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(modelComment => comment.Created)
+                </dd>
+
+                <dt>
+                    Author
+                </dt>
+
+                <dd>
+                    @if (comment.Author.DisplayName != null)
+                    {
+                    @comment.Author.DisplayName
+                    }
+                </dd>
+
+                <dt>
+                    Author's Email
+                </dt>
+
+                <dd>
+                    @comment.Author.Email
+                </dd>
+
+                <dt>
+                    Body
+                </dt>
+
+                <dd>
+                    @comment.Body
+                </dd>
+
+                <dt></dt>
+
+                <dd><br /><br /></dd>
+            }
+        </dl>
+    </div>
+
+    <section class="text-center">
+        <ul class="list-inline center-block">
+            <li>
+                <a href='@Url.Action("Edit", new { slug = Model.Slug })' class="btn btn-default">Edit</a>
+            </li>
+            <li>
+                <a href='@Url.Action("IndexAdmin")' class="btn btn-default">Admin Index</a>
+            </li>
+            <li>
+                <a href='@Url.Action("Index")' class="btn btn-default">Blog</a>
+            </li>
+        </ul>
+    </section>
+
+</div>
