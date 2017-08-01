@@ -15,7 +15,7 @@
     <p class="text-center">@Html.DisplayFor(model => model.Created)</p>
     <div class="row">
         <div class="col-md-6">
-            <a href='@Url.Action("Index")' class="btn btn-default">Back</a>
+            <a href='@Url.Action("Index")' class="btn btn-default"><i class="fa fa-chevron-circle-left"></i> Back</a>
         </div>
         <div class="col-md-6 text-right">
             @if (Request.IsAuthenticated)
@@ -52,7 +52,7 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <p class="com-text text-left">
-                                            Comment by 
+                                            <i class="fa fa-comment-o"></i> Comment by 
                                             @if (comment.Author.UserName != null)
                                             {
                                                 @comment.Author.UserName
@@ -84,10 +84,10 @@
                                         <div class="text-center">
                                             <ul class="list-inline">
                                                 <li>
-                                                    <a href='@Url.Action("Edit", "Comments", new { comment.Id })' class="btn btn-default">Edit</a>
+                                                    <a href='@Url.Action("Edit", "Comments", new { comment.Id })' class="btn btn-default"><i class="fa fa-pencil"></i> Edit</a>
                                                 </li>
                                                 <li>
-                                                    <a href='@Url.Action("Delete", "Comments", new { comment.Id })' class="btn btn-default">Delete</a>
+                                                    <a href='@Url.Action("Delete", "Comments", new { comment.Id })' class="btn btn-default"><i class="fa fa-trash-o"></i> Delete</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -114,7 +114,7 @@
                             <textarea class="form-control" rows="3" id="body" name="body" placeholder="Post a comment"></textarea>
                         </div>
                         <div>
-                            <button type="submit" class="btn btn-default">Send Comment</button>
+                            <button type="submit" class="btn btn-default"><i class="fa fa-comment"></i> Send Comment</button>
                         </div>
                     }
                 }
@@ -126,7 +126,7 @@
     <br />
 
     <section class="text-center">
-        <a href='@Url.Action("Index")' class="btn btn-default">Back</a>
+        <a href='@Url.Action("Index")' class="btn btn-default"><i class="fa fa-chevron-circle-left"></i> Back</a>
     </section>
 
 </div>

@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity;
 
 namespace Personal_MVC_site.Controllers
 {
+    [RequireHttps]
     public class CommentsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -60,7 +61,8 @@ namespace Personal_MVC_site.Controllers
                 db.Comments.Add(comment);
                 db.SaveChanges();
                 var thisPost = db.Posts.Find(comment.PostId);
-                if (thisPost != null) {
+                if (thisPost != null)
+                {
                     return RedirectToAction("Details", "BlogPosts", new { slug = thisPost.Slug });
                 }
             }

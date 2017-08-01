@@ -78,6 +78,8 @@
 
         </dl>
 
+        <br />
+
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
@@ -85,13 +87,15 @@
             <section class="text-center">
                 <ul class="list-inline center-block">
                     <li>
-                        <input type="submit" value="Delete" class="btn btn-default" />
+                        <button type="submit" class="btn btn-default">
+                            <i class="fa fa-trash-o"></i> Delete
+                        </button>
                     </li>
                     <li>
-                        <a href='@Url.Action("IndexAdmin")' class="btn btn-default">Admin Index</a>
+                        <a href='@Url.Action("IndexAdmin")' class="btn btn-default"><i class="fa fa-list-ul"></i> Admin</a>
                     </li>
                     <li>
-                        <a href='@Url.Action("Index")' class="btn btn-default">Blog</a>
+                        <a href='@Url.Action("Index")' class="btn btn-default"><i class="fa fa-comments-o"></i> Blog</a>
                     </li>
                 </ul>
             </section>

@@ -11,7 +11,6 @@
     <section id="about-topspace" class="container content-section text-center portfolio-content">
 
         <h2>Associate your @ViewBag.LoginProvider account.</h2>
-        <hr />
 
         @using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
         {

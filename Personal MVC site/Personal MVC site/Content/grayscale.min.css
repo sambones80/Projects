@@ -498,7 +498,7 @@ img::-moz-selection {
     background-color: #212121;
     border: 1px solid #1b1b1b;
     padding: 20px 20px 36px;
-    margin-bottom: 50px;
+    /*margin-bottom: 50px;*/
     border-radius: 0 0 4px 4px;
 }
 
@@ -512,7 +512,7 @@ img::-moz-selection {
 
 .scroll-box-blog {
     color: #fff;
-    max-height: 285px;
+    max-height: 288px;
     overflow-y: hidden;
 }
 
@@ -543,6 +543,21 @@ th {
 }
 
 /*** Hover for Blog Index NEEDS WORK ***/
-.blog-block:hover {
-    background-color : #1b1b1b;
+
+.blog-block {
+    margin-bottom: 50px;
+}
+
+.blog-hov:hover p {
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    color: rgba(255,255,255,.6);
+}
+
+.blog-hov:hover h2 {
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    color: #5990B7;
 }

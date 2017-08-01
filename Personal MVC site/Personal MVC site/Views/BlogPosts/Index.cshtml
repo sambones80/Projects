@@ -51,7 +51,7 @@
                         {
                             if (User.IsInRole("Admin"))
                             {
-                                <a href='@Url.Action("IndexAdmin")#contact' class="btn btn-default">Admin</a>
+                                <a href='@Url.Action("IndexAdmin")#contact' class="btn btn-default"><i class="fa fa-list-ul"></i> Admin</a>
                             }
                         }
                     </li>
@@ -94,35 +94,35 @@
                             }
                         }
                     </div>
-                    <a href='@Url.Action("Details", new { slug = blogPost.Slug })'>
-                        <div class="col-lg-9">
-                            <div class="row">
-                                <div class="col-lg-12 post-head">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <h2 class="text-left">@Html.DisplayFor(modelBlogPost => blogPost.Title)</h2>
-                                        </div>
-                                        <div class="col-sm-6 text-right scroll-box-blog">
-                                            <p>@Html.DisplayFor(modelBlogPost => blogPost.Created)</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12 post-body">
-                                    <div class="row">
-                                        <div class="col-md-12 text-left scroll-box-blog">
-                                            @if (blogPost.MediaURL != null)
-                                            {
-                                                <img class="img-responsive blog-img" src="@blogPost.MediaURL" alt="" />
-                                            }
-                                            @Html.Raw(blogPost.Body)
+                        <div class="col-lg-9 blog-block">
+                            <a href='@Url.Action("Details", new { slug = blogPost.Slug })' class="blog-hov">
+                                <div class="row">
+                                    <div class="col-lg-12 post-head">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <h2 class="text-left">@Html.DisplayFor(modelBlogPost => blogPost.Title)</h2>
+                                            </div>
+                                            <div class="col-sm-6 text-right scroll-box-blog">
+                                                <p>@Html.DisplayFor(modelBlogPost => blogPost.Created)</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="row">
+                                    <div class="col-lg-12 post-body">
+                                        <div class="row">
+                                            <div class="col-md-12 text-left scroll-box-blog">
+                                                @if (blogPost.MediaURL != null)
+                                                {
+                                                    <img class="img-responsive blog-img" src="@blogPost.MediaURL" alt="" />
+                                                }
+                                                @Html.Raw(blogPost.Body)
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
-                    </a>
                 </div>
             }
         }

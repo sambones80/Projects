@@ -14,6 +14,7 @@ using System.Configuration;
 
 namespace Personal_MVC_site.Controllers
 {
+    [RequireHttps]
     [Authorize]
     public class AccountController : Controller
     {
@@ -221,7 +222,7 @@ namespace Personal_MVC_site.Controllers
                 //await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
                 try
                 {
-                    var email = new MailMessage(ConfigurationManager.AppSettings["username"], user.Email)
+                    var email = new MailMessage(ConfigurationManager.AppSettings["username"], ConfigurationManager.AppSettings["emailfrom"])
                     {
                         Subject = "Reset Password",
                         Body = string.Format("Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>"),
@@ -386,7 +387,7 @@ namespace Personal_MVC_site.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Index", "BlogPosts");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:

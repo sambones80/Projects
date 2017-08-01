@@ -10,6 +10,7 @@ using Personal_MVC_site.Models;
 
 namespace Personal_MVC_site.Controllers
 {
+    [RequireHttps]
     [Authorize]
     public class ManageController : Controller
     {
