@@ -11,6 +11,7 @@
 
 
 <div class="container">
+    <div id="page-top"></div>
     <h2 class="text-center topspace">@Html.DisplayFor(modelBlogPost => Model.Title)</h2>
     <p class="text-center">@Html.DisplayFor(model => model.Created)</p>
     <div class="row">
@@ -121,12 +122,17 @@
             </div>
         </div>
 
+        <br />
+
+        <section class="text-center">
+            <a href='@Url.Action("Index")' class="btn btn-default"><i class="fa fa-chevron-circle-left"></i> Back</a>
+        </section>
+
+        <div class="back-to-top">
+            <a href="#page-top" class="btn btn-circle page-scroll">
+                <i class="fa fa-angle-double-up animated"></i>
+            </a>
+        </div>
+
     </section>
-
-    <br />
-
-    <section class="text-center">
-        <a href='@Url.Action("Index")' class="btn btn-default"><i class="fa fa-chevron-circle-left"></i> Back</a>
-    </section>
-
 </div>
