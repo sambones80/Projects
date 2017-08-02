@@ -456,6 +456,10 @@ img::-moz-selection {
 
 /*** Blog User Index & Comments ***/
 
+#searchstr button {
+    margin-left: 15px;
+}
+
 .lower-blog-head{
     margin-bottom: 0;
 }
@@ -488,10 +492,6 @@ img::-moz-selection {
 
 .com-text {
     color: #88C8F5;
-}
-
-.post-img {
-    display
 }
 
 .post-body {
@@ -528,9 +528,12 @@ img::-moz-selection {
 }
 
 .blog-img {
-    height: 220px;
     float: right;
     padding: 0 0 20px 20px;
+}
+
+.blog-pic {
+    height: 220px;
 }
 
 /*** Blog Admin Index Body Font ***/
@@ -571,5 +574,38 @@ th {
     -webkit-transition: all .2s ease-in-out;
     -moz-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
-    color: rgba(255,255,255,.15);
+    color: #5990B7;
+    /*color: rgba(255,255,255,.15);*/
+}
+
+.blog-hov:hover div.post-head {
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    background-color: #1b1b1b;
+    /*border-top: 1px solid #5990B7;
+    border-left: 1px solid #5990B7;
+    border-right: 1px solid #5990B7;*/
+}
+
+.blog-hov:hover div.post-body {
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    background-color: #1b1b1b;
+    /*border-bottom: 1px solid #5990B7;
+    border-left: 1px solid #5990B7;
+    border-right: 1px solid #5990B7*/
+}
+
+.blog-hov:hover img.blog-pic {
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    background-color: #1b1b1b;
+    position:relative;
+    opacity: 0.60;
+    -moz-opacity: 60%;
+    -webkit-opacity: 60%;
+    z-index: 2;
 }

@@ -244,6 +244,8 @@
     <Content Include="img\portfolio-thumbnails\Watch Gears 03.jpg" />
     <Content Include="img\prev.png" />
     <Content Include="img\Profile.jpg" />
+    <Content Include="img\Uploads\1200px800px_NoLogo_CAM17951.jpg" />
+    <Content Include="img\Uploads\blog pic.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -588,7 +590,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="img\Uploads\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -114,7 +114,9 @@
                                         <div class="col-md-12 text-left scroll-box-blog">
                                             @if (blogPost.MediaURL != null)
                                             {
-                                                <img class="img-responsive blog-img" src="@blogPost.MediaURL" alt="" />
+                                                <div class="blog-img">
+                                                    <img class="img-responsive blog-pic" src="@blogPost.MediaURL" alt="" />
+                                                </div>
                                             }
                                             @Html.Raw(blogPost.Body)
                                         </div>
