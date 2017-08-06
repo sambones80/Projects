@@ -19,8 +19,9 @@ namespace Bug_Tracker.Models
         [Required]
         public string Body { get; set; }
         [Required]
+        [DisplayFormat(DataFormatString = "{0:M/d/yyyy h:mm tt}")]
         public DateTimeOffset Created { get; set; }
-        [Required]
+        [DisplayFormat(DataFormatString = "{0:M/d/yyyy h:mm tt}")]
         public DateTimeOffset? Updated { get; set; }
 
         public virtual ICollection<ApplicationUser> Users { get; set; }

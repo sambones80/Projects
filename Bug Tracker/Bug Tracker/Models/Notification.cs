@@ -13,6 +13,7 @@ namespace Bug_Tracker.Models
         [Required]
         public string Message { get; set; }
         public string Type { get; set; }
+        [DisplayFormat(DataFormatString = "{0:M/d/yyyy h:mm tt}")]
         public DateTimeOffset Created { get; set; }
 
         public string NotifyUserId { get; set; }

@@ -1,0 +1,24 @@
+﻿@model Bug_Tracker.Models.AssignUsersViewModel
+
+@{
+	ViewBag.Title = "Project Assignment";
+}
+
+<h2>Assign Project</h2>
+
+@using (Html.BeginForm("Assign", "Projects", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+<div>
+	<strong>Project Name</strong><br />
+	@Model.Project.Title
+	<br />
+	@Html.HiddenFor(model => model.Project.Id, new { })
+	<br />
+	@Html.ListBox("SelectedUsers", Model.Users, htmlAttributes: new { id = "mySelect" })
+	<br />
+	<br />
+	<button class="btn btn-default" type="submit">Assign Users</button>
+</div>
+}
+
+<a class="btn btn-default" href="@Url.Action("Index", "Home")">Back to List</a>

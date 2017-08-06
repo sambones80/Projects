@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Bug_Tracker.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "Manage Users";
+}
+
+<h2>User Index</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DisplayName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SelectedRoles)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var user in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => user.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => user.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => user.DisplayName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => user.SelectedRoles)
+            </td>
+            <td>
+                @Html.ActionLink(linkText: "Roles", actionName: "UserRoles", controllerName: "Manage", routeValues: new { id = user.Id }, htmlAttributes: "") |
+            </td>
+        </tr>
+    }
+
+</table>

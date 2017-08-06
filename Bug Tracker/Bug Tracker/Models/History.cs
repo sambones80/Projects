@@ -14,6 +14,7 @@ namespace Bug_Tracker.Models
         public string Property { get; set; }
         public string OldValue { get; set; }
         public string NewValue { get; set; }
+        [DisplayFormat(DataFormatString = "{0:M/d/yyyy h:mm tt}")]
         public DateTimeOffset ChangeDate { get; set; }
         public string UserId { get; set; }
 

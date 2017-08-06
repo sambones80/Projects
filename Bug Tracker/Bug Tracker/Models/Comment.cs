@@ -11,7 +11,9 @@ namespace Bug_Tracker.Models
         public int Id { get; set; }
         [Required]
         public string Body { get; set; }
+        [DisplayFormat(DataFormatString = "{0:M/d/yyyy h:mm tt}")]
         public DateTimeOffset Created { get; set; }
+        [DisplayFormat(DataFormatString = "{0:M/d/yyyy h:mm tt}")]
         public DateTimeOffset? Updated { get; set; }
         public int TicketId { get; set; }
 

@@ -41,6 +41,17 @@ namespace Bug_Tracker.Models
 
     public class ChangePasswordViewModel
     {
+        // 
+
+        [Display(Name = "First Name")]
+        public string FName { get; set; }
+
+        [Display(Name = "Last Name")]
+        public string LName { get; set; }
+
+        [Display(Name = "User Name")]
+        public string DName { get; set; }
+
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Current password")]

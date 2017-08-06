@@ -1,0 +1,21 @@
+﻿@model Bug_Tracker.Models.AdminUpdateRolesViewModel
+
+@{
+    ViewBag.Title = "Manage Roles";
+}
+
+@using (Html.BeginForm("UserRoles", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+<strong>User</strong>
+<br />
+    @Model.DisplayName
+<br />
+    @Html.HiddenFor(model => model.Id, new { })
+<br />
+    @Html.ListBox("SelectedRoles", Model.Roles, htmlAttributes: new { id = "mySelect" })
+<br />
+<br />
+<button class="btn btn-default" type="submit">Update Roles</button>
+}
+
+<a class="btn btn-default" href="@Url.Action("UserList", "Manage")">Back to List</a>

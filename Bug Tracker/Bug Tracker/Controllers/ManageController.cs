@@ -15,6 +15,7 @@ namespace Bug_Tracker.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        public ApplicationDbContext db = new ApplicationDbContext();
 
         public ManageController()
         {
@@ -217,7 +218,16 @@ namespace Bug_Tracker.Controllers
         // GET: /Manage/ChangePassword
         public ActionResult ChangePassword()
         {
-            return View();
+            string userId = User.Identity.GetUserId();
+            ApplicationUser userOriginal = db.Users.Find(userId);
+
+            ChangePasswordViewModel model = new ChangePasswordViewModel(); return View();
+
+            model.FName = userOriginal.FirstName;
+            model.LName = userOriginal.LastName;
+            model.DName = userOriginal.DisplayName;
+
+            return View(model);
         }
 
         //
@@ -230,19 +240,44 @@ namespace Bug_Tracker.Controllers
             {
                 return View(model);
             }
-            var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
-            if (result.Succeeded)
+            string userId = User.Identity.GetUserId();
+            ApplicationUser userOriginal = db.Users.Find(userId);
+
+            if ((model.FName != null && model.FName != ""))
             {
-                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-                if (user != null)
-                {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                }
-                return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
+                userOriginal.FirstName = model.FName;
             }
-            AddErrors(result);
+
+            if ((model.FName != null) && (model.FName != ""))
+            {
+                userOriginal.LastName = model.LName;
+            }
+
+            if ((model.DName != null) && (model.DName != ""))
+            {
+                userOriginal.DisplayName = model.DName;
+            }
+
+            db.SaveChanges();
+
+            if (model.OldPassword != "" && model.OldPassword != null)
+            {
+
+                var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+                if (result.Succeeded)
+                {
+                    var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                    if (user != null)
+                    {
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    }
+                    return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
+                }
+                AddErrors(result);
+            }
             return View(model);
         }
+
 
         //
         // GET: /Manage/SetPassword
@@ -332,8 +367,74 @@ namespace Bug_Tracker.Controllers
 
             base.Dispose(disposing);
         }
+        // GET: /Manage/UserList
+        [Authorize(Roles = "Admin, Superuser, Guest")]
+        public ActionResult UserList()
+        {
+            return View(db.Users.ToList());
+        }
 
-#region Helpers
+        // GET: /Manage/UserRoles
+        [Authorize(Roles = "Admin, Superuser, Guest")]
+        public ActionResult UserRoles(string id)
+        {
+            var user = db.Users.Find(id);
+            UserRolesHelper helper = new UserRolesHelper(db);
+            var model = new AdminUpdateRolesViewModel();
+
+            model.SelectedRoles = helper.ListUserRoles(id).ToArray();
+            model.Id = user.Id;
+            model.FirstName = user.FirstName;
+            model.LastName = user.LastName;
+            model.DisplayName = user.DisplayName;
+            model.SelectedRoles = helper.ListUserRoles(id).ToArray();
+            model.Roles = new MultiSelectList(db.Roles, "Name", "Name", model.SelectedRoles);
+            var UserList = new MultiSelectList(db.Users, "Name", "Name", model.Id);
+
+            return View(model);
+        }
+
+        // POST: /Manage/UserRoles
+        [HttpPost]
+        [Authorize(Roles = "Admin, Superuser, Guest")]
+        public ActionResult UserRoles(AdminUpdateRolesViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = db.Users.Find(model.Id);
+                UserRolesHelper helper = new UserRolesHelper(db);
+
+                foreach (var role in db.Roles.Select(r => r.Name).ToList())
+                {
+                    helper.RemoveUserFromRole(user.Id, role);
+                }
+                if (model.SelectedRoles != null)
+                {
+                    foreach (var role in model.SelectedRoles)
+                    {
+                        helper.AddUserToRole(user.Id, role);
+                    }
+                }
+                return RedirectToAction("UserList", "Manage");
+            }
+            else
+            {
+                var user = db.Users.Find(model.Id);
+                UserRolesHelper helper = new UserRolesHelper(db);
+                var returnModel = new AdminUpdateRolesViewModel();
+
+                returnModel.Id = user.Id;
+                returnModel.FirstName = user.FirstName;
+                returnModel.LastName = user.LastName;
+                returnModel.DisplayName = user.DisplayName;
+                returnModel.SelectedRoles = helper.ListUserRoles(user.Id).ToArray();
+                returnModel.Roles = new MultiSelectList(db.Roles, "Name", "Name", model.SelectedRoles);
+
+                return View(returnModel);
+            }
+        }
+
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
