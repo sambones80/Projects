@@ -1,0 +1,11 @@
+﻿@model Bug_Tracker.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Account Management";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+    <h4>Update your information.</h4>
+    <hr />
+@Html.ActionLink(linkText: "Change Name", actionName: "ChangeName", controllerName: "Manage", routeValues: new {  }, htmlAttributes: "") |
+@Html.ActionLink(linkText: "Change Password", actionName: "ChangePassword", controllerName: "Manage", routeValues: new {  }, htmlAttributes: "")

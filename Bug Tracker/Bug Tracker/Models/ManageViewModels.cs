@@ -39,10 +39,8 @@ namespace Bug_Tracker.Models
         public string ConfirmPassword { get; set; }
     }
 
-    public class ChangePasswordViewModel
+    public class ChangeNameViewModel
     {
-        // 
-
         [Display(Name = "First Name")]
         public string FName { get; set; }
 
@@ -51,6 +49,20 @@ namespace Bug_Tracker.Models
 
         [Display(Name = "User Name")]
         public string DName { get; set; }
+    }
+
+    public class ChangePasswordViewModel
+    {
+        // 
+
+        //[Display(Name = "First Name")]
+        //public string FName { get; set; }
+
+        //[Display(Name = "Last Name")]
+        //public string LName { get; set; }
+
+        //[Display(Name = "User Name")]
+        //public string DName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]

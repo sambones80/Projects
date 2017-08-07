@@ -221,11 +221,11 @@ namespace Bug_Tracker.Controllers
             string userId = User.Identity.GetUserId();
             ApplicationUser userOriginal = db.Users.Find(userId);
 
-            ChangePasswordViewModel model = new ChangePasswordViewModel(); return View();
+            ChangePasswordViewModel model = new ChangePasswordViewModel();
 
-            model.FName = userOriginal.FirstName;
-            model.LName = userOriginal.LastName;
-            model.DName = userOriginal.DisplayName;
+            //model.FName = userOriginal.FirstName;
+            //model.LName = userOriginal.LastName;
+            //model.DName = userOriginal.DisplayName;
 
             return View(model);
         }
@@ -243,22 +243,22 @@ namespace Bug_Tracker.Controllers
             string userId = User.Identity.GetUserId();
             ApplicationUser userOriginal = db.Users.Find(userId);
 
-            if ((model.FName != null && model.FName != ""))
-            {
-                userOriginal.FirstName = model.FName;
-            }
+            //if ((model.FName != null && model.FName != ""))
+            //{
+            //    userOriginal.FirstName = model.FName;
+            //}
 
-            if ((model.FName != null) && (model.FName != ""))
-            {
-                userOriginal.LastName = model.LName;
-            }
+            //if ((model.FName != null) && (model.FName != ""))
+            //{
+            //    userOriginal.LastName = model.LName;
+            //}
 
-            if ((model.DName != null) && (model.DName != ""))
-            {
-                userOriginal.DisplayName = model.DName;
-            }
+            //if ((model.DName != null) && (model.DName != ""))
+            //{
+            //    userOriginal.DisplayName = model.DName;
+            //}
 
-            db.SaveChanges();
+            //db.SaveChanges();
 
             if (model.OldPassword != "" && model.OldPassword != null)
             {
@@ -278,6 +278,55 @@ namespace Bug_Tracker.Controllers
             return View(model);
         }
 
+        //
+        // GET: /Manage/ChangeName
+        public ActionResult ChangeName()
+        {
+            string userId = User.Identity.GetUserId();
+            ApplicationUser userOriginal = db.Users.Find(userId);
+
+            ChangeNameViewModel model = new ChangeNameViewModel();
+
+            model.FName = userOriginal.FirstName;
+            model.LName = userOriginal.LastName;
+            model.DName = userOriginal.DisplayName;
+
+            return View(model);
+        }
+
+        //
+        // POST: /Manage/ChangeName
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangeName(ChangeNameViewModel model)
+
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("ChangePassword");
+            }
+            string userId = User.Identity.GetUserId();
+            ApplicationUser userOriginal = db.Users.Find(userId);
+
+            if ((model.FName != null && model.FName != ""))
+            {
+                userOriginal.FirstName = model.FName;
+            }
+
+            if ((model.LName != null) && (model.LName != ""))
+            {
+                userOriginal.LastName = model.LName;
+            }
+
+            if ((model.DName != null) && (model.DName != ""))
+            {
+                userOriginal.DisplayName = model.DName;
+            }
+
+            db.SaveChanges();
+
+            return View(model);
+        }
 
         //
         // GET: /Manage/SetPassword
