@@ -66,15 +66,15 @@ namespace Bug_Tracker.Models
     {
         [Required]
         [Display(Name = "First Name")]
-        public string FirstName { get; set; }
+        public string FName { get; set; }
 
         [Required]
         [Display(Name = "Last Name")]
-        public string LastName { get; set; }
+        public string LName { get; set; }
 
         [Required]
         [Display(Name = "User Name")]
-        public string DisplayName { get; set; }
+        public string DName { get; set; }
 
         [Required]
         [EmailAddress]

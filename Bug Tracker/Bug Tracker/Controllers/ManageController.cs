@@ -7,6 +7,9 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Bug_Tracker.Models;
+using System.Collections;
+using System.Collections.Generic;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Bug_Tracker.Controllers
 {
@@ -57,6 +60,7 @@ namespace Bug_Tracker.Controllers
         {
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
+                :message == ManageMessageId.ChangeNameSuccess ? "Your name has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
                 : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
                 : message == ManageMessageId.Error ? "An error has occurred."
@@ -325,7 +329,7 @@ namespace Bug_Tracker.Controllers
 
             db.SaveChanges();
 
-            return View(model);
+            return RedirectToAction("Index", new { Message = ManageMessageId.ChangeNameSuccess });
         }
 
         //
@@ -420,6 +424,12 @@ namespace Bug_Tracker.Controllers
         [Authorize(Roles = "Admin, Superuser, Guest")]
         public ActionResult UserList()
         {
+            //UserListViewModel model = new UserListViewModel()
+            //{
+            //    User = user,
+            //    Roles = roles
+            //};
+            //return View(model);
             return View(db.Users.ToList());
         }
 
@@ -527,6 +537,7 @@ namespace Bug_Tracker.Controllers
         {
             AddPhoneSuccess,
             ChangePasswordSuccess,
+            ChangeNameSuccess,
             SetTwoFactorSuccess,
             SetPasswordSuccess,
             RemoveLoginSuccess,

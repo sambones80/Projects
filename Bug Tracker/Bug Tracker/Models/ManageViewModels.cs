@@ -106,4 +106,9 @@ namespace Bug_Tracker.Models
         public string SelectedProvider { get; set; }
         public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
     }
+
+    public class ListUserRoles
+    {
+        public List<ListUserRoles> UserRoles;
+    }
 }

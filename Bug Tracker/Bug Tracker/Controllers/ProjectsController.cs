@@ -47,10 +47,12 @@ namespace Bug_Tracker.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Body,Created,Updated")] Project project)
+        public ActionResult Create([Bind(Include = "Id,Title,Body,Created,Updated,AuthorId")] Project project, string authorId)
         {
             if (ModelState.IsValid)
             {
+                string AuthorId = User.Identity.GetUserId();
+                authorId = AuthorId;
                 project.Created = DateTimeOffset.Now;
                 db.Projects.Add(project);
                 db.SaveChanges();

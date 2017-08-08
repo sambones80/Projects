@@ -71,7 +71,7 @@ namespace Bug_Tracker.Migrations
                     PhoneNumber = "(704) 877-4313",
                     UserName = "sambones80@gmail.com",
                     Email = "sambones80@gmail.com",
-                }, "Pig$h4rk");
+                }, "spaceball1");
             }
 
             if (!context.Users.Any(u => u.Email == "admin@bugtracker.com"))
@@ -83,7 +83,7 @@ namespace Bug_Tracker.Migrations
                     PhoneNumber = "(###) ###-####",
                     UserName = "admin@bugtracker.com",
                     Email = "admin@bugtracker.com",
-                }, "Password-1");
+                }, "password1");
             }
 
             if (!context.Users.Any(u => u.Email == "pm@bugtracker.com"))
@@ -95,7 +95,7 @@ namespace Bug_Tracker.Migrations
                     PhoneNumber = "(###) ###-####",
                     UserName = "pm@bugtracker.com",
                     Email = "pm@bugtracker.com",
-                }, "Password-1");
+                }, "password1");
             }
 
             if (!context.Users.Any(u => u.Email == "dev@bugtracker.com"))
@@ -107,7 +107,7 @@ namespace Bug_Tracker.Migrations
                     PhoneNumber = "(###) ###-####",
                     UserName = "dev@bugtracker.com",
                     Email = "dev@bugtracker.com",
-                }, "Password-1");
+                }, "password1");
             }
 
             if (!context.Users.Any(u => u.Email == "submitter@bugtracker.com"))
@@ -119,7 +119,7 @@ namespace Bug_Tracker.Migrations
                     PhoneNumber = "(###) ###-####",
                     UserName = "submitter@bugtracker.com",
                     Email = "submitter@bugtracker.com",
-                }, "Password-1");
+                }, "password1");
             }
 
             if (!context.Users.Any(u => u.Email == "guest@bugtracker.com"))
@@ -131,7 +131,7 @@ namespace Bug_Tracker.Migrations
                     PhoneNumber = "(###) ###-####",
                     UserName = "guest@bugtracker.com",
                     Email = "guest@bugtracker.com",
-                }, "Password-1");
+                }, "password1");
             }
 
             var userIdSam = userManager.FindByEmail("sambones80@gmail.com").Id;

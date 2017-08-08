@@ -146,6 +146,46 @@ namespace Bug_Tracker.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        // GET: Tickets/Assign/5
+        [Authorize(Roles = "Superuser, Admin, Project Manager, Guest")]
+        public ActionResult Assign(int id)
+        {
+            var ticket = db.Tickets.Find(id);
+            var project = ticket.ProjectId;
+            AssignHelper helper = new AssignHelper(db);
+            var model = new AssignUsersViewModel();
+
+            model.Ticket = ticket;
+            model.SelectedUsers = helper.ListAssignedUsers(id).Select(u => u.Id).ToArray();
+            model.Users = new SelectList(db.Users.Where(u => (u.DisplayName != "N/A" && u.DisplayName != "(Remove Assigned User)")).OrderBy(u => u.FirstName), "Id", "DisplayName", model.SelectedUsers);
+
+            return View(model);
+        }
+
+        // POST: Tickets/Assign/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [Authorize(Roles = "Superuser, Admin, Project Manager, Guest")]
+        public ActionResult Assign(AssignUsersViewModel model)
+        {
+            var ticket = db.Tickets.Find(model.Ticket.Id);
+            AssignHelper helper = new AssignHelper(db);
+
+            foreach (var user in db.Users.Select(r => r.Id).ToList())
+            {
+                helper.RemoveProjectFromUser(ticket.Id, user);
+            }
+            if (model.SelectedUsers != null)
+            {
+                foreach (var user in model.SelectedUsers)
+                {
+                    helper.AddProjectToUser(ticket.Id, user);
+                }
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
