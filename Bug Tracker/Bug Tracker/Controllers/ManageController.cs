@@ -293,7 +293,7 @@ namespace Bug_Tracker.Controllers
 
             model.FName = userOriginal.FirstName;
             model.LName = userOriginal.LastName;
-            model.DName = userOriginal.DisplayName;
+            //model.DName = userOriginal.DisplayName;
 
             return View(model);
         }
@@ -424,13 +424,20 @@ namespace Bug_Tracker.Controllers
         [Authorize(Roles = "Admin, Superuser, Guest")]
         public ActionResult UserList()
         {
-            //UserListViewModel model = new UserListViewModel()
-            //{
-            //    User = user,
-            //    Roles = roles
-            //};
-            //return View(model);
-            return View(db.Users.ToList());
+            List<UserListViewModel> users = new List<UserListViewModel>();
+            UserRolesHelper helper = new UserRolesHelper(db);
+
+            foreach(var user in db.Users.ToList())
+            {
+                var eachUser = new UserListViewModel();
+                eachUser.Roles = new List<string>();
+                eachUser.User = user;
+                eachUser.Roles = helper.ListUserRoles(user.Id).ToList();
+
+                users.Add(eachUser);
+            }
+
+            return View(users);
         }
 
         // GET: /Manage/UserRoles

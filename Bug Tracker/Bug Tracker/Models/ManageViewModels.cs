@@ -48,7 +48,12 @@ namespace Bug_Tracker.Models
         public string LName { get; set; }
 
         [Display(Name = "User Name")]
-        public string DName { get; set; }
+        //public string DName { get; set; }
+        public string DName
+        {
+            get { return FName + " " + LName; }
+        }
+
     }
 
     public class ChangePasswordViewModel

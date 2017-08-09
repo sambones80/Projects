@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Bug_Tracker.Models.ApplicationUser>
+﻿@model IEnumerable<Bug_Tracker.Models.UserListViewModel>
 
 @{
     ViewBag.Title = "Manage Users";
@@ -9,13 +9,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FirstName)
+            FirstName
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastName)
+            LastName
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DisplayName)
+            User Name
         </th>
         <th>
             Role
@@ -23,32 +23,28 @@
         <th></th>
     </tr>
 
-    @foreach (var user in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(model => user.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(model => user.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(model => user.DisplayName)
-            </td>
-            <td>
-                @*@foreach (var role in user.Roles)
-                {
-                    @roles.FirstOrDefault(r => r.Id == role.RoleId).Name
-                    if (user.Roles.Count > 1)
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.User.FirstName
+                </td>
+                <td>
+                    @item.User.LastName
+                </td>
+                <td>
+                    @item.User.DisplayName
+                </td>
+                <td>
+                    @foreach (var role in item.Roles)
                     {
+                        @role
                         <br />
                     }
-                }*@
-            </td>
-            <td>
-                @Html.ActionLink(linkText: "Roles", actionName: "UserRoles", controllerName: "Manage", routeValues: new { id = user.Id }, htmlAttributes: "")
-            </td>
-        </tr>
-    }
-
+                </td>
+                <td>
+                    @Html.ActionLink(linkText: "Roles", actionName: "UserRoles", controllerName: "Manage", routeValues: new { id = item.User.Id }, htmlAttributes: "")
+                </td>
+            </tr>
+        }
 </table>

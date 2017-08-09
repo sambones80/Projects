@@ -72,9 +72,11 @@ namespace Bug_Tracker.Models
         [Display(Name = "Last Name")]
         public string LName { get; set; }
 
-        [Required]
         [Display(Name = "User Name")]
-        public string DName { get; set; }
+        public string DName
+            {
+                get { return FName + " " + LName; }
+            }
 
         [Required]
         [EmailAddress]

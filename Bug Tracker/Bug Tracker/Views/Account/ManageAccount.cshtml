@@ -1,4 +1,4 @@
-﻿@model Bug_Tracker.Models.RegisterViewModel
+﻿@model Bug_Tracker.Models.ApplicationUser
 @{
     ViewBag.Title = "Account Management";
 }
@@ -7,5 +7,35 @@
 
     <h4>Update your information.</h4>
     <hr />
+
+@*<div>
+    <dl class="dl-horizontal">
+        <dt>
+            Name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            Last Name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            User Name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DisplayName)
+        </dd>
+
+    </dl>
+</div>*@
+
 @Html.ActionLink(linkText: "Change Name", actionName: "ChangeName", controllerName: "Manage", routeValues: new {  }, htmlAttributes: "") |
 @Html.ActionLink(linkText: "Change Password", actionName: "ChangePassword", controllerName: "Manage", routeValues: new {  }, htmlAttributes: "")

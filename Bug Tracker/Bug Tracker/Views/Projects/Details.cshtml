@@ -11,7 +11,7 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Title)
+            Title
         </dt>
 
         <dd>
@@ -19,7 +19,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Body)
+            Description
         </dt>
 
         <dd>
@@ -27,7 +27,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Created)
+            Created
         </dt>
 
         <dd>
@@ -35,11 +35,23 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Updated)
+            Updated
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Updated)
+        </dd>
+
+        <dt>
+            Assigned Users
+        </dt>
+
+        <dd>
+            @foreach (var projectUser in Model.Users)
+            {
+                @projectUser.DisplayName
+                <br />
+            }
         </dd>
 
     </dl>
