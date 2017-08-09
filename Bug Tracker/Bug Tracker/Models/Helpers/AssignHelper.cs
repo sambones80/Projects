@@ -105,6 +105,40 @@ namespace Bug_Tracker.Models
             //return result.Succeeded;
         }
 
+        //public bool AddTicketToUser(int ticketId, string userId)
+        //{
+        //    Ticket ticket = db.Tickets.Find(ticketId);
+        //    ApplicationUser user = db.Users.Find(userId);
+
+        //    ticket.AssignedToUserId.Add
+
+        //    try
+        //    {
+        //        var userAdded = db.SaveChanges();
+
+        //        if (userAdded != 0)
+        //        {
+        //            return true;
+        //        }
+        //        else
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        return false;
+        //    }
+
+        //    //var roles = userManager.GetRoles(userId);
+        //    //foreach(var role in roles)
+        //    //{
+        //    //    RemoveUserFromRole(userId, role);
+        //    //}
+        //    //var result = userManager.AddToRole(projectId, userId);
+        //    //return result.Succeeded;
+        //}
+
         //NEEDED?
         //public IList<ApplicationUser> UsersInRole(string roleName)
         //{
@@ -112,7 +146,7 @@ namespace Bug_Tracker.Models
         //    return userManager.Users.Where(u => userIDs.Contains(u.Id)).ToList();
         //    //Select(u => new UserDropDownViewModel { Id = u.Id, Name = u.DisplayName }).
         //}
-        
+
         //NEEDED?
         //public IList<ApplicationUser> UsersNotInRole(string roleName)
         //{

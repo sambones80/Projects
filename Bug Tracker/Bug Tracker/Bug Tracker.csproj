@@ -210,6 +210,7 @@
     <Compile Include="Models\EmailModel.cs" />
     <Compile Include="Models\AdminUpdateRolesViewModel.cs" />
     <Compile Include="Models\Helpers\AssignHelper.cs" />
+    <Compile Include="Models\TicketAssignUserViewModel.cs" />
     <Compile Include="Models\ProjectAssignUsersViewModel.cs" />
     <Compile Include="Models\Helpers\UserRolesHelper.cs" />
     <Compile Include="Models\History.cs" />

@@ -115,7 +115,8 @@ namespace Bug_Tracker.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Project project = db.Projects.Find(id);
-            db.Projects.Remove(project);
+            //db.Projects.Remove(project);
+            project.Deleted = true;
             db.SaveChanges();
             return RedirectToAction("Index", "Home");
         }

@@ -23,6 +23,7 @@ namespace Bug_Tracker.Models
         public DateTimeOffset Created { get; set; }
         [DisplayFormat(DataFormatString = "{0:M/d/yyyy h:mm tt}")]
         public DateTimeOffset? Updated { get; set; }
+        public bool Deleted { get; set; }
 
         public virtual ICollection<ApplicationUser> Users { get; set; }
         public virtual ICollection<Ticket> Tickets { get; set; }

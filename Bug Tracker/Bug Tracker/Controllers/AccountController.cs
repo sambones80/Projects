@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using Bug_Tracker.Models;
 using System.Net.Mail;
 using System.Configuration;
+using static Bug_Tracker.Controllers.ManageController;
 
 namespace Bug_Tracker.Controllers
 {
@@ -216,7 +217,7 @@ namespace Bug_Tracker.Controllers
                 if (user == null)
                 {
                     // Don't reveal that the user does not exist or is not confirmed
-                    return View("ForgotPasswordConfirmation");
+                    return RedirectToAction("Login", new { Message = ManageMessageId.UserNotRegistered });
                 }
 
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771

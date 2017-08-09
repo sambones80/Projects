@@ -165,26 +165,26 @@ namespace Bug_Tracker.Controllers
         // POST: Tickets/Assign/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [Authorize(Roles = "Superuser, Admin, Project Manager, Guest")]
-        public ActionResult Assign(AssignUsersViewModel model)
-        {
-            var ticket = db.Tickets.Find(model.Ticket.Id);
-            AssignHelper helper = new AssignHelper(db);
+        //[HttpPost]
+        //[Authorize(Roles = "Superuser, Admin, Project Manager, Guest")]
+        //public ActionResult Assign(TicketAssignUserViewModel model)
+        //{
+        //    var ticket = db.Tickets.Find(model.Ticket.Id);
+        //    AssignHelper helper = new AssignHelper(db);
 
-            foreach (var user in db.Users.Select(r => r.Id).ToList())
-            {
-                helper.RemoveProjectFromUser(ticket.Id, user);
-            }
-            if (model.SelectedUsers != null)
-            {
-                foreach (var user in model.SelectedUsers)
-                {
-                    helper.AddProjectToUser(ticket.Id, user);
-                }
-            }
-            return RedirectToAction("Index", "Home");
-        }
+        //    foreach (var user in db.Users.Select(r => r.Id).ToList())
+        //    {
+        //        helper.RemoveProjectFromUser(ticket.Id, user);
+        //    }
+        //    if (model.SelectedUser != null)
+        //    {
+        //        foreach (var user in model.SelectedUser)
+        //        {
+        //            helper.AddProjectToUser(ticket.Id, user);
+        //        }
+        //    }
+        //    return RedirectToAction("Index", "Home");
+        //}
 
         protected override void Dispose(bool disposing)
         {
