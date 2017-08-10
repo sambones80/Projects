@@ -48,6 +48,8 @@
 
             @foreach (var item in Model)
             {
+                if (item.Deleted == false)
+                {
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.Title)
@@ -82,6 +84,7 @@
                         @Html.ActionLink(linkText: "Delete", actionName: "Delete", controllerName: "Projects", routeValues: new { id = item.Id }, htmlAttributes: "")
                     </td>
                 </tr>
+                }
             }
         </table>
 
@@ -128,6 +131,8 @@
                     {
                         foreach (var ticket in item.Tickets)
                         {
+                            if (ticket.Deleted == false)
+                            { 
                             <tr>
                                 <td>
                                     @Html.DisplayFor(modelItem => ticket.Title)
@@ -166,9 +171,10 @@
                                     }
                                     @Html.ActionLink(linkText: "Edit", actionName: "Edit", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "") |
                                     @Html.ActionLink(linkText: "Details", actionName: "Details", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "") |
-                                    @Html.ActionLink(linkText: "Delete", actionName: "Delete", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "")
+                                    @*@Html.ActionLink(linkText: "Delete", actionName: "Delete", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "")*@
                                 </td>
                             </tr>
+                            }
                         }
                     }
                 }
@@ -322,7 +328,7 @@
                                 }*@
                                 @Html.ActionLink(linkText: "Edit", actionName: "Edit", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "") |
                                 @Html.ActionLink(linkText: "Details", actionName: "Details", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "") |
-                                @Html.ActionLink(linkText: "Delete", actionName: "Delete", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "")
+                                @*@Html.ActionLink(linkText: "Delete", actionName: "Delete", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "")*@
                             </td>
                         </tr>
                     }

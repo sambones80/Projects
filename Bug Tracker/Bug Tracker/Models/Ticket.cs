@@ -37,6 +37,8 @@ namespace Bug_Tracker.Models
         public virtual ApplicationUser AssignedToUser { get; set; }
         public virtual Project Project { get; set; }
 
+        public bool Deleted { get; set; }
+
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Attachment> Attachments { get; set; }
         public virtual ICollection<History> Histories { get; set; }

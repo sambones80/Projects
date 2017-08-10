@@ -17,7 +17,7 @@ namespace Bug_Tracker.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
-            return View(db.Projects.ToList());
+            return View(db.Projects.ToList().Where(p => p.Deleted == false));
         }
 
         public ActionResult About()

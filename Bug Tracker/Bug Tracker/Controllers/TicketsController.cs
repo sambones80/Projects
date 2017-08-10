@@ -102,10 +102,14 @@ namespace Bug_Tracker.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Body,Created,Updated,ProjectId,TypeId,PriorityId,StatusId,AuthorUserId,AssignedToUserId")] Ticket ticket)
+        public ActionResult Edit([Bind(Include = "Id,Title,Body,Created,Updated,ProjectId,TypeId,PriorityId,Status,StatusId,AuthorUserId,AssignedToUserId")] Ticket ticket)
         {
             if (ModelState.IsValid)
             {
+                if (ticket.StatusId == 6)
+                {
+                    ticket.Deleted = true;
+                }
                 ticket.Updated = DateTimeOffset.Now;
                 db.Entry(ticket).State = EntityState.Modified;
                 db.SaveChanges();
@@ -141,33 +145,38 @@ namespace Bug_Tracker.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Ticket ticket = db.Tickets.Find(id);
-            db.Tickets.Remove(ticket);
+            //db.Tickets.Remove(ticket);
+            ticket.Deleted = true;
             db.SaveChanges();
             return RedirectToAction("Index", "Home");
         }
 
         // GET: Tickets/Assign/5
-        [Authorize(Roles = "Superuser, Admin, Project Manager, Guest")]
-        public ActionResult Assign(int id)
-        {
-            var ticket = db.Tickets.Find(id);
-            var project = ticket.ProjectId;
-            AssignHelper helper = new AssignHelper(db);
-            var model = new AssignUsersViewModel();
+        //[Authorize(Roles = "Superuser, Admin, Project Manager, Guest")]
+        //public ActionResult Assign(int id)
+        //{
+        //    var ticket = db.Tickets.Find(id);
+        //    var project = ticket.ProjectId;
+        //    AssignHelper helper = new AssignHelper(db);
+        //    var model = new AssignUsersViewModel();
 
-            model.Ticket = ticket;
-            model.SelectedUsers = helper.ListAssignedUsers(id).Select(u => u.Id).ToArray();
-            model.Users = new SelectList(db.Users.Where(u => (u.DisplayName != "N/A" && u.DisplayName != "(Remove Assigned User)")).OrderBy(u => u.FirstName), "Id", "DisplayName", model.SelectedUsers);
+        //    model.Ticket = ticket;
+        //    model.SelectedUsers = helper.ListAssignedUsers(id).Select(u => u.Id).ToArray();
+        //    model.Users = new SelectList(db.Users.Where(u => (u.DisplayName != "N/A" && u.DisplayName != "(Remove Assigned User)")).OrderBy(u => u.FirstName), "Id", "DisplayName", model.SelectedUsers);
 
-            return View(model);
-        }
+        //    return View(model);
+        //}
 
         // POST: Tickets/Assign/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         //[HttpPost]
         //[Authorize(Roles = "Superuser, Admin, Project Manager, Guest")]
-        //public ActionResult Assign(TicketAssignUserViewModel model)
+        //public ActionResult Assign(Ticket ticket)
+        //{
+
+        //}
+
         //{
         //    var ticket = db.Tickets.Find(model.Ticket.Id);
         //    AssignHelper helper = new AssignHelper(db);

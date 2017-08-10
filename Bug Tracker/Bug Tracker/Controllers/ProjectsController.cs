@@ -106,7 +106,18 @@ namespace Bug_Tracker.Controllers
             {
                 return HttpNotFound();
             }
-            return View(project);
+            List<Ticket> tickets = db.Tickets.Where(t => t.Status.Name != "Closed" && t.ProjectId == id).ToList();
+            if (tickets.Count() > 0)
+            {
+                project.Tickets = tickets;
+                return View(project);
+            }
+            else
+            {
+                project.Deleted = true;
+                db.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         // POST: Projects/Delete/5
