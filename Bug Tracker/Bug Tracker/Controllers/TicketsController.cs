@@ -62,6 +62,8 @@ namespace Bug_Tracker.Controllers
                 ticket.AuthorUserId = userId;
                 ticket.ProjectId = projectId;
                 ticket.Created = DateTimeOffset.Now;
+                ticket.StatusId = 1;
+                ticket.PriorityId = 5;
                 db.Tickets.Add(ticket);
                 db.SaveChanges();
                 return RedirectToAction("Index", "Home");
@@ -88,7 +90,16 @@ namespace Bug_Tracker.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.AssignedToUserId = new SelectList(db.Users, "Id", "FirstName", ticket.AssignedToUserId);
+            ApplicationDbContext context = new ApplicationDbContext();
+            Project project = db.Projects.Find(ticket.ProjectId);
+            var projectUsers = context.Users.Where(u => u.Projects.Any(p => p.Title == project.Title));
+            var role = context.Roles.SingleOrDefault(u => u.Name == "Developer");
+            var usersInRole = context.Users.Where(u => u.Roles.Any(r => (r.RoleId == role.Id)));
+            var displayUsers = usersInRole.Where(u => u.Projects.Any(p => (p.Title == project.Title)));
+            var removeUser = db.Users.Where(u => (u.DisplayName != "N/A" && u.DisplayName != "(Remove Assigned User)"));
+
+            ViewBag.AssignedToUserId = new SelectList(displayUsers, "Id", "FirstName", ticket.AssignedToUserId);
+            //ViewBag.AssignedToUserId = new SelectList(db.Users, "Id", "FirstName", ticket.AssignedToUserId);
             ViewBag.AuthorUserId = new SelectList(db.Users, "Id", "FirstName", ticket.AuthorUserId);
             ViewBag.PriorityId = new SelectList(db.Priority, "Id", "Name", ticket.PriorityId);
             ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Title", ticket.ProjectId);
@@ -110,12 +121,24 @@ namespace Bug_Tracker.Controllers
                 {
                     ticket.Deleted = true;
                 }
+                if (ticket.AssignedToUserId != null && ticket.StatusId < 2)
+                {
+                    ticket.StatusId = 2;
+                }
                 ticket.Updated = DateTimeOffset.Now;
                 db.Entry(ticket).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index", "Home");
             }
-            ViewBag.AssignedToUserId = new SelectList(db.Users, "Id", "FirstName", ticket.AssignedToUserId);
+            ApplicationDbContext context = new ApplicationDbContext();
+            Project project = db.Projects.Find(ticket.ProjectId);
+            var projectUsers = context.Users.Where(u => u.Projects.Any(p => p.Title == project.Title));
+            var role = context.Roles.SingleOrDefault(u => u.Name == "Developer");
+            var usersInRole = context.Users.Where(u => u.Roles.Any(r => (r.RoleId == role.Id)));
+            var displayUsers = usersInRole.Where(u => u.Projects.Any(p => (p.Title == project.Title)));
+            var removeUser = db.Users.Where(u => (u.DisplayName != "N/A" && u.DisplayName != "(Remove Assigned User)"));
+
+            ViewBag.AssignedToUserId = new SelectList(displayUsers, "Id", "FirstName", ticket.AssignedToUserId);
             ViewBag.AuthorUserId = new SelectList(db.Users, "Id", "FirstName", ticket.AuthorUserId);
             ViewBag.PriorityId = new SelectList(db.Priority, "Id", "Name", ticket.PriorityId);
             ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Title", ticket.ProjectId);
@@ -152,7 +175,7 @@ namespace Bug_Tracker.Controllers
         }
 
         // GET: Tickets/Assign/5
-        //[Authorize(Roles = "Superuser, Admin, Project Manager, Guest")]
+        //[Authorize(Roles = "Admin, Project Manager")]
         //public ActionResult Assign(int id)
         //{
         //    var ticket = db.Tickets.Find(id);
@@ -171,7 +194,7 @@ namespace Bug_Tracker.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         //[HttpPost]
-        //[Authorize(Roles = "Superuser, Admin, Project Manager, Guest")]
+        //[Authorize(Roles = "Admin, Project Manager")]
         //public ActionResult Assign(Ticket ticket)
         //{
 

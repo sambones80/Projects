@@ -1,4 +1,5 @@
 ﻿@model Bug_Tracker.Models.ApplicationUser
+
 @{
     ViewBag.Title = "Account Management";
 }
@@ -8,10 +9,10 @@
     <h4>Update your information.</h4>
     <hr />
 
-@*<div>
+<div>
     <dl class="dl-horizontal">
         <dt>
-            Name
+            First Name
         </dt>
 
         <dd>
@@ -35,7 +36,7 @@
         </dd>
 
     </dl>
-</div>*@
+</div>
 
 @Html.ActionLink(linkText: "Change Name", actionName: "ChangeName", controllerName: "Manage", routeValues: new {  }, htmlAttributes: "") |
 @Html.ActionLink(linkText: "Change Password", actionName: "ChangePassword", controllerName: "Manage", routeValues: new {  }, htmlAttributes: "")

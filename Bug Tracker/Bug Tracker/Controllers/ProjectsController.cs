@@ -55,6 +55,10 @@ namespace Bug_Tracker.Controllers
                 authorId = AuthorId;
                 project.Created = DateTimeOffset.Now;
                 db.Projects.Add(project);
+
+                AssignHelper helper = new AssignHelper(db);
+                helper.AddProjectToUser(project.Id, authorId);
+
                 db.SaveChanges();
                 return RedirectToAction("Index", "Home");
             }
@@ -133,7 +137,7 @@ namespace Bug_Tracker.Controllers
         }
 
         // GET: Projects/Assign/5
-        [Authorize(Roles = "Superuser, Admin, Project Manager, Guest")]
+        [Authorize(Roles = "Admin, Project Manager")]
         public ActionResult Assign(int id)
         {
             var project = db.Projects.Find(id);
@@ -151,7 +155,7 @@ namespace Bug_Tracker.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [Authorize(Roles = "Superuser, Admin, Project Manager, Guest")]
+        [Authorize(Roles = "Admin, Project Manager")]
         public ActionResult Assign(AssignUsersViewModel model)
         {
             var project = db.Projects.Find(model.Project.Id);

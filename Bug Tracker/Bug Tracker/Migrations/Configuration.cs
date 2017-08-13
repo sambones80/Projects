@@ -31,10 +31,6 @@ namespace Bug_Tracker.Migrations
             //
 
             //var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-            //if (!context.Roles.Any(r => r.Name == "Superuser"))
-            //{
-            //    roleManager.Create(new IdentityRole { Name = "Superuser" });
-            //}
 
             //if (!context.Roles.Any(r => r.Name == "Admin"))
             //{
@@ -135,7 +131,7 @@ namespace Bug_Tracker.Migrations
             //}
 
             //var userIdSam = userManager.FindByEmail("sambones80@gmail.com").Id;
-            //userManager.AddToRole(userIdSam, "Superuser");
+            //userManager.AddToRole(userIdSam, "Admin");
 
             //var userIdAdmin = userManager.FindByEmail("admin@bugtracker.com").Id;
             //userManager.AddToRole(userIdAdmin, "Admin");

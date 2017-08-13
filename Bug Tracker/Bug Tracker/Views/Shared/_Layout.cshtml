@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Bugtracker</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Vendor/font-awesome-4.7.0/css/font-awesome.min.css")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
@@ -20,11 +21,29 @@
                 @Html.ActionLink("Bugtracker", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                @*<ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>*@
+                <ul class="nav navbar-nav">
+                    @if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+                    {
+                        <li>
+                            @Html.ActionLink("New Project", "Create", "Projects")
+                        </li>
+                        <li>
+                            @Html.ActionLink("View All Projects", "Index", "Projects")
+                        </li>
+                        <li>
+                            @Html.ActionLink("View All Tickets", "Index", "Tickets")
+                        </li>
+                    }
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li>
+                            @Html.ActionLink("Assign User Roles", "UserList", "Manage")
+                        </li>
+                    }
+                @*<li>@Html.ActionLink("Home", "Index", "Home")</li>
+        <li>@Html.ActionLink("About", "About", "Home")</li>
+        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+            </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>

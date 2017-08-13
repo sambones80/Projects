@@ -1,117 +1,328 @@
 ﻿@using Microsoft.AspNet.Identity
-@model IEnumerable<Bug_Tracker.Models.Project>
+@model Bug_Tracker.Models.DashboardViewModel
 
 @{
     ViewBag.Title = "Dashboard";
 }
 
-
-<h2>Dashboard</h2>
-
 @if (Request.IsAuthenticated)
 {
-    <p>
-        @if (User.IsInRole("Superuser") || User.IsInRole("Admin") || User.IsInRole("Project Manager"))
-        {
-            @Html.ActionLink("Create Project |", "Create", "Projects")
-        }
-        @if (User.IsInRole("Superuser") || User.IsInRole("Admin"))
-        {
-            @Html.ActionLink("Assign User Roles", "UserList", "Manage")
-        }
-    </p>
-
-    if (User.IsInRole("Superuser") || User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+    // Admin Quad-List w/Ticket Submission
+    if (User.IsInRole("Admin") && User.IsInRole("Submitter") || User.IsInRole("Project Manager") && User.IsInRole("Submitter"))
     {
 
-        <h3>All Projects</h3>
+        <div class="row">
+            <div class="col-md-6">
 
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Title)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Body)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Created)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Updated)
-                </th>
-                <th>
-                        @Html.DisplayNameFor(model => model.Users)
-                    </th>
-                <th></th>
-            </tr>
+                <h3>Assigned Projects</h3>
 
-            @foreach (var item in Model)
-            {
-                if (item.Deleted == false)
-                {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Body)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Created)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Updated)
-                    </td>
-                    <td>
-                        @foreach (var projectUser in item.Users)
-                        {
-                            @projectUser.DisplayName
-                            <br />
-                        }
-                    </td>
-                    <td>
-                        @Html.ActionLink(linkText: "New Ticket", actionName: "Create", controllerName: "Tickets", routeValues: new { id = item.Id }, htmlAttributes: "") |
-                        @if (User.IsInRole("Superuser") || User.IsInRole("Admin") || User.IsInRole("Project Manager"))
-                        {
-                            @Html.ActionLink(linkText: "Assign |", actionName: "Assign", controllerName: "Projects", routeValues: new { id = item.Id }, htmlAttributes: "")
-                        }
-                        @if (User.IsInRole("Superuser") || User.IsInRole("Admin") || User.IsInRole("Project Manager"))
-                        {
-                            @Html.ActionLink(linkText: "Edit |", actionName: "Edit", controllerName: "Projects", routeValues: new { id = item.Id }, htmlAttributes: "")
-                        }
-                        @Html.ActionLink(linkText: "Details", actionName: "Details", controllerName: "Projects", routeValues: new { id = item.Id }, htmlAttributes: "") |
-                        @Html.ActionLink(linkText: "Delete", actionName: "Delete", controllerName: "Projects", routeValues: new { id = item.Id }, htmlAttributes: "")
-                    </td>
-                </tr>
-                }
-            }
-        </table>
+                <table class="table">
+                    <tr>
+                        <th>
+                            Title
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Created
+                        </th>
+                        <th>
+                            Active Tickets
+                        </th>
+                        <th>
+                            Assigned Users
+                        </th>
+                        <th></th>
+                    </tr>
 
-            <h3>All Tickets</h3>
+                    @foreach (var item in Model.RelevantProjects.OrderBy(p => p.Title))
+                    {
+                        if (item.Deleted == false)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Title)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Body)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Created)
+                                </td>
+                                <td>
+                                    @foreach (var tickets in item.Tickets)
+                                    {
+                                        @tickets.Title
+                                        <br />
+                                    }
+                                </td>
+                                <td>
+                                    @foreach (var projectUser in item.Users)
+                                    {
+                                        @projectUser.DisplayName
+                                        <br />
+                                    }
+                                </td>
+                                <td>
+                                    <div class="btn-group-vertical">
+                                        <a href='@Url.Action("Create", "Tickets", new { id = item.Id })' class="btn btn-sm btn-success"><i class="fa fa-bug"></i></a>
+                                        <a href='@Url.Action("Assign", "Projects", new { id = item.Id })' class="btn btn-sm btn-primary"><i class="fa fa-user"></i></a>
+                                        <a href='@Url.Action("Edit", "Projects", new { id = item.Id })' class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
+                                        <a href='@Url.Action("Details", "Projects", new { id = item.Id })' class="btn btn-sm btn-info"><i class="fa fa-info"></i></a>
+                                        <a href='@Url.Action("Delete", "Projects", new { id = item.Id })' class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </table>
+            </div>
+
+            <div class="col-md-6">
+                <h3>Unassigned Projects</h3>
+
+                <table class="table">
+                    <tr>
+                        <th>
+                            Title
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Created
+                        </th>
+                        <th>
+                            Active Tickets
+                        </th>
+                        <th>
+                            Assigned Users
+                        </th>
+                        <th></th>
+                    </tr>
+                    @foreach (var item in Model.IrrelevantProjects)
+                    {
+                        if (item.Deleted == false)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Title)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Body)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Created)
+                                </td>
+                                <td>
+                                    @foreach (var tickets in item.Tickets)
+                                    {
+                                        @tickets.Title
+                                        <br />
+                                    }
+                                </td>
+                                <td>
+                                    @foreach (var projectUser in item.Users)
+                                    {
+                                        @projectUser.DisplayName
+                                        <br />
+                                    }
+                                </td>
+                                <td>
+                                    <div class="btn-group-vertical">
+                                        <a href='@Url.Action("Create", "Tickets", new { id = item.Id })' class="btn btn-sm btn-success"><i class="fa fa-bug"></i></a>
+                                        <a href='@Url.Action("Assign", "Projects", new { id = item.Id })' class="btn btn-sm btn-primary"><i class="fa fa-user"></i></a>
+                                        <a href='@Url.Action("Edit", "Projects", new { id = item.Id })' class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
+                                        <a href='@Url.Action("Details", "Projects", new { id = item.Id })' class="btn btn-sm btn-info"><i class="fa fa-info"></i></a>
+                                        <a href='@Url.Action("Delete", "Projects", new { id = item.Id })' class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Assigned Tickets</h3>
+
+                <table class="table">
+                    <tr>
+                        <th>
+                            Title
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Created
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            Priority
+                        </th>
+                        <th>
+                            Project
+                        </th>
+                        <th>
+                            Assigned to
+                        </th>
+                        @*<th></th>*@
+                    </tr>
+
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model.RelevantTickets.OrderBy(t => t.Title))
+                        {
+                            //foreach (var ticket in item.Tickets)
+                            //{
+                            if (item.Deleted == false)
+                            {
+                                <tr>
+                                    <td>
+                                        @*@if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+                                            {*@
+                                        <a href="@Url.Action("Edit", "Tickets", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Title)</a>
+                                        @*}
+                                            else
+                                            {
+                                            @Html.DisplayFor(modelItem => ticket.Title)
+                                            }*@
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Body)
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Edit", "Tickets", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Created)</a>
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Edit", "Tickets", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Status.Name)</a>
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Edit", "Tickets", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Priority.Name)</a>
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Edit", "Tickets", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Project.Title)</a>
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Edit", "Tickets", new { id = item.Id })">@Html.DisplayFor(modelItem => item.AssignedToUser.DisplayName)</a>
+                                    </td>
+                                    @*<td>
+                                            @if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+                                        {
+                                                @Html.ActionLink(linkText: "Assign |", actionName: "Assign", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "")
+                                            }
+                                            @Html.ActionLink(linkText: "Edit", actionName: "Edit", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "") |
+                                            @Html.ActionLink(linkText: "Details", actionName: "Details", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "") |*@
+                                    @*@Html.ActionLink(linkText: "Delete", actionName: "Delete", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "")*@
+                                    @*</td>*@
+                                </tr>
+                            }
+                            //}
+                        }
+                    }
+                </table>
+                @*}*@
+            </div>
+
+            <div class="col-md-6">
+                <h3>Unassigned Tickets</h3>
+
+                <table class="table">
+
+                    <tr>
+                        <th>
+                            Title
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Created
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            Priority
+                        </th>
+                        <th>
+                            Project
+                        </th>
+                        <th>
+                            Assigned to
+                        </th>
+                        @*<th></th>*@
+                    </tr>
+
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model.IrrelevantTickets)
+                        {
+                            //foreach (var ticket in item.Tickets)
+                            //{
+                            if (item.Deleted == false)
+                            {
+                                <tr>
+                                    <td>
+                                        <a href="@Url.Action("Edit", "Tickets", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Title)</a>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Body)
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Edit", "Tickets", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Created)</a>
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Edit", "Tickets", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Status.Name)</a>
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Edit", "Tickets", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Priority.Name)</a>
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Edit", "Tickets", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Project.Title)</a>
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Edit", "Tickets", new { id = item.Id })">@Html.DisplayFor(modelItem => item.AssignedToUser.FirstName)</a>
+                                    </td>
+                                    @*<td>
+                                        @if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+                                        {
+                                            @Html.ActionLink(linkText: "Assign |", actionName: "Assign", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "")
+                                        }
+                                        @Html.ActionLink(linkText: "Edit", actionName: "Edit", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "") |
+                                        @Html.ActionLink(linkText: "Details", actionName: "Details", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "") |*@
+                                    @*@Html.ActionLink(linkText: "Delete", actionName: "Delete", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "")*@
+                                    @*</td>*@
+                                </tr>
+                            }
+                            //}
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+    }
+    // End Admin Quad-List ^^^^^^^^^^^^^^^
+
+    // Admin Quad-List
+    if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+    {
+
+    <div class="row">
+        <div class="col-md-6">
+
+            <h3>Assigned Projects</h3>
 
             <table class="table">
                 <tr>
                     <th>
-                        Ticket
-                    </th>
-                    <th>
-                        Project
-                    </th>
-                    <th>
-                        Created by
-                    </th>
-                    <th>
-                        Assigned to
-                    </th>
-                    <th>
-                        Type
-                    </th>
-                    <th>
-                        Priority
-                    </th>
-                    <th>
-                        Status
+                        Title
                     </th>
                     <th>
                         Description
@@ -120,220 +331,580 @@
                         Created
                     </th>
                     <th>
-                        Updated
+                        Active Tickets
+                    </th>
+                    <th>
+                        Assigned Users
                     </th>
                     <th></th>
                 </tr>
 
-                @if (Model != null)
+                @foreach (var item in Model.RelevantProjects.OrderBy(p => p.Title))
                 {
-                    foreach (var item in Model)
-                    {
-                        foreach (var ticket in item.Tickets)
-                        {
-                            if (ticket.Deleted == false)
-                            { 
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => ticket.Title)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => ticket.Project.Title)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => ticket.AuthorUser.FirstName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => ticket.AssignedToUser.FirstName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => ticket.Type.Name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => ticket.Priority.Name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => ticket.Status.Name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => ticket.Body)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => ticket.Created)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => ticket.Updated)
-                                </td>
-                                <td>
-                                    @if (User.IsInRole("Superuser") || User.IsInRole("Admin") || User.IsInRole("Project Manager"))
-                                    {
-                                        @Html.ActionLink(linkText: "Assign |", actionName: "Assign", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "")
-                                    }
-                                    @Html.ActionLink(linkText: "Edit", actionName: "Edit", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "") |
-                                    @Html.ActionLink(linkText: "Details", actionName: "Details", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "") |
-                                    @*@Html.ActionLink(linkText: "Delete", actionName: "Delete", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "")*@
-                                </td>
-                            </tr>
-                            }
-                        }
-                    }
-                }
-            </table>
-    }
-
-    <h3>Assigned Projects</h3>
-
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Body)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Created)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Updated)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Users)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            if (User == item.Users)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Body)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Created)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Updated)
-                    </td>
-                    <td>
-                        @foreach (var projectUser in item.Users)
-                        {
-                            @projectUser.DisplayName
-                            <br />
-                        }
-                    </td>
-                    <td>
-                        @Html.ActionLink(linkText: "New Ticket", actionName: "Create", controllerName: "Tickets", routeValues: new { id = item.Id }, htmlAttributes: "") |
-                        @if (User.IsInRole("Superuser") || User.IsInRole("Admin") || User.IsInRole("Project Manager"))
-                        {
-                            @Html.ActionLink(linkText: "Assign |", actionName: "Assign", controllerName: "Projects", routeValues: new { id = item.Id }, htmlAttributes: "")
-                        }
-                        @if (User.IsInRole("Superuser") || User.IsInRole("Admin") || User.IsInRole("Project Manager"))
-                        {
-                            @Html.ActionLink(linkText: "Edit |", actionName: "Edit", controllerName: "Projects", routeValues: new { id = item.Id }, htmlAttributes: "")
-                        }
-                        @Html.ActionLink(linkText: "Details", actionName: "Details", controllerName: "Projects", routeValues: new { id = item.Id }, htmlAttributes: "") |
-                        @Html.ActionLink(linkText: "Delete", actionName: "Delete", controllerName: "Projects", routeValues: new { id = item.Id }, htmlAttributes: "")
-                    </td>
-                </tr>
-            }
-        }
-    </table>
-
-    <h3>Assigned Tickets</h3>
-
-    <table class="table">
-        <tr>
-            <th>
-                Ticket
-            </th>
-            <th>
-                Project
-            </th>
-            <th>
-                Created by
-            </th>
-            <th>
-                Assigned to
-            </th>
-            <th>
-                Type
-            </th>
-            <th>
-                Priority
-            </th>
-            <th>
-                Status
-            </th>
-            <th>
-                Description
-            </th>
-            <th>
-                Created
-            </th>
-            <th>
-                Updated
-            </th>
-            <th></th>
-        </tr>
-
-        @if (Model != null)
-        {
-            foreach (var item in Model)
-            {
-                foreach (var ticket in item.Tickets)
-                {
-                    if (User == ticket.AssignedToUser)
+                    if (item.Deleted == false)
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => ticket.Title)
+                                @Html.DisplayFor(modelItem => item.Title)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => ticket.Project.Title)
+                                @Html.DisplayFor(modelItem => item.Body)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => ticket.AuthorUser.FirstName)
+                                @Html.DisplayFor(modelItem => item.Created)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => ticket.AssignedToUser.FirstName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => ticket.Type.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => ticket.Priority.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => ticket.Status.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => ticket.Body)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => ticket.Created)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => ticket.Updated)
-                            </td>
-                            <td>
-                                @*@if (User.IsInRole("Superuser") || User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+                                @foreach (var tickets in item.Tickets)
                                 {
-                                    @Html.ActionLink(linkText: "Assign |", actionName: "Assign", controllerName: "Tickets", routeValues: new { id = item.Id }, htmlAttributes: "")
-                                }*@
-                                @Html.ActionLink(linkText: "Edit", actionName: "Edit", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "") |
-                                @Html.ActionLink(linkText: "Details", actionName: "Details", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "") |
-                                @*@Html.ActionLink(linkText: "Delete", actionName: "Delete", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "")*@
+                                    @tickets.Title
+                                    <br />
+                                }
+                            </td>
+                            <td>
+                                @foreach (var projectUser in item.Users)
+                                {
+                                    @projectUser.DisplayName
+                                    <br />
+                                }
+                            </td>
+                            <td>
+                                <div class="btn-group-vertical">
+                                    @*@if (User.IsInRole("Admin") && User.IsInRole("Submitter") || User.IsInRole("Project Manager") && User.IsInRole("Submitter"))
+                                    {*@
+                                    @*<a href='@Url.Action("Create", "Tickets", new { id = item.Id })' class="btn btn-sm btn-success"><i class="fa fa-bug"></i></a>*@
+                                    @*}*@
+                                    <a href='@Url.Action("Assign", "Projects", new { id = item.Id })' class="btn btn-sm btn-primary"><i class="fa fa-user"></i></a>
+                                    <a href='@Url.Action("Edit", "Projects", new { id = item.Id })' class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
+                                    <a href='@Url.Action("Details", "Projects", new { id = item.Id })' class="btn btn-sm btn-info"><i class="fa fa-info"></i></a>
+                                    <a href='@Url.Action("Delete", "Projects", new { id = item.Id })' class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                                </div>
                             </td>
                         </tr>
                     }
                 }
+            </table>
+        </div>
+
+        <div class="col-md-6">
+            <h3>Unassigned Projects</h3>
+
+            <table class="table">
+                <tr>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Created
+                    </th>
+                    <th>
+                        Active Tickets
+                    </th>
+                    <th>
+                        Assigned Users
+                    </th>
+                    <th></th>
+                </tr>
+                @foreach (var item in Model.IrrelevantProjects)
+                                    {
+                                        if (item.Deleted == false)
+                                        {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Body)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Created)
+                            </td>
+                            <td>
+                                @foreach (var tickets in item.Tickets)
+                                                    {
+                                                @tickets.Title
+                                                <br />
+                                }
+                            </td>
+                            <td>
+                                @foreach (var projectUser in item.Users)
+                                                    {
+                                                @projectUser.DisplayName
+                                                <br />
+                                }
+                            </td>
+                            <td>
+                                <div class="btn-group-vertical">
+                                    @*@if (User.IsInRole("Admin") && User.IsInRole("Submitter") || User.IsInRole("Project Manager") && User.IsInRole("Submitter"))
+                                    {*@
+                                        @*<a href='@Url.Action("Create", "Tickets", new { id = item.Id })' class="btn btn-sm btn-success"><i class="fa fa-bug"></i></a>*@
+                                    @*}*@
+                                    <a href='@Url.Action("Assign", "Projects", new { id = item.Id })' class="btn btn-sm btn-primary"><i class="fa fa-user"></i></a>
+                                    <a href='@Url.Action("Edit", "Projects", new { id = item.Id })' class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
+                                    <a href='@Url.Action("Details", "Projects", new { id = item.Id })' class="btn btn-sm btn-info"><i class="fa fa-info"></i></a>
+                                    <a href='@Url.Action("Delete", "Projects", new { id = item.Id })' class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Assigned Tickets</h3>
+
+            <table class="table">
+                <tr>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Created
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Priority
+                    </th>
+                    <th>
+                        Project
+                    </th>
+                    <th>
+                        Assigned to
+                    </th>
+                    @*<th></th>*@
+                </tr>
+
+                @if (Model != null)
+                {
+                    foreach (var item in Model.RelevantTickets.OrderBy(t => t.Title))
+                    {
+                        //foreach (var ticket in item.Tickets)
+                        //{
+                        if (item.Deleted == false)
+                        {
+                            <tr>
+                                <td>
+                                    @*@if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+                                    {*@
+                                    <a href="@Url.Action("Edit", "Tickets", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Title)</a>
+                                    @*}
+                                    else
+                                    {
+                                    @Html.DisplayFor(modelItem => ticket.Title)
+                                    }*@
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Body)
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Edit", "Tickets", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Created)</a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Edit", "Tickets", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Status.Name)</a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Edit", "Tickets", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Priority.Name)</a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Edit", "Tickets", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Project.Title)</a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Edit", "Tickets", new { id = item.Id })">@Html.DisplayFor(modelItem => item.AssignedToUser.DisplayName)</a>
+                                </td>
+                                @*<td>
+                                    @if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+                                {
+                                        @Html.ActionLink(linkText: "Assign |", actionName: "Assign", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "")
+                                    }
+                                    @Html.ActionLink(linkText: "Edit", actionName: "Edit", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "") |
+                                    @Html.ActionLink(linkText: "Details", actionName: "Details", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "") |*@
+                                @*@Html.ActionLink(linkText: "Delete", actionName: "Delete", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "")*@
+                                @*</td>*@
+                            </tr>
+                        }
+                        //}
+                    }
+                }
+            </table>
+            @*}*@
+        </div>
+
+        <div class="col-md-6">
+            <h3>Unassigned Tickets</h3>
+
+            <table class="table">
+
+                <tr>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Created
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Priority
+                    </th>
+                    <th>
+                        Project
+                    </th>
+                    <th>
+                        Assigned to
+                    </th>
+                    @*<th></th>*@
+                </tr>
+
+                @if (Model != null)
+                {
+                    foreach (var item in Model.IrrelevantTickets)
+                    {
+                        //foreach (var ticket in item.Tickets)
+                        //{
+                        if (item.Deleted == false)
+                        {
+                            <tr>
+                                <td>
+                                    <a href="@Url.Action("Edit", "Tickets", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Title)</a>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Body)
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Edit", "Tickets", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Created)</a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Edit", "Tickets", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Status.Name)</a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Edit", "Tickets", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Priority.Name)</a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Edit", "Tickets", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Project.Title)</a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Edit", "Tickets", new { id = item.Id })">@Html.DisplayFor(modelItem => item.AssignedToUser.FirstName)</a>
+                                </td>
+                                @*<td>
+                                @if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+                                {
+                                    @Html.ActionLink(linkText: "Assign |", actionName: "Assign", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "")
+                                }
+                                @Html.ActionLink(linkText: "Edit", actionName: "Edit", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "") |
+                                @Html.ActionLink(linkText: "Details", actionName: "Details", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "") |*@
+                                @*@Html.ActionLink(linkText: "Delete", actionName: "Delete", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "")*@
+                                @*</td>*@
+                            </tr>
+                        }
+                        //}
+                    }
+                }
+            </table>
+        </div>
+    </div> 
+    }
+    // End Admin Quad-List ^^^^^^^^^^^^^^^
+
+    // Submitter 2 Lists
+    if (User.IsInRole("Submitter"))
+    {
+    <h3>Assigned Projects</h3>
+
+            <table class="table">
+                <tr>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Created
+                    </th>
+                    <th>
+                        Active Tickets
+                    </th>
+                    <th>
+                        Assigned Users
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.RelevantProjects.OrderBy(p => p.Title))
+                {
+                    if (item.Deleted == false)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Body)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Created)
+                            </td>
+                            <td>
+                                @foreach (var tickets in item.Tickets)
+                                {
+                                    @tickets.Title
+                                    <br />
+                                }
+                            </td>
+                            <td>
+                                @foreach (var projectUser in item.Users)
+                                {
+                                    @projectUser.DisplayName
+                                    <br />
+                                }
+                            </td>
+                            <td>
+                                @Html.ActionLink(linkText: "New Ticket", actionName: "Create", controllerName: "Tickets", routeValues: new { id = item.Id }, htmlAttributes: "") |
+                                @Html.ActionLink(linkText: "Details", actionName: "Details", controllerName: "Projects", routeValues: new { id = item.Id }, htmlAttributes: "")
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+
+            <h3>Assigned Tickets</h3>
+
+            <table class="table">
+                <tr>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Created
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Priority
+                    </th>
+                    <th>
+                        Project
+                    </th>
+                    <th>
+                        Assigned to
+                    </th>
+                    @*<th></th>*@
+                </tr>
+
+                @if (Model != null)
+                {
+                    foreach (var item in Model.RelevantTickets.OrderBy(t => t.Title))
+                    {
+                        //foreach (var ticket in item.Tickets)
+                        //{
+                        if (item.Deleted == false)
+                        {
+                            <tr>
+                                <td>
+                                    @*@if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+                                        {*@
+                                    <a href="@Url.Action("Edit", "Tickets", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Title)</a>
+                                    @*}
+                                        else
+                                        {
+                                        @Html.DisplayFor(modelItem => ticket.Title)
+                                        }*@
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Body)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Created)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Status.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Priority.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Project.Title)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AssignedToUser.DisplayName)
+                                </td>
+                                @*<td>
+                                        @if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+                                    {
+                                            @Html.ActionLink(linkText: "Assign |", actionName: "Assign", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "")
+                                        }
+                                        @Html.ActionLink(linkText: "Edit", actionName: "Edit", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "") |
+                                        @Html.ActionLink(linkText: "Details", actionName: "Details", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "") |*@
+                                @*@Html.ActionLink(linkText: "Delete", actionName: "Delete", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "")*@
+                                @*</td>*@
+                            </tr>
+                        }
+                        //}
+                    }
+                }
+            </table>
+    }
+    // End Submitter 2 Lists ^^^^^^^^^^^^^
+
+    // Developer 2 Lists
+    if (User.IsInRole("Developer"))
+    {
+        <h3>Assigned Projects</h3>
+
+        <table class="table">
+            <tr>
+                <th>
+                    Title
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Created
+                </th>
+                <th>
+                    Active Tickets
+                </th>
+                <th>
+                    Assigned Users
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.RelevantProjects.OrderBy(p => p.Title))
+            {
+                if (item.Deleted == false)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Body)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Created)
+                        </td>
+                        <td>
+                            @foreach (var tickets in item.Tickets)
+                            {
+                                @tickets.Title
+                                <br />
+                            }
+                        </td>
+                        <td>
+                            @foreach (var projectUser in item.Users)
+                            {
+                                @projectUser.DisplayName
+                                <br />
+                            }
+                        </td>
+                        <td>
+                            @Html.ActionLink(linkText: "Details", actionName: "Details", controllerName: "Projects", routeValues: new { id = item.Id }, htmlAttributes: "")
+                        </td>
+                    </tr>
+                }
             }
-        }
-    </table>
+        </table>
+
+            <h3>Assigned Tickets</h3>
+
+            <table class="table">
+                <tr>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Created
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Priority
+                    </th>
+                    <th>
+                        Project
+                    </th>
+                    <th>
+                        Assigned to
+                    </th>
+                    @*<th></th>*@
+                </tr>
+
+                @if (Model != null)
+                {
+                    foreach (var item in Model.RelevantTickets.OrderBy(t => t.Title))
+                    {
+                        //foreach (var ticket in item.Tickets)
+                        //{
+                        if (item.Deleted == false)
+                        {
+                            <tr>
+                                <td>
+                                    @*@if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+                                        {*@
+                                    <a href="@Url.Action("Edit", "Tickets", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Title)</a>
+                                    @*}
+                                        else
+                                        {
+                                        @Html.DisplayFor(modelItem => ticket.Title)
+                                        }*@
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Body)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Created)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Status.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Priority.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Project.Title)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AssignedToUser.DisplayName)
+                                </td>
+                                @*<td>
+                                        @if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+                                    {
+                                            @Html.ActionLink(linkText: "Assign |", actionName: "Assign", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "")
+                                        }
+                                        @Html.ActionLink(linkText: "Edit", actionName: "Edit", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "") |
+                                        @Html.ActionLink(linkText: "Details", actionName: "Details", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "") |*@
+                                @*@Html.ActionLink(linkText: "Delete", actionName: "Delete", controllerName: "Tickets", routeValues: new { id = ticket.Id }, htmlAttributes: "")*@
+                                @*</td>*@
+                            </tr>
+                        }
+                        //}
+                    }
+                }
+            </table>
+    }
+    // End Developer 2 Lists ^^^^^^^^^^^^^
 }

@@ -422,7 +422,7 @@ namespace Bug_Tracker.Controllers
             base.Dispose(disposing);
         }
         // GET: /Manage/UserList
-        [Authorize(Roles = "Admin, Superuser, Guest")]
+        [Authorize(Roles = "Admin")]
         public ActionResult UserList()
         {
             List<UserListViewModel> users = new List<UserListViewModel>();
@@ -442,7 +442,7 @@ namespace Bug_Tracker.Controllers
         }
 
         // GET: /Manage/UserRoles
-        [Authorize(Roles = "Admin, Superuser, Guest")]
+        [Authorize(Roles = "Admin")]
         public ActionResult UserRoles(string id)
         {
             var user = db.Users.Find(id);
@@ -463,7 +463,7 @@ namespace Bug_Tracker.Controllers
 
         // POST: /Manage/UserRoles
         [HttpPost]
-        [Authorize(Roles = "Admin, Superuser, Guest")]
+        [Authorize(Roles = "Admin")]
         public ActionResult UserRoles(AdminUpdateRolesViewModel model)
         {
             if (ModelState.IsValid)
