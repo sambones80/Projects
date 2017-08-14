@@ -62,7 +62,7 @@ namespace Bug_Tracker.Controllers
                         foreach (var ticket in project.Tickets)
                         {
                             if ((User.IsInRole("Admin") && ticket.StatusId != 1) || (User.IsInRole("Project Manager") && ticket.StatusId != 1 && userId == ticket.AuthorUserId))
-                                {
+                            {
                                 relevantTickets.Add(ticket);
                             }
                             else if ((User.IsInRole("Admin") && ticket.StatusId == 1) || (User.IsInRole("Project Manager") && ticket.StatusId == 1 && userId == ticket.AuthorUserId))

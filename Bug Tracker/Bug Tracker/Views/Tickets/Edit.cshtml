@@ -70,7 +70,7 @@
         </div>
 
         @{
-            if (User.IsInRole("Admin") || User.IsInRole("Project Manager") || User.IsInRole("Developer"))
+            if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
             {
                 <div class="form-group">
                     <label class="control-label col-md-2" for="TypeId">Priority</label>
