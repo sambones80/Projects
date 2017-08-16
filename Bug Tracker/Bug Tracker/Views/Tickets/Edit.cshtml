@@ -1,211 +1,303 @@
-﻿@model Bug_Tracker.Models.Ticket
+﻿@using Microsoft.AspNet.Identity
+@model Bug_Tracker.Models.Ticket
 
 @{
     ViewBag.Title = "Ticket Details";
 }
 
-<h2>@Html.DisplayFor(model => model.Title)</h2>
-
-<h4>@Html.DisplayFor(model => model.Created)</h4>
-
-@using (Html.BeginForm())
+@if (Request.IsAuthenticated)
 {
-    @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
-        @Html.HiddenFor(model => model.ProjectId)
-        @*@Html.HiddenFor(model => model.StatusId)*@
-        @Html.HiddenFor(model => model.AuthorUserId)
-        @*@Html.HiddenFor(model => model.AssignedToUserId)*@
+    <h2>@Html.DisplayFor(model => model.Title)</h2>
 
-        <div class="form-group">
-            <label class="control-label col-md-2" for="TypeId">Title</label>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    <h4>@Html.DisplayFor(model => model.Created)</h4>
 
-        <div class="form-group">
-            <label class="control-label col-md-2" for="TypeId">Description</label>
-            <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Body, 8, 50, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-        <div class="form-group">
-            @Html.HiddenFor(model => model.Created, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.HiddenFor(model => model.Created, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Created, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.ProjectId)
+            @Html.HiddenFor(model => model.Created)
+            @*@Html.HiddenFor(model => model.StatusId)*@
+            @Html.HiddenFor(model => model.AuthorUserId)
+            @*@Html.HiddenFor(model => model.AssignedToUserId)*@
 
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.Updated, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="form-group">
+                <label class="control-label col-md-2" for="TypeId">Title</label>
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Updated, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Updated, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2" for="TypeId">Description</label>
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Body, 8, 50, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @*<div class="form-group">
+                @Html.HiddenFor(model => model.Created, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.HiddenFor(model => model.Created, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Created, "", new { @class = "text-danger" })
                 </div>
             </div>*@
 
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.ProjectId, "ProjectId", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("ProjectId", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.ProjectId, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.Updated, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Updated, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Updated, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
 
-        <div class="form-group">
-            <label class="control-label col-md-2" for="TypeId">Type</label>
-            <div class="col-md-10">
-                @Html.DropDownList("TypeId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.TypeId, "", new { @class = "text-danger" })
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.ProjectId, "ProjectId", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("ProjectId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ProjectId, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+            <div class="form-group">
+                <label class="control-label col-md-2" for="TypeId">Type</label>
+                <div class="col-md-10">
+                    @Html.DropDownList("TypeId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.TypeId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @{
+                if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+                {
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="TypeId">Priority</label>
+                        <div class="col-md-10">
+                            @Html.DropDownList("PriorityId", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.PriorityId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="TypeId">Priority</label>
+                        <div class="col-md-10">
+                            @Html.HiddenFor(model => model.PriorityId)
+                            <p>@Html.DisplayFor(model => model.Priority.Name)</p>
+                        </div>
+                    </div>
+                }
+            }
+
+            @{
+                if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+                {
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="Status">Status</label>
+                        <div class="col-md-10">
+                            @Html.DropDownList("StatusId", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.StatusId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="TypeId">Status</label>
+                        <div class="col-md-10">
+                            @Html.HiddenFor(model => model.StatusId)
+                            <p>@Html.DisplayFor(model => model.Status.Name)</p>
+                        </div>
+                    </div>
+                }
+            }
+
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.AuthorUserId, "AuthorUserId", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("AuthorUserId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.AuthorUserId, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+            @{
+                if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+                {
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="TypeId">Assigned to</label>
+                        <div class="col-md-10">
+                            @Html.DropDownList("AssignedToUserId", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.AssignedToUserId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="TypeId">Assigned to</label>
+                        <div class="col-md-10">
+                            @Html.HiddenFor(model => model.AssignedToUserId)
+                            <p>@Html.DisplayFor(model => model.AssignedToUser.DisplayName)</p>
+                        </div>
+                    </div>
+                }
+            }
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+                }
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-md-2" for="TypeId">Attachments</label>
+                @foreach (var attachment in Model.Attachments.OrderBy(c => c.Created))
+                {
+                    <div class="col-md-10 col-md-offset-2">
+                        <a href="@attachment.FileUrl">@attachment.FileDisplayName</a>
+                        <p>
+                            @if (attachment.AuthorUser.DisplayName != null)
+                            {
+                                @attachment.AuthorUser.DisplayName
+                            }
+                            else
+                            {
+                                @attachment.AuthorUser.Email
+                            }
+                        </p>
+                        <p>
+                            @Html.DisplayFor(modelAttachment => attachment.Created)
+                        </p>
+                        <p>
+                            @attachment.FileDisplayName
+                        </p>
+                        <p>
+                            @attachment.Body
+                        </p>
+                        @{
+                            string sameUser = User.Identity.GetUserId();
+                            if (User.IsInRole("Admin") || User.IsInRole("Moderator") || sameUser == attachment.AuthorUser.Id)
+                            {
+                                <div>
+                                    <ul class="list-inline">
+                                        <li>
+                                            <a href='@Url.Action("Edit", "Attachments", new { attachment.Id })' class="btn btn-default"><i class="fa fa-pencil"></i> Edit</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            }
+                        }
+                        <div class="col-md-3">
+                            <hr />
+                        </div>
+                    </div>
+                            }
             </div>
         </div>
 
-        @{
-            if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
-            {
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="TypeId">Priority</label>
-                    <div class="col-md-10">
-                        @Html.DropDownList("PriorityId", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.PriorityId, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            }
-            else
-            {
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="TypeId">Priority</label>
-                    <div class="col-md-10">
-                        @Html.HiddenFor(model => model.PriorityId)
-                        <p>@Html.DisplayFor(model => model.Priority.Name)</p>
-                    </div>
-                </div>
-            }
-        }
-
-        @{
-            if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
-            {
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="Status">Status</label>
-                    <div class="col-md-10">
-                        @Html.DropDownList("StatusId", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.StatusId, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            }
-            else
-            {
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="TypeId">Status</label>
-                    <div class="col-md-10">
-                        @Html.HiddenFor(model => model.StatusId)
-                        <p>@Html.DisplayFor(model => model.Status.Name)</p>
-                    </div>
-                </div>
-            }
-        }
-
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.AuthorUserId, "AuthorUserId", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("AuthorUserId", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.AuthorUserId, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
-
-        @{
-            if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
-            {
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="TypeId">Assigned to</label>
-                    <div class="col-md-10">
-                        @Html.DropDownList("AssignedToUserId", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.AssignedToUserId, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            }
-            else
-            {
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="TypeId">Assigned to</label>
-                    <div class="col-md-10">
-                        @Html.HiddenFor(model => model.AssignedToUserId)
-                        <p>@Html.DisplayFor(model => model.AssignedToUser.DisplayName)</p>
-                    </div>
-                </div>
-            }
-        }
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-            }
-
-<div class="form-horizontal">
-    <div class="form-group">
-        <label class="control-label col-md-2" for="TypeId">Comments</label>
-        @foreach (var comment in Model.Comments.OrderBy(c => c.Created))
-        {
+        <div class="row">
             <div class="col-md-10 col-md-offset-2">
-                <p>
-                    @if (comment.AuthorUser.DisplayName != null)
+                @if (Request.IsAuthenticated)
+                {
+                    using (Html.BeginForm("Create", "Attachments", FormMethod.Post, new { enctype = "Multipart/form-data" }))
                     {
-                        @comment.AuthorUser.DisplayName
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="TicketId" value="@Model.Id" />
+                        @*<input type="hidden" name="AuthorUserId" value="@Model.Id" />*@
+                        <div class="form-group">
+                            <input class="form-control" id="file" name="file" type="file" />
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" id="FileDisplayName" name="FileDisplayName"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" rows="3" id="body" name="body" placeholder="Describe your file"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-default"><i class="fa fa-file"></i> Attach file</button>
+                        </div>
                     }
-                    else
+                }
+            </div>
+        </div>
+
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-md-2" for="TypeId">Comments</label>
+                @foreach (var comment in Model.Comments.OrderBy(c => c.Created))
+                {
+                    <div class="col-md-10 col-md-offset-2">
+                        <p>
+                            @if (comment.AuthorUser.DisplayName != null)
+                            {
+                                @comment.AuthorUser.DisplayName
+                            }
+                            else
+                            {
+                                @comment.AuthorUser.Email
+                            }
+                        </p>
+                        <p>
+                            @Html.DisplayFor(modelComment => comment.Created)
+                        </p>
+                        <p>
+                            @comment.Body
+                        </p>
+                        @{
+                            string sameUser = User.Identity.GetUserId();
+                            if (User.IsInRole("Admin") || User.IsInRole("Moderator") || sameUser == comment.AuthorUser.Id)
+                            {
+                                <div>
+                                    <ul class="list-inline">
+                                        <li>
+                                            <a href='@Url.Action("Edit", "Comments", new { comment.Id })' class="btn btn-default"><i class="fa fa-pencil"></i> Edit</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            }
+                        }
+                        <div class="col-md-3">
+                            <hr />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-10 col-md-offset-2">
+                @if (Request.IsAuthenticated)
+                {
+                    using (Html.BeginForm("Create", "Comments", FormMethod.Post))
                     {
-                        @comment.AuthorUser.Email
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="TicketId" value="@Model.Id" />
+                        <div class="form-group">
+                            <label for="comment-new_textarea" class="sr-only">Enter your comment</label>
+
+                            <textarea class="form-control" rows="3" id="body" name="body" placeholder="Post a comment"></textarea>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-default"><i class="fa fa-comment"></i> Send Comment</button>
+                        </div>
                     }
-                </p>
-                <p>
-                    @Html.DisplayFor(modelComment => comment.Created)
-                </p>
-                <p>
-                    @comment.Body
-                </p>
+                }
             </div>
-            <div class="col-md-3 col-md-offset-2">
-                <hr />
-            </div>
-        }
-    </div>
-</div>
+        </div>
 
-
-<div class="row">
-    <div class="col-md-10 col-md-offset-2">
-        @if (Request.IsAuthenticated)
-        {
-            using (Html.BeginForm("Create", "Comments", FormMethod.Post))
-            {
-                @Html.AntiForgeryToken()
-                <input type="hidden" name="TicketId" value="@Model.Id" />
-                <div class="form-group">
-                    <label for="comment-new_textarea" class="sr-only">Enter your comment</label>
-
-                    <textarea class="form-control" rows="3" id="body" name="body" placeholder="Post a comment"></textarea>
-                </div>
-                <div>
-                    <button type="submit" class="btn btn-default"><i class="fa fa-comment"></i> Send Comment</button>
-                </div>
-            }
-        }
-    </div>
-</div>
-
-<div>
-    @Html.ActionLink("Back to List", "Index", "Home")
-</div>
+        <div>
+            @Html.ActionLink("Back to List", "Index", "Home")
+        </div>
+}

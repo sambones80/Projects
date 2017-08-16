@@ -98,7 +98,11 @@ namespace Bug_Tracker.Controllers
             {
                 db.Entry(comment).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                var thisTicket = db.Tickets.Find(comment.TicketId);
+                if (thisTicket != null)
+                {
+                    return RedirectToAction("Edit", "Tickets", new { id = thisTicket.Id });
+                }
             }
             ViewBag.AuthorUserId = new SelectList(db.Users, "Id", "FirstName", comment.AuthorUserId);
             ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title", comment.TicketId);

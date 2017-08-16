@@ -7,9 +7,15 @@
 
     <ul class="nav navbar-nav navbar-right">
         <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "ManageAccount", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
+            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "ManageAccount", "Account", routeValues: null, htmlAttributes: new { title = "Manage Account" })
         </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        @*<li>
+            <a href="@Url.Action("ManageAccount", "Account")"><i class="fa fa-gear fa-fw"></i> Account Settings</a>
+        </li>*@
+        <li class="divider"></li>
+        <li>
+            <a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+        </li>
     </ul>
     }
 }

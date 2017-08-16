@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -25,6 +26,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -196,6 +198,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AttachmentsController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -253,6 +256,34 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Template\assets\css\bootstrap-theme.min.css" />
+    <Content Include="Template\assets\css\bootstrap.css" />
+    <Content Include="Template\assets\css\custom-styles.css" />
+    <Content Include="Template\assets\css\font-awesome.css" />
+    <Content Include="Template\assets\font-awesome\fonts\fontawesome-webfontba72.svg" />
+    <Content Include="Template\assets\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Template\assets\js\bootstrap.min.js" />
+    <Content Include="Template\assets\js\chart-data.js" />
+    <Content Include="Template\assets\js\chart.min.js" />
+    <Content Include="Template\assets\js\custom-scripts.js" />
+    <Content Include="Template\assets\js\custom.js" />
+    <Content Include="Template\assets\js\dataTables\dataTables.bootstrap.css" />
+    <Content Include="Template\assets\js\dataTables\dataTables.bootstrap.js" />
+    <Content Include="Template\assets\js\dataTables\jquery.dataTables.js" />
+    <Content Include="Template\assets\js\easypiechart-data.js" />
+    <Content Include="Template\assets\js\easypiechart.js" />
+    <Content Include="Template\assets\js\jquery-1.10.2.js" />
+    <Content Include="Template\assets\js\jquery.metisMenu.js" />
+    <Content Include="Template\assets\js\morris\morris-0.4.3.min.css" />
+    <Content Include="Template\assets\js\morris\morris.js" />
+    <Content Include="Template\assets\js\morris\raphael-2.1.0.min.js" />
+    <Content Include="Template\chart.html" />
+    <Content Include="Template\empty.html" />
+    <Content Include="Template\form.html" />
+    <Content Include="Template\index.html" />
+    <Content Include="Template\tab-panel.html" />
+    <Content Include="Template\table.html" />
+    <Content Include="Template\ui-elements.html" />
     <Content Include="Vendor\font-awesome-4.7.0\css\font-awesome.css" />
     <Content Include="Vendor\font-awesome-4.7.0\css\font-awesome.min.css" />
     <Content Include="Vendor\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
@@ -316,9 +347,24 @@
     <Content Include="Views\Comments\Details.cshtml" />
     <Content Include="Views\Comments\Edit.cshtml" />
     <Content Include="Views\Comments\Index.cshtml" />
+    <Content Include="Template\assets\font-awesome\fonts\fontawesome-webfontba72.eot" />
+    <Content Include="Template\assets\font-awesome\fonts\fontawesome-webfontba72.ttf" />
+    <Content Include="Template\assets\font-awesome\fonts\fontawesome-webfontba72.woff" />
+    <Content Include="Template\assets\font-awesome\fonts\fontawesome-webfontd41d.eot" />
+    <Content Include="Template\assets\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Template\assets\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Template\assets\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Template\assets\fonts\glyphicons-halflings-regulard41d.eot" />
+    <Content Include="Views\Attachments\Create.cshtml" />
+    <Content Include="Views\Attachments\Delete.cshtml" />
+    <Content Include="Views\Attachments\Details.cshtml" />
+    <Content Include="Views\Attachments\Edit.cshtml" />
+    <Content Include="Views\Attachments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Template\assets\img\" />
+    <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -328,11 +374,15 @@
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
