@@ -1,24 +1,32 @@
 ﻿@model Bug_Tracker.Models.AssignUsersViewModel
 
 @{
-	ViewBag.Title = "Project Assignment";
+    ViewBag.Title = "Project Assignment";
 }
 
-<h2>Assign Project</h2>
+<h2>@Model.Project.Title</h2>
+
+<br />
 
 @using (Html.BeginForm("Assign", "Projects", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
 <div>
-	<strong>Project Name</strong><br />
-	@Model.Project.Title
-	<br />
+    <h3>Assign to:</h3>
 	@Html.HiddenFor(model => model.Project.Id, new { })
 	<br />
-	@Html.ListBox("SelectedUsers", Model.Users, htmlAttributes: new { id = "mySelect" })
-	<br />
-	<br />
-	<button class="btn btn-default" type="submit">Assign Users</button>
+    <form>
+        <div class="form-group">
+            <label>Assign to:</label>
+            @Html.ListBox("SelectedUsers", Model.Users, htmlAttributes: new { @class = "form-control", id = "mySelect", size = "20" })
+        </div>
+    </form>
+    <ul class="list-inline">
+        <li>
+            <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
+        </li>
+        <li>
+            <a href="@Url.Action("Index", "Home")" class="btn btn-danger"> <i class="fa fa-ban"></i> Cancel</a>
+        </li>
+    </ul>
 </div>
 }
-
-<a class="btn btn-default" href="@Url.Action("Index", "Home")">Back to List</a>

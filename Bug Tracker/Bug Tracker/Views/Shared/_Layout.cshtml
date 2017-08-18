@@ -13,6 +13,7 @@
 
 </head>
 <body>
+@*@model Bug_Tracker.Models.Ticket*@
     @*<div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -55,7 +56,8 @@
     @*<div id="wrapper">*@
         <nav class="navbar navbar-default top-navbar" role="navigation">
             <div class="navbar-header">
-                @Html.ActionLink("Bugtracker", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <a href="@Url.Action("Index", "Home")" class="navbar-brand"><i class="fa fa-bug"></i><strong> Bugtracker</strong></a>
+                @*@Html.ActionLink("Bugtracker", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
                 @*<a class="navbar-brand" href="index.html"><i class="fa fa-comments"></i> <strong>MASTER </strong></a>*@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -68,46 +70,28 @@
             @Html.Partial("_LoginPartial")
 
             @*<ul class="nav navbar-top-links navbar-right">
-                <li class="dropdown">*@
-                    @*<a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                        <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <i class="fa fa-envelope fa-fw"></i> Messages <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-messages">
+                        @if (Request.IsAuthenticated)
+                        {
+                        foreach (var notification in Model.Notifications.OrderByDescending(n => n.Created))
+                        { 
                         <li>
                             <a href="#">
                                 <div>
                                     <strong>John Doe</strong>
                                     <span class="pull-right text-muted">
-                                        <em>Today</em>
+                                        <em>@Html.DisplayFor(c => c.Created)</em>
                                     </span>
                                 </div>
-                                <div>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s...</div>
+                                <div>@notification.Message</div>
                             </a>
                         </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem Ipsum has been the industry's standard dummy text ever since an kwilnw...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem Ipsum has been the industry's standard dummy text ever since the...</div>
-                            </a>
-                        </li>
+                        }
+                        }
                         <li class="divider"></li>
                         <li>
                             <a class="text-center" href="#">
@@ -115,9 +99,10 @@
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         </li>
-                    </ul>*@
-                    <!-- /.dropdown-messages -->
-                @*</li>*@
+                    </ul>
+                     /.dropdown-messages 
+                </li>
+            </ul>*@
                 <!-- /.dropdown -->
                 @*<li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">

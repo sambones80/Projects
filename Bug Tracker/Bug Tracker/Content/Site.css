@@ -20,5 +20,13 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width: 380px;
+}
+
+.well {
+    max-width: 380px;
+}
+
+.click {
+  display: block;
 }

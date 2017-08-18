@@ -125,6 +125,31 @@ namespace Bug_Tracker.Controllers
                 {
                     ticket.StatusId = 2;
                 }
+                Ticket oldTicket = new ApplicationDbContext().Tickets.Find(ticket.Id);
+                if (oldTicket.PriorityId != ticket.PriorityId)
+                {
+                    var history = new History
+                    {
+                        ChangeDate = new DateTimeOffset(DateTime.Now),
+                        TicketId = ticket.Id,
+                        UserId = User.Identity.GetUserId(),
+                        Property = "Priority",
+                        OldValue = oldTicket.Priority.Name,
+                        NewValue = db.Priority.Find(ticket.PriorityId).Name
+                    };
+                    db.Histories.Add(history);
+
+                    var notification = new Notification
+                    {
+                        Created = new DateTimeOffset(DateTime.Now),
+                        TicketId = ticket.Id,
+                        Message = "The priority of ticket " + ticket.Title + " has changed to " + ticket.Priority + ".",
+                        Type = "Priority",
+                        NotifyUserId = ticket.AssignedToUserId,
+                        NotifyUser = ticket.AssignedToUser
+                    };
+                    db.Notifications.Add(notification);
+                }
                 ticket.Updated = DateTimeOffset.Now;
                 db.Entry(ticket).State = EntityState.Modified;
                 db.SaveChanges();
