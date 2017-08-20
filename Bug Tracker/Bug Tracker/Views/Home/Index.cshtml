@@ -21,7 +21,7 @@
                     <div class="col-md-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                Projects Assigned to @User.Identity.Name
+                                Projects Assigned to @User.Identity.Name | @Html.ActionLink("Create a New Project", "Create", "Projects")
                             </div>
                             <div class="panel-body">
                                 <div class="table-responsive">
@@ -80,14 +80,6 @@
                                                     </tr>
                                                 }
                                             }
-
-                                            @*<tr class="odd gradeX">
-                                                    <td>Trident</td>
-                                                    <td>Internet Explorer 4.0</td>
-                                                    <td>Win 95+</td>
-                                                    <td class="center">4</td>
-                                                    <td class="center">X</td>
-                                                </tr>*@
                                         </tbody>
                                     </table>
                                 </div>
@@ -103,7 +95,7 @@
                     <div class="col-md-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                Projects Assigned to Other Users
+                                Projects Assigned to Other Users | @Html.ActionLink("Create a New Project", "Create", "Projects")
                             </div>
                             <div class="panel-body">
                                 <div class="table-responsive">
@@ -162,14 +154,6 @@
                                                     </tr>
                                                 }
                                             }
-
-                                            @*<tr class="odd gradeX">
-                                                    <td>Trident</td>
-                                                    <td>Internet Explorer 4.0</td>
-                                                    <td>Win 95+</td>
-                                                    <td class="center">4</td>
-                                                    <td class="center">X</td>
-                                                </tr>*@
                                         </tbody>
                                     </table>
                                 </div>
@@ -180,9 +164,6 @@
                 </div>
             </div>
         </div>
-
-        @*<div class="row">
-            <div class="col-md-6">*@
 
         <ul class="nav nav-tabs">
             <li class="active"><a href="#assignTick" data-toggle="tab"><strong>Assigned Tickets</strong></a></li>

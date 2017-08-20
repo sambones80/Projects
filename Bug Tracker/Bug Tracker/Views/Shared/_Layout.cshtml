@@ -70,37 +70,9 @@
             @Html.Partial("_LoginPartial")
 
             @*<ul class="nav navbar-top-links navbar-right">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                        <i class="fa fa-envelope fa-fw"></i> Messages <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-messages">
-                        @if (Request.IsAuthenticated)
-                        {
-                        foreach (var notification in Model.Notifications.OrderByDescending(n => n.Created))
-                        { 
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>John Doe</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>@Html.DisplayFor(c => c.Created)</em>
-                                    </span>
-                                </div>
-                                <div>@notification.Message</div>
-                            </a>
-                        </li>
-                        }
-                        }
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>Read All Messages</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                     /.dropdown-messages 
+                <li class="dropdown">*@
+                <!-- /.dropdown-messages -->
+                    @*@Html.Partial("_NotificationPartial")
                 </li>
             </ul>*@
                 <!-- /.dropdown -->
@@ -277,25 +249,18 @@
                         <a href="@Url.Action("Index", "Home")"><i class="fa fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li>
-                        <a href="ui-elements.html"><i class="fa fa-desktop"></i> UI Elements</a>
+                        <a href="@Url.Action("Index", "Projects")"><i class="fa fa-th-list"></i> Projects</a>
                     </li>
                     <li>
-                        <a href="chart.html"><i class="fa fa-bar-chart-o"></i> Charts</a>
+                        <a href="@Url.Action("Index", "Tickets")"><i class="fa fa-ticket"></i> Tickets</a>
                     </li>
-                    <li>
-                        <a href="tab-panel.html"><i class="fa fa-qrcode"></i> Tabs & Panels</a>
-                    </li>
-
-                    <li>
-                        <a href="table.html"><i class="fa fa-table"></i> Responsive Tables</a>
-                    </li>
-                        @if (User.IsInRole("Admin"))
-                        {
+                    @if (User.IsInRole("Admin"))
+                    {
                         <li>
                             <a href="@Url.Action("UserList", "Manage")"><i class="fa fa-users"></i> Manage Users</a>
                         </li>
-                        }
-                    <li>
+                    }
+                    @*<li>
                         <a href="#"><i class="fa fa-sitemap"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
@@ -321,13 +286,12 @@
 
                             </li>
                         </ul>
-                    </li>
-                    <li>
-                        <a href="empty.html"><i class="fa fa-fw fa-file"></i> Empty Page</a>
-                    </li>
+                    </li>*@
                 </ul>
 
             </div>
+
+
 
         </nav>
         <!-- /. NAV SIDE  -->

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Bug_Tracker.Models
 {
@@ -17,6 +18,7 @@ namespace Bug_Tracker.Models
         [Required]
         public string Title { get; set; }
         [Required]
+        [AllowHtml]
         public string Body { get; set; }
         [Required]
         [DisplayFormat(DataFormatString = "{0:M/d/yyyy h:mm tt}")]

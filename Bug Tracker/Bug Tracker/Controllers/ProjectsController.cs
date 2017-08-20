@@ -13,12 +13,47 @@ namespace Bug_Tracker.Controllers
 {
     public class ProjectsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
-
         // GET: Projects
-        public ActionResult Index()
+        private ApplicationDbContext db = new ApplicationDbContext();
+        public ActionResult Index(DashboardViewModel model)
         {
-            return View(db.Projects.ToList());
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            var userId = User.Identity.GetUserId();
+
+            List<Project> relevantProjects = new List<Project>();
+            List<Project> allProjects = new List<Project>();
+
+            foreach (var project in db.Projects.ToList())
+            {
+                bool relevantProjectflag = false;
+
+                foreach (var projectUser in project.Users)
+                {
+                    if (userId == projectUser.Id)
+                    {
+                        relevantProjectflag = true;
+                    }
+                }
+
+                if (relevantProjectflag)
+                {
+                    relevantProjects.Add(project);
+                }
+
+                allProjects.Add(project);
+            }
+
+            model.RelevantProjects = relevantProjects;
+
+            if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+            {
+                model.AllProjects = allProjects;
+            }
+
+            return View(model);
         }
 
         // GET: Projects/Details/5

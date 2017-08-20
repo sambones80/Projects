@@ -8,22 +8,94 @@ using System.Web;
 using System.Web.Mvc;
 using Bug_Tracker.Models;
 using Microsoft.AspNet.Identity;
+using System.Threading.Tasks;
+using System.Net.Mail;
+using System.Configuration;
 
 namespace Bug_Tracker.Controllers
 {
     public class TicketsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
-
         // GET: Tickets
-        public ActionResult Index()
+        private ApplicationDbContext db = new ApplicationDbContext();
+        public ActionResult Index(DashboardViewModel model)
         {
-            var tickets = db.Tickets.Include(t => t.AssignedToUser).Include(t => t.AuthorUser).Include(t => t.Priority).Include(t => t.Project).Include(t => t.Status).Include(t => t.Type);
-            return View(tickets.ToList());
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            var userId = User.Identity.GetUserId();
+
+            List<Project> relevantProjects = new List<Project>();
+            List<Project> irrelevantProjects = new List<Project>();
+            List<Ticket> relevantTickets = new List<Ticket>();
+            List<Ticket> allTickets = new List<Ticket>();
+
+            foreach (var project in db.Projects.ToList())
+            {
+                bool relevantProjectflag = false;
+
+                foreach (var ticket in project.Tickets)
+                {
+                    allTickets.Add(ticket);
+                }
+
+                // Find Projects that users are assigned to and mark them Relevant
+                foreach (var projectUser in project.Users)
+                {
+                    if (userId == projectUser.Id)
+                    {
+                        relevantProjectflag = true;
+                    }
+                }
+
+                // Filter tickets ONLY for projects that are assigned to users
+                // Find tickets ON Projects that are assigned to the PM
+                // Find tickets that are assigned to Devs and created by Subs
+                if (relevantProjectflag)
+                {
+                    relevantProjects.Add(project);
+
+                    foreach (var ticket in project.Tickets)
+                    {
+                        if (User.IsInRole("Project Manager")
+                        || ((User.IsInRole("Developer") && userId == ticket.AssignedToUserId) || User.IsInRole("Developer") && userId == ticket.AuthorUserId) || (User.IsInRole("Submitter") && userId == ticket.AuthorUserId))
+                        {
+                            relevantTickets.Add(ticket);
+                        }
+                    }
+                }
+
+                // Filter tickets ONLY for projects that are NOT assigned to users
+                // Find tickets that were created by the PM
+                else
+                {
+                    if (User.IsInRole("Project Manager"))
+                    {
+                        irrelevantProjects.Add(project);
+                        foreach (var ticket in project.Tickets)
+                        {
+                            if (User.IsInRole("Project Manager") && userId == ticket.AuthorUserId)
+                            {
+                                relevantTickets.Add(ticket);
+                            }
+                        }
+                    }
+                }
+            }
+            model.RelevantProjects = relevantProjects;
+            model.RelevantTickets = relevantTickets;
+
+            if (User.IsInRole("Admin"))
+            {
+                model.AllTickets = allTickets;
+            }
+
+            return View(model);
         }
 
-        // GET: Tickets/Details/5
-        public ActionResult Details(int? id)
+    // GET: Tickets/Details/5
+    public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -113,7 +185,7 @@ namespace Bug_Tracker.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Body,Created,Updated,ProjectId,TypeId,PriorityId,Status,StatusId,AuthorUserId,AssignedToUserId")] Ticket ticket)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Title,Body,Created,Updated,ProjectId,TypeId,PriorityId,Status,StatusId,AuthorUserId,AssignedToUserId")] Ticket ticket)
         {
             if (ModelState.IsValid)
             {
@@ -126,36 +198,106 @@ namespace Bug_Tracker.Controllers
                     ticket.StatusId = 2;
                 }
                 Ticket oldTicket = new ApplicationDbContext().Tickets.Find(ticket.Id);
-                if (oldTicket.PriorityId != ticket.PriorityId)
+                if (oldTicket.AssignedToUserId != ticket.AssignedToUserId)
                 {
                     var history = new History
                     {
                         ChangeDate = new DateTimeOffset(DateTime.Now),
                         TicketId = ticket.Id,
                         UserId = User.Identity.GetUserId(),
-                        Property = "Priority",
-                        OldValue = oldTicket.Priority.Name,
-                        NewValue = db.Priority.Find(ticket.PriorityId).Name
+                        Property = "assigned user",
+                        NewValue = db.Users.Find(ticket.AssignedToUserId).FirstName,
                     };
                     db.Histories.Add(history);
 
-                    var notification = new Notification
-                    {
-                        Created = new DateTimeOffset(DateTime.Now),
-                        TicketId = ticket.Id,
-                        Message = "The priority of ticket " + ticket.Title + " has changed to " + ticket.Priority + ".",
-                        Type = "Priority",
-                        NotifyUserId = ticket.AssignedToUserId,
-                        NotifyUser = ticket.AssignedToUser
-                    };
-                    db.Notifications.Add(notification);
+                    ticket.Updated = DateTimeOffset.Now;
+                    db.Entry(ticket).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    await Notify(ticket.Id, history);
                 }
-                ticket.Updated = DateTimeOffset.Now;
-                db.Entry(ticket).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index", "Home");
-            }
-            ApplicationDbContext context = new ApplicationDbContext();
+
+                    if (oldTicket.StatusId != ticket.StatusId)
+                    {
+                        var history = new History
+                        {
+                            ChangeDate = new DateTimeOffset(DateTime.Now),
+                            TicketId = ticket.Id,
+                            UserId = User.Identity.GetUserId(),
+                            Property = "status",
+                            OldValue = oldTicket.Status.Name,
+                            NewValue = db.Statuses.Find(ticket.StatusId).Name
+                        };
+                        db.Histories.Add(history);
+
+                        await Notify(ticket.Id, history);
+                    }
+
+                    if (oldTicket.Title != ticket.Title)
+                    {
+                        var history = new History
+                        {
+                            ChangeDate = new DateTimeOffset(DateTime.Now),
+                            TicketId = ticket.Id,
+                            UserId = User.Identity.GetUserId(),
+                            Property = "title",
+                            OldValue = oldTicket.Title,
+                            NewValue = ticket.Title
+                        };
+                        db.Histories.Add(history);
+
+                        await Notify(ticket.Id, history);
+                    }
+
+                    if (oldTicket.Body != ticket.Body)
+                    {
+                        var history = new History
+                        {
+                            ChangeDate = new DateTimeOffset(DateTime.Now),
+                            TicketId = ticket.Id,
+                            UserId = User.Identity.GetUserId(),
+                            Property = "description",
+                            OldValue = oldTicket.Body,
+                            NewValue = ticket.Body
+                        };
+                        db.Histories.Add(history);
+
+                        await Notify(ticket.Id, history);
+                    }
+
+                    if (oldTicket.TypeId != ticket.TypeId)
+                    {
+                        var history = new History
+                        {
+                            ChangeDate = new DateTimeOffset(DateTime.Now),
+                            TicketId = ticket.Id,
+                            UserId = User.Identity.GetUserId(),
+                            Property = "type",
+                            OldValue = oldTicket.Type.Name,
+                            NewValue = db.Types.Find(ticket.TypeId).Name
+                        };
+                        db.Histories.Add(history);
+
+                        await Notify(ticket.Id, history);
+                    }
+
+                    if (oldTicket.PriorityId != ticket.PriorityId)
+                    {
+                        var history = new History
+                        {
+                            ChangeDate = new DateTimeOffset(DateTime.Now),
+                            TicketId = ticket.Id,
+                            UserId = User.Identity.GetUserId(),
+                            Property = "priority",
+                            OldValue = oldTicket.Priority.Name,
+                            NewValue = db.Priority.Find(ticket.PriorityId).Name
+                        };
+                        db.Histories.Add(history);
+
+                        await Notify(ticket.Id, history);
+                    }
+
+                ApplicationDbContext context = new ApplicationDbContext();
             Project project = db.Projects.Find(ticket.ProjectId);
             var projectUsers = context.Users.Where(u => u.Projects.Any(p => p.Title == project.Title));
             var role = context.Roles.SingleOrDefault(u => u.Name == "Developer");
@@ -169,7 +311,47 @@ namespace Bug_Tracker.Controllers
             ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Title", ticket.ProjectId);
             ViewBag.StatusId = new SelectList(db.Statuses, "Id", "Name", ticket.StatusId);
             ViewBag.TypeId = new SelectList(db.Types, "Id", "Name", ticket.TypeId);
+
+                ticket.Updated = DateTimeOffset.Now;
+                db.Entry(ticket).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
+
             return View(ticket);
+        }
+
+        // POST: Ticket/Notifications
+        public async Task Notify(int ticketId, History history)
+        {
+            var db = new ApplicationDbContext();
+            var ticket = db.Tickets.Find(ticketId);
+            //var ticket = db.Tickets.Include("Project").FirstOrDefault(t => t.Id == ticketId);
+            var displayName = db.Users.Find(history.UserId).DisplayName;
+            var emailService = new PersonalEmail();
+
+            // If the ticket is already assigned to a user and the user is not being changed
+            if (ticket.AssignedToUserId != null && history.Property != "assigned user")
+            {
+                await emailService.SendAsync(new MailMessage(ConfigurationManager.AppSettings["username"], ticket.AssignedToUser.UserName)
+                {
+                    Subject = "A ticket that you are assigned to has been changed.",
+                    Body = ticket.AssignedToUser.FirstName + ", </p>" + displayName + " has changed the " + history.Property + " of ticket <i>" + ticket.Title + "</i> from " + history.OldValue + " to <i>" + history.NewValue + "</i>.",
+                    IsBodyHtml = true
+                });
+            }
+
+            // If the ticket is being assigned for the first time or being assigned to a different user
+            if (history.Property == "assigned user")
+            {
+                await emailService.SendAsync(new MailMessage(ConfigurationManager.AppSettings["username"], ticket.AssignedToUser.UserName)
+                {
+                    Subject = "You have been assigned a new ticket.",
+                    Body = ticket.AssignedToUser.FirstName + ", </p>" + displayName + " has assigned you to work on a new ticket, <i>" + ticket.Title + "</i>.",
+                    //Body = User.Identity.GetUserName() + ", </p><b>" + displayName + "</b> has changed the <b>" + ticket.Title + "</b> from <mark>" + history.OldValue + "</mark> to <mark>" + history.NewValue + "</mark>.",
+                    IsBodyHtml = true
+                });
+            }
         }
 
         // GET: Tickets/Delete/5

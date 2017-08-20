@@ -55,7 +55,7 @@ namespace Bug_Tracker.Controllers
         {
             if (file != null && file.ContentLength > 0)
             {
-                // Check the file name to make sure its an image
+                // Only allow certain file types
                 var ext = Path.GetExtension(file.FileName).ToLower();
                 if (ext != ".png" && ext != ".jpg" && ext != ".jpeg" && ext != ".gif" && ext != ".bmp")
                 {
