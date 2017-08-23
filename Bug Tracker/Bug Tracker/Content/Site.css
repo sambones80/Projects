@@ -30,3 +30,68 @@ textarea {
 .click {
   display: block;
 }
+
+/*** Panel & Tab consistent lt. gray outline ***/
+
+.panel-tab {
+    border-color: #dddddd;
+    border-top: none;
+}
+
+.panel-default {
+    border-color: #dddddd;
+}
+
+.ul.nav.nav-tabs {
+    border: none;
+}
+
+/*** Custom Bootstrap Buttons ***/
+
+.btn {
+    margin-bottom: 15px;
+}
+
+.btn-stack {
+    margin-bottom: auto;
+}
+
+.btn-success {
+    background-color: #5C965C;
+    border-color: #5C965C;
+}
+
+.btn-primary {
+    background-color: #285e8e;
+    border-color: #285e8e;
+}
+
+.btn-warning {
+    background-color: #CF8923;
+    border-color: #CF8923;
+}
+
+.btn-info {
+    background-color: #5990B7;
+    border-color: #5990B7;
+}
+
+.btn-info:hover,
+.btn-info:hover {
+    background-color: #68A8D6;
+    border-color: #5990B7;
+}
+
+.btn-danger {
+    background-color: #9E2622;
+    border-color: #9E2622
+}
+
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+    background-color: #5990B7;
+}

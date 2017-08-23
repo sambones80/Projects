@@ -58,7 +58,7 @@
                 ykeys: ['a', 'b'],
                 labels: ['Series A', 'Series B'],
 				 barColors: [
-    '#A6A6A6','#1cc09f',
+    '#A6A6A6', '#5990B7',
     '#A8E9DC' 
   ],
                 hideHover: 'auto',
@@ -82,7 +82,7 @@
                     value: 20
                 }],
 				   colors: [
-    '#A6A6A6','#1cc09f',
+    '#A6A6A6', '#5990B7',
     '#A8E9DC' 
   ],
                 resize: true
@@ -151,7 +151,7 @@
                 hideHover: 'auto',
 				  pointFillColors:['#ffffff'],
 				  pointStrokeColors: ['black'],
-				  lineColors:['#A6A6A6','#1cc09f'],
+				  lineColors: ['#A6A6A6', '#5990B7'],
                 resize: true
             });
 
@@ -183,7 +183,7 @@
       resize: true,
       pointFillColors:['#ffffff'],
       pointStrokeColors: ['black'],
-      lineColors:['gray','#1cc09f']
+      lineColors: ['gray', '#5990B7']
 	  
             });
            

@@ -19,7 +19,7 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="panel panel-default">
+                        <div class="panel panel-tab">
                             <div class="panel-heading">
                                 Projects Assigned to @User.Identity.Name | @Html.ActionLink("Create a New Project", "Create", "Projects")
                             </div>
@@ -69,12 +69,12 @@
                                                             <div>
                                                                 @if (User.IsInRole("Submitter"))
                                                                 {
-                                                                    <a href='@Url.Action("Create", "Tickets", new { id = item.Id })' class="btn btn-block btn-sm btn-success"><i class="fa fa-bug"></i> Ticket</a>
+                                                                    <a href='@Url.Action("Create", "Tickets", new { id = item.Id })' class="btn btn-block btn-sm btn-stack btn-success"><i class="fa fa-bug"></i> Ticket</a>
                                                                 }
-                                                                <a href='@Url.Action("Assign", "Projects", new { id = item.Id })' class="btn btn-block btn-sm btn-primary"><i class="fa fa-user"></i> Assign</a>
-                                                                <a href='@Url.Action("Edit", "Projects", new { id = item.Id })' class="btn btn-block btn-sm btn-warning"><i class="fa fa-pencil"></i> Edit</a>
-                                                                <a href='@Url.Action("Details", "Projects", new { id = item.Id })' class="btn btn-block btn-sm btn-info"><i class="fa fa-info"></i> Details</a>
-                                                                <a href='@Url.Action("Delete", "Projects", new { id = item.Id })' class="btn btn-block btn-sm btn-danger"><i class="fa fa-trash"></i> Archive</a>
+                                                                <a href='@Url.Action("Assign", "Projects", new { id = item.Id })' class="btn btn-block btn-sm btn-stack btn-primary"><i class="fa fa-user"></i> Assign</a>
+                                                                <a href='@Url.Action("Edit", "Projects", new { id = item.Id })' class="btn btn-block btn-sm btn-stack btn-warning"><i class="fa fa-pencil"></i> Edit</a>
+                                                                <a href='@Url.Action("Details", "Projects", new { id = item.Id })' class="btn btn-block btn-sm btn-stack btn-info"><i class="fa fa-info"></i> Details</a>
+                                                                <a href='@Url.Action("Delete", "Projects", new { id = item.Id })' class="btn btn-block btn-sm btn-stack btn-danger"><i class="fa fa-trash"></i> Archive</a>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -93,7 +93,7 @@
             <div class="tab-pane fade in" id="unAssProj">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="panel panel-default">
+                        <div class="panel panel-tab">
                             <div class="panel-heading">
                                 Projects Assigned to Other Users | @Html.ActionLink("Create a New Project", "Create", "Projects")
                             </div>
@@ -128,6 +128,7 @@
                                                         <td class="col-sm-2">
                                                             @foreach (var tickets in item.Tickets)
                                                             {
+                                                                @*<a href="@Url.Action("Edit", "Tickets", new { id = item.Tickets.???) })"*@
                                                                 @tickets.Title
                                                                 <br />
                                                             }
@@ -143,12 +144,12 @@
                                                             <div>
                                                                 @if (User.IsInRole("Submitter"))
                                                                 {
-                                                                    <a href='@Url.Action("Create", "Tickets", new { id = item.Id })' class="btn btn-block btn-sm btn-success"><i class="fa fa-bug"></i> Ticket</a>
+                                                                    <a href='@Url.Action("Create", "Tickets", new { id = item.Id })' class="btn btn-block btn-sm btn-stack btn-success"><i class="fa fa-bug"></i> Ticket</a>
                                                                 }
-                                                                <a href='@Url.Action("Assign", "Projects", new { id = item.Id })' class="btn btn-block btn-sm btn-primary"><i class="fa fa-user"></i> Assign</a>
-                                                                <a href='@Url.Action("Edit", "Projects", new { id = item.Id })' class="btn btn-block btn-sm btn-warning"><i class="fa fa-pencil"></i> Edit</a>
-                                                                <a href='@Url.Action("Details", "Projects", new { id = item.Id })' class="btn btn-block btn-sm btn-info"><i class="fa fa-info"></i> Details</a>
-                                                                <a href='@Url.Action("Delete", "Projects", new { id = item.Id })' class="btn btn-block btn-sm btn-danger"><i class="fa fa-trash"></i> Archive</a>
+                                                                <a href='@Url.Action("Assign", "Projects", new { id = item.Id })' class="btn btn-block btn-sm btn-stack btn-primary"><i class="fa fa-user"></i> Assign</a>
+                                                                <a href='@Url.Action("Edit", "Projects", new { id = item.Id })' class="btn btn-block btn-sm btn-stack btn-warning"><i class="fa fa-pencil"></i> Edit</a>
+                                                                <a href='@Url.Action("Details", "Projects", new { id = item.Id })' class="btn btn-block btn-sm btn-stack btn-info"><i class="fa fa-info"></i> Details</a>
+                                                                <a href='@Url.Action("Delete", "Projects", new { id = item.Id })' class="btn btn-block btn-sm btn-stack btn-danger"><i class="fa fa-trash"></i> Archive</a>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -175,7 +176,7 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="panel panel-default">
+                        <div class="panel panel-tab">
                             <div class="panel-heading">
                                 Tickets Assigned to Developers
                             </div>
@@ -238,7 +239,7 @@
             <div class="tab-pane fade in" id="unAssTick">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="panel panel-default">
+                        <div class="panel panel-tab">
                             <div class="panel-heading">
                                 Tickets That Need to be Assigned to Developers
                             </div>
@@ -354,8 +355,8 @@
                                                     }
                                                 </td>
                                                 <td class="col-sm-1">
-                                                    <a href='@Url.Action("Create", "Tickets", new { id = item.Id })' class="btn btn-block btn-sm btn-success"><i class="fa fa-bug"></i> Ticket</a>
-                                                    <a href='@Url.Action("Details", "Projects", new { id = item.Id })' class="btn btn-block btn-sm btn-info"><i class="fa fa-info"></i> Details</a>
+                                                    <a href='@Url.Action("Create", "Tickets", new { id = item.Id })' class="btn btn-block btn-sm btn-stack btn-success"><i class="fa fa-bug"></i> Ticket</a>
+                                                    <a href='@Url.Action("Details", "Projects", new { id = item.Id })' class="btn btn-block btn-sm btn-stack btn-info"><i class="fa fa-info"></i> Details</a>
                                                 </td>
                                             </tr>
                                         }
@@ -556,39 +557,39 @@
     // End Developer 2 Lists ^^^^^^^^^^^^^
 }
 
-                                    <script src="Template/assets/js/jquery-1.10.2.js"></script>
-                                    <!-- Bootstrap Js -->
-                                    <script src="Template/assets/js/bootstrap.min.js"></script>
-                                    <!-- Metis Menu Js -->
-                                    <script src="assets/js/jquery.metisMenu.js"></script>
-                                    <!-- DATA TABLE SCRIPTS -->
-                                    <script src="Template/assets/js/dataTables/jquery.dataTables.js"></script>
-                                    <script src="Template/assets/js/dataTables/dataTables.bootstrap.js"></script>
-                                    <script>
-                                        $(document).ready(function () {
-                                            $('#dataTables-assignProj').dataTable();
-                                        });
-                                        $(document).ready(function () {
-                                            $('#dataTables-unAssProj').dataTable();
-                                        });
-                                        $(document).ready(function () {
-                                            $('#dataTables-assignTick').dataTable();
-                                        });
-                                        $(document).ready(function () {
-                                            $('#dataTables-unAssTick').dataTable();
-                                        });
-                                        $(document).ready(function () {
-                                            $('#dataTables-subProjects').dataTable();
-                                        });
-                                        $(document).ready(function () {
-                                            $('#dataTables-subTickets').dataTable();
-                                        });
-                                        $(document).ready(function () {
-                                            $('#dataTables-devProjects').dataTable();
-                                        });
-                                        $(document).ready(function () {
-                                            $('#dataTables-devTickets').dataTable();
-                                        });
-                                    </script>
-                                    <!-- Custom Js -->
-                                    <script src="Template/assets/js/custom-scripts.js"></script>
+<script src="Template/assets/js/jquery-1.10.2.js"></script>
+<!-- Bootstrap Js -->
+<script src="Template/assets/js/bootstrap.min.js"></script>
+<!-- Metis Menu Js -->
+<script src="assets/js/jquery.metisMenu.js"></script>
+<!-- DATA TABLE SCRIPTS -->
+<script src="Template/assets/js/dataTables/jquery.dataTables.js"></script>
+<script src="Template/assets/js/dataTables/dataTables.bootstrap.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#dataTables-assignProj').dataTable();
+    });
+    $(document).ready(function () {
+        $('#dataTables-unAssProj').dataTable();
+    });
+    $(document).ready(function () {
+        $('#dataTables-assignTick').dataTable();
+    });
+    $(document).ready(function () {
+        $('#dataTables-unAssTick').dataTable();
+    });
+    $(document).ready(function () {
+        $('#dataTables-subProjects').dataTable();
+    });
+    $(document).ready(function () {
+        $('#dataTables-subTickets').dataTable();
+    });
+    $(document).ready(function () {
+        $('#dataTables-devProjects').dataTable();
+    });
+    $(document).ready(function () {
+        $('#dataTables-devTickets').dataTable();
+    });
+</script>
+<!-- Custom Js -->
+<script src="Template/assets/js/custom-scripts.js"></script>

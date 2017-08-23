@@ -58,12 +58,12 @@
                                                     <div>
                                                         @if (User.IsInRole("Submitter"))
                                                         {
-                                                            <a href='@Url.Action("Create", "Tickets", new { id = item.Id })' class="btn btn-block btn-sm btn-success"><i class="fa fa-bug"></i> Ticket</a>
+                                                            <a href='@Url.Action("Create", "Tickets", new { id = item.Id })' class="btn btn-block btn-sm btn-stack btn-success"><i class="fa fa-bug"></i> Ticket</a>
                                                         }
-                                                        <a href='@Url.Action("Assign", "Projects", new { id = item.Id })' class="btn btn-block btn-sm btn-primary"><i class="fa fa-user"></i> Assign</a>
-                                                        <a href='@Url.Action("Edit", "Projects", new { id = item.Id })' class="btn btn-block btn-sm btn-warning"><i class="fa fa-pencil"></i> Edit</a>
-                                                        <a href='@Url.Action("Details", "Projects", new { id = item.Id })' class="btn btn-block btn-sm btn-info"><i class="fa fa-info"></i> Details</a>
-                                                        <a href='@Url.Action("Delete", "Projects", new { id = item.Id })' class="btn btn-block btn-sm btn-danger"><i class="fa fa-trash"></i> Archive</a>
+                                                        <a href='@Url.Action("Assign", "Projects", new { id = item.Id })' class="btn btn-block btn-sm btn-stack btn-primary"><i class="fa fa-user"></i> Assign</a>
+                                                        <a href='@Url.Action("Edit", "Projects", new { id = item.Id })' class="btn btn-block btn-sm btn-stack btn-warning"><i class="fa fa-pencil"></i> Edit</a>
+                                                        <a href='@Url.Action("Details", "Projects", new { id = item.Id })' class="btn btn-block btn-sm btn-stack btn-info"><i class="fa fa-info"></i> Details</a>
+                                                        <a href='@Url.Action("Delete", "Projects", new { id = item.Id })' class="btn btn-block btn-sm btn-stack btn-danger"><i class="fa fa-trash"></i> Archive</a>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -130,8 +130,8 @@
                                                     }
                                                 </td>
                                                 <td class="col-sm-1">
-                                                    <a href='@Url.Action("Create", "Tickets", new { id = item.Id })' class="btn btn-block btn-sm btn-success"><i class="fa fa-bug"></i> Ticket</a>
-                                                    <a href='@Url.Action("Details", "Projects", new { id = item.Id })' class="btn btn-block btn-sm btn-info"><i class="fa fa-info"></i> Details</a>
+                                                    <a href='@Url.Action("Create", "Tickets", new { id = item.Id })' class="btn btn-block btn-sm btn-stack btn-success"><i class="fa fa-bug"></i> Ticket</a>
+                                                    <a href='@Url.Action("Details", "Projects", new { id = item.Id })' class="btn btn-block btn-sm btn-stack btn-info"><i class="fa fa-info"></i> Details</a>
                                                 </td>
                                             </tr>
                                         }

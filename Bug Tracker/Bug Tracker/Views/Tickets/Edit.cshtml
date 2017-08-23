@@ -201,7 +201,7 @@
                                 </p>
                                 @{
                                     string sameUser = User.Identity.GetUserId();
-                                    if (User.IsInRole("Admin") || User.IsInRole("Moderator") || sameUser == attachment.AuthorUser.Id)
+                                    if (User.IsInRole("Admin") || sameUser == attachment.AuthorUser.Id)
                                     {
                                         <div>
                                             <ul class="list-inline">
@@ -236,6 +236,9 @@
                             <div class="form-group">
                                 <textarea class="form-control" rows="3" id="body" name="body" placeholder="Describe your file"></textarea>
                             </div>
+                            @*<div>
+                                @Html.ValidationMessageFor(model => model.Attachments, "", new { @class = "text-danger" })
+                            </div>*@
                             <ul class="list-inline">
                                 <li>
                                     <button type="submit" class="btn btn-primary"><i class="fa fa-file"></i> Attach file</button>
@@ -276,7 +279,7 @@
                                 </p>
                                 @{
                                     string sameUser = User.Identity.GetUserId();
-                                    if (User.IsInRole("Admin") || User.IsInRole("Moderator") || sameUser == comment.AuthorUser.Id)
+                                    if (User.IsInRole("Admin") || sameUser == comment.AuthorUser.Id)
                                     {
                                         <div>
                                             <ul class="list-inline">
@@ -330,7 +333,7 @@
                                 <div class="well well-lg">
                                         <span class="badge">@Html.DisplayFor(modelComment => history.ChangeDate)</span>
                                     <p>
-                                        The @history.Property was changed to <i>@history.NewValue</i>
+                                        @history.Property <i>@history.NewValue</i>
                                     </p>
                                 </div>
                             </div>

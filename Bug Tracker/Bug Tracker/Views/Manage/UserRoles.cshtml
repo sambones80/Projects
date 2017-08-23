@@ -6,16 +6,24 @@
 
 @using (Html.BeginForm("UserRoles", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
-<strong>User</strong>
-<br />
-    @Model.DisplayName
-<br />
-    @Html.HiddenFor(model => model.Id, new { })
-<br />
-    @Html.ListBox("SelectedRoles", Model.Roles, htmlAttributes: new { id = "mySelect" })
-<br />
-<br />
-<button class="btn btn-default" type="submit">Update Roles</button>
+    <div>
+        <strong>User:</strong>
+        <h3>@Model.DisplayName</h3>
+        @Html.HiddenFor(model => model.Id, new { })
+        <br />
+        <form>
+            <div class="form-group">
+                <label>Assign to:</label>
+                @Html.ListBox("SelectedRoles", Model.Roles, htmlAttributes: new { @class = "form-control", id = "mySelect", size = "8" })
+            </div>
+        </form>
+        <ul class="list-inline">
+            <li>
+                <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> Update Roles</button>
+            </li>
+            <li>
+                <a href="@Url.Action("UserList", "Manage")" class="btn btn-danger"> <i class="fa fa-ban"></i> Cancel</a>
+            </li>
+        </ul>
+    </div>
 }
-
-<a class="btn btn-default" href="@Url.Action("UserList", "Manage")">Back to List</a>

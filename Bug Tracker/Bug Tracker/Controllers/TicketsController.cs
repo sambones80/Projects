@@ -205,7 +205,7 @@ namespace Bug_Tracker.Controllers
                         ChangeDate = new DateTimeOffset(DateTime.Now),
                         TicketId = ticket.Id,
                         UserId = User.Identity.GetUserId(),
-                        Property = "assigned user",
+                        Property = "The assigned user has been changed to",
                         NewValue = db.Users.Find(ticket.AssignedToUserId).FirstName,
                     };
                     db.Histories.Add(history);
@@ -224,7 +224,7 @@ namespace Bug_Tracker.Controllers
                             ChangeDate = new DateTimeOffset(DateTime.Now),
                             TicketId = ticket.Id,
                             UserId = User.Identity.GetUserId(),
-                            Property = "status",
+                            Property = "The status has been set to",
                             OldValue = oldTicket.Status.Name,
                             NewValue = db.Statuses.Find(ticket.StatusId).Name
                         };
@@ -240,7 +240,7 @@ namespace Bug_Tracker.Controllers
                             ChangeDate = new DateTimeOffset(DateTime.Now),
                             TicketId = ticket.Id,
                             UserId = User.Identity.GetUserId(),
-                            Property = "title",
+                            Property = "The title has been changed to",
                             OldValue = oldTicket.Title,
                             NewValue = ticket.Title
                         };
@@ -256,7 +256,7 @@ namespace Bug_Tracker.Controllers
                             ChangeDate = new DateTimeOffset(DateTime.Now),
                             TicketId = ticket.Id,
                             UserId = User.Identity.GetUserId(),
-                            Property = "description",
+                            Property = "The description has been changed to",
                             OldValue = oldTicket.Body,
                             NewValue = ticket.Body
                         };
@@ -272,7 +272,7 @@ namespace Bug_Tracker.Controllers
                             ChangeDate = new DateTimeOffset(DateTime.Now),
                             TicketId = ticket.Id,
                             UserId = User.Identity.GetUserId(),
-                            Property = "type",
+                            Property = "The ticket type has been changed to",
                             OldValue = oldTicket.Type.Name,
                             NewValue = db.Types.Find(ticket.TypeId).Name
                         };
@@ -288,7 +288,7 @@ namespace Bug_Tracker.Controllers
                             ChangeDate = new DateTimeOffset(DateTime.Now),
                             TicketId = ticket.Id,
                             UserId = User.Identity.GetUserId(),
-                            Property = "priority",
+                            Property = "The priority has been set to",
                             OldValue = oldTicket.Priority.Name,
                             NewValue = db.Priority.Find(ticket.PriorityId).Name
                         };
@@ -336,7 +336,8 @@ namespace Bug_Tracker.Controllers
                 await emailService.SendAsync(new MailMessage(ConfigurationManager.AppSettings["username"], ticket.AssignedToUser.UserName)
                 {
                     Subject = "A ticket that you are assigned to has been changed.",
-                    Body = ticket.AssignedToUser.FirstName + ", </p>" + displayName + " has changed the " + history.Property + " of ticket <i>" + ticket.Title + "</i> from " + history.OldValue + " to <i>" + history.NewValue + "</i>.",
+                    //Body = ticket.AssignedToUser.FirstName + ", </p>" + displayName + " has changed the " + history.Property + " of ticket <i>" + ticket.Title + "</i> from " + history.OldValue + " to <i>" + history.NewValue + "</i>.",
+                    Body = ticket.AssignedToUser.FirstName + ", </p>" + displayName + " has made a change to the ticket <i>" + ticket.Title + ".</i></p>" + history.Property + "<i> " + history.NewValue + ".<i>",
                     IsBodyHtml = true
                 });
             }

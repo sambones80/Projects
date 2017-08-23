@@ -241,7 +241,7 @@
         </nav>
         <!--/. NAV TOP  -->
         <nav class="navbar-default navbar-side" role="navigation">
-            <div id="sideNav" href=""><i class="fa fa-caret-right"></i></div>
+            @*<div id="sideNav" href=""><i class="fa fa-caret-right"></i></div>*@
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
 
@@ -258,6 +258,9 @@
                     {
                         <li>
                             <a href="@Url.Action("UserList", "Manage")"><i class="fa fa-users"></i> Manage Users</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "Attachments")"><i class="fa fa-file"></i> Attachments</a>
                         </li>
                     }
                     @*<li>
@@ -331,11 +334,6 @@
     @Scripts.Render("~/Template/assets/js/jquery.metisMenu.js")
     @Scripts.Render("~/Template/assets/js/dataTables/jquery.dataTables.js")
     @Scripts.Render("~/Template/assets/js/dataTables/dataTables.bootstrap.js")
-    <script>
-            $(document).ready(function () {
-                $('#dataTables-example').dataTable();
-            });
-    </script>
     @Scripts.Render("~/Template/assets/js/custom-scripts.js")
     @RenderSection("scripts", required: false)
 </body>
