@@ -60,5 +60,7 @@ namespace Budgeter.Models
         public System.Data.Entity.DbSet<Budgeter.Models.Item> Items { get; set; }
 
         public System.Data.Entity.DbSet<Budgeter.Models.Budget> Budgets { get; set; }
+
+        public System.Data.Entity.DbSet<Budgeter.Models.Invite> Invites { get; set; }
     }
 }

@@ -1,11 +1,12 @@
 ﻿@model Budgeter.Models.Household
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Delete";
 }
 
-<h2>Details</h2>
+<h2>Leave Household</h2>
 
+<h3>Are you sure you want to leave this household?</h3>
 <div>
     <h4>Household</h4>
     <hr />
@@ -27,8 +28,14 @@
         </dd>
 
     </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(model => model.Id)
+        <div class="form-actions no-color">
+            <input type="submit" value="Leave" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index", "Home")
-</p>

@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Budgeter.Models;
+using Microsoft.AspNet.Identity;
 
 namespace Budgeter.Controllers
 {
@@ -46,10 +47,12 @@ namespace Budgeter.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Deleted")] Household household)
+        public ActionResult Create([Bind(Include = "Id,Name, CreatedById, Deleted")] Household household)
         {
             if (ModelState.IsValid)
             {
+                string userId = User.Identity.GetUserId();
+                household.CreatedById = userId;
                 db.Households.Add(household);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -89,22 +92,6 @@ namespace Budgeter.Controllers
             return View(household);
         }
 
-        // GET: Households/Invite/5
-        //////////////////////////////////// MAYBE LIKE ASSIGN TO PROJECT??? //////////////////////////
-        public ActionResult Invite(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Household household = db.Households.Find(id);
-            if (household == null)
-            {
-                return HttpNotFound();
-            }
-            return View(household);
-        }
-
         // GET: Households/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -129,6 +116,33 @@ namespace Budgeter.Controllers
             db.Households.Remove(household);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        // GET: Households/Leave/5
+        public ActionResult Leave(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Household household = db.Households.Find(id);
+            if (household == null)
+            {
+                return HttpNotFound();
+            }
+            return View(household);
+        }
+
+        // POST: Households/Leave/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Leave(int id)
+        {
+            var user = User.Identity.GetUserId();
+            HouseholdUsersHelper helper = new HouseholdUsersHelper(db);
+            helper.RemoveUserFromHousehold(id, user);
+            db.SaveChanges();
+            return RedirectToAction("Index", "Home");
         }
 
         protected override void Dispose(bool disposing)
