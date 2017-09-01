@@ -47,7 +47,7 @@ namespace Budgeter.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name, CreatedById, Deleted")] Household household)
+        public ActionResult Create([Bind(Include = "Id, Name, CreatedById, Deleted")] Household household)
         {
             if (ModelState.IsValid)
             {
@@ -55,10 +55,47 @@ namespace Budgeter.Controllers
                 household.CreatedById = userId;
                 db.Households.Add(household);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
 
             return View(household);
+        }
+
+        // GET: Households/Assign/5
+        public ActionResult Assign(int id)
+        {
+            var household = db.Households.Find(id);
+            HouseholdUsersHelper helper = new HouseholdUsersHelper(db);
+            var model = new AssignUsersViewModel();
+
+            model.Household = household;
+            model.SelectedUsers = helper.ListAssignedUsers(id).Select(u => u.Id).ToArray();
+            model.Users = new MultiSelectList(db.Users.Where(u => (u.DisplayName != "N/A" && u.DisplayName != "(Remove Assigned User)")).OrderBy(u => u.FirstName), "Id", "DisplayName", model.SelectedUsers);
+
+            return View(model);
+        }
+
+        // POST: Households/Assign/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        public ActionResult Assign(AssignUsersViewModel model)
+        {
+            var household = db.Households.Find(model.Household.Id);
+            HouseholdUsersHelper helper = new HouseholdUsersHelper(db);
+
+            foreach (var user in db.Users.Select(r => r.Id).ToList())
+            {
+                helper.RemoveUserFromHousehold(household.Id, user);
+            }
+            if (model.SelectedUsers != null)
+            {
+                foreach (var user in model.SelectedUsers)
+                {
+                    helper.AddUserToHousehold(household.Id, user);
+                }
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Households/Edit/5

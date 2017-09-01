@@ -12,6 +12,13 @@
     @Html.AntiForgeryToken()
     <h4>Create a new account.</h4>
     <hr />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            Already registered button
+            @*@Html.ActionLink(linkText: "Already registered? Log in", actionName: "InviteRegister", controllerName: "Account", routeValues: new { id = ViewBag.HouseholdId, secret = ViewBag.Secret }, htmlAttributes: "")*@
+            @*<a href="@Url.Action("LoginRegister", "Account", new { id = Model.HouseholdId } )">Log in</a>*@
+        </div>
+    </div>
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
         @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })

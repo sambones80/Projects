@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -12,6 +13,7 @@ namespace Budgeter.Models
         public string Payee { get; set; }
         public string Description { get; set; }
         public DateTimeOffset Created { get; set; }
+        [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
         public double Amount { get; set; }
         public bool Deleted { get; set; }
         // Type: Deposit or Expense

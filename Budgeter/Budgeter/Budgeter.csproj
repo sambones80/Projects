@@ -211,6 +211,7 @@
     <Compile Include="Models\BankAccount.cs" />
     <Compile Include="Models\Budget.cs" />
     <Compile Include="Models\Catagory.cs" />
+    <Compile Include="Models\HouseholdViewModel.cs" />
     <Compile Include="Models\EmailModel.cs" />
     <Compile Include="Models\Household.cs" />
     <Compile Include="Models\HouseholdUsershelper.cs" />
@@ -313,6 +314,9 @@
     <Content Include="Views\Invites\Index.cshtml" />
     <Content Include="Views\Account\InviteRegister.cshtml" />
     <Content Include="Views\Households\Leave.cshtml" />
+    <Content Include="Views\Account\InviteLogin.cshtml" />
+    <Content Include="Views\Households\Assign.cshtml" />
+    <Content Include="Views\Home\Household.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

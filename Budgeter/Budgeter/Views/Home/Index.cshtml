@@ -1,13 +1,17 @@
 ﻿@model IEnumerable<Budgeter.Models.Household>
+@using Microsoft.AspNet.Identity;
+
 
 @{
     ViewBag.Title = "My Households";
+    string userId = User.Identity.GetUserId();
+    bool flag = false;
 }
 
 <h2>My Households HOME</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", "Households")
 </p>
 <table class="table">
     <tr>
@@ -17,13 +21,24 @@
         <th>
             Users
         </th>
-        <th></th>
+        @*<th></th>*@
     </tr>
 
     @foreach (var item in Model)
     {
+        foreach (var user in item.Users)
+        {
+            if (user.Id == userId)
+            {
+                flag = true;
+            }
+        }
+        if (flag)
+        {
+
         <tr>
             <td>
+                @*<a href="@Url.Action("Household", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Name)</a>*@
                 <a href="@Url.Action("Edit", "Households", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Name)</a>
             </td>
             <td>
@@ -36,12 +51,14 @@
             @*<td>
                     @Html.DisplayFor(modelItem => item.Deleted)
                 </td>*@
-            <td>
+            @*<td>
                 @Html.ActionLink("Edit", "Edit", "Households", new { id = item.Id }, new { }) |
                 @Html.ActionLink("Details", "Details", "Households", new { id = item.Id }, new { }) |
                 @Html.ActionLink("Invite", "Create", "Invites", new { id = item.Id }, new { })
-            </td>
+            </td>*@
         </tr>
+            flag = false;
+        }
     }
 
 </table>

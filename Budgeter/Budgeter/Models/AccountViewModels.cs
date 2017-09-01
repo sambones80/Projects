@@ -62,6 +62,30 @@ namespace Budgeter.Models
         public bool RememberMe { get; set; }
     }
 
+    public class InviteLoginViewModel
+    {
+        [Required]
+        [Display(Name = "Email")]
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string Password { get; set; }
+
+        [Display(Name = "Remember me?")]
+        public bool RememberMe { get; set; }
+
+        [Required]
+        [Display(Name = "Secret Code")]
+        public string Secret { get; set; }
+
+        [Required]
+        [Display(Name = "Household Id")]
+        public int HouseholdId { get; set; }
+    }
+
     public class RegisterViewModel
     {
         [Required]
@@ -130,6 +154,13 @@ namespace Budgeter.Models
         [Required]
         [Display(Name = "Household Id")]
         public int HouseholdId { get; set; }
+    }
+
+    public class AssignUsersViewModel
+    {
+        public Household Household { get; set; }
+        public System.Web.Mvc.MultiSelectList Users { get; set; }
+        public string[] SelectedUsers { get; set; }
     }
 
     public class ResetPasswordViewModel

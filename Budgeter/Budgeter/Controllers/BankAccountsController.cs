@@ -18,6 +18,13 @@ namespace Budgeter.Controllers
         public ActionResult Index()
         {
             var bankAccounts = db.BankAccounts.Include(b => b.Household);
+            foreach (var bankAccount in bankAccounts)
+            {
+                if (bankAccount.Balance <= 0)
+                {
+                    ViewBag.OverdraftError = "You are in danger of overdrawing your account!";
+                }
+            }
             return View(bankAccounts.ToList());
         }
 
@@ -37,9 +44,9 @@ namespace Budgeter.Controllers
         }
 
         // GET: BankAccounts/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
-            ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name");
+            ViewBag.HouseholdId = id;
             return View();
         }
 
@@ -48,13 +55,15 @@ namespace Budgeter.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,HouseholdId,Name,Balance,Deleted")] BankAccount bankAccount)
+        public ActionResult Create([Bind(Include = "Id,HouseholdId,Name,Balance,Deleted")] BankAccount bankAccount, int id)
         {
             if (ModelState.IsValid)
             {
+                bankAccount.HouseholdId = id;
+                bankAccount.Deleted = false;
                 db.BankAccounts.Add(bankAccount);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit", "Households", new { id = bankAccount.HouseholdId });
             }
 
             ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", bankAccount.HouseholdId);
