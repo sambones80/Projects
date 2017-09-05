@@ -317,6 +317,7 @@
     <Content Include="Views\Account\InviteLogin.cshtml" />
     <Content Include="Views\Households\Assign.cshtml" />
     <Content Include="Views\Home\Household.cshtml" />
+    <Content Include="Views\Transactions\Deposit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

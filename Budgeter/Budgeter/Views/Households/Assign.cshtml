@@ -25,7 +25,8 @@
                 <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
             </li>
             <li>
-                <a href="@Url.Action("Index", "Home")" class="btn btn-danger"> <i class="fa fa-ban"></i> Cancel</a>
+                @*<a href="@Url.Action("Index", "Home")" class="btn btn-danger"> <i class="fa fa-ban"></i> Cancel</a>*@
+                @Html.ActionLink("Back to List", "Details", new { id = Model.Household.Id })
             </li>
         </ul>
     </div>

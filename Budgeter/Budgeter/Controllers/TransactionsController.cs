@@ -23,13 +23,14 @@ namespace Budgeter.Controllers
         }
 
         // GET: Transactions/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int householdId, int? transactionId)
         {
-            if (id == null)
+            ViewBag.HouseholdId = householdId;
+            if (transactionId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Transaction transaction = db.Transactions.Find(id);
+            Transaction transaction = db.Transactions.Find(transactionId);
             if (transaction == null)
             {
                 return HttpNotFound();
@@ -37,11 +38,62 @@ namespace Budgeter.Controllers
             return View(transaction);
         }
 
-        // GET: Transactions/Create
-        public ActionResult Create(int? id)
+        // GET: Transactions/Deposit
+        public ActionResult Deposit(int householdId, int accountId)
         {
             //ViewBag.BankAccountId = new SelectList(db.BankAccounts, "Id", "Name");
-            ViewBag.BankAccountId = id;
+            ViewBag.HouseholdId = householdId;
+            ViewBag.BankAccountId = accountId;
+            //ViewBag.CatagoryId = 1;
+            //ViewBag.TypeId = 1;
+            ViewBag.EnteredbyId = User.Identity.GetUserId();
+            return View();
+        }
+
+        // POST: Transactions/Deposit
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Deposit([Bind(Include = "Id,BankAccountId,Payee,Description,Created,Amount,Deleted,TypeId,CatagoryId,EnteredById")] Transaction transaction, int householdId, int accountId)
+        {
+            if (ModelState.IsValid)
+            {
+                transaction.BankAccountId = accountId;
+                var bankAccount = db.BankAccounts.Find(transaction.BankAccountId);
+                if (bankAccount != null)
+                {
+                    transaction.BankAccount = bankAccount;
+                    transaction.EnteredBy = ViewBag.EnteredbyId;
+                    transaction.CatagoryId = 1;
+                    transaction.TypeId = 1;
+                    transaction.Created = DateTimeOffset.Now;
+                    transaction.Deleted = false;
+                    transaction.Payee = "n/a";
+                    transaction.BankAccount.Balance += transaction.Amount;
+                }
+                db.Transactions.Add(transaction);
+                db.SaveChanges();
+                return RedirectToAction("Details", "Households", new { id = householdId });
+            }
+
+            ViewBag.BankAccountId = new SelectList(db.BankAccounts, "Id", "Name", transaction.BankAccountId);
+            ViewBag.CatagoryId = new SelectList(db.Catagories, "Id", "Name", transaction.CatagoryId);
+            ViewBag.TypeId = new SelectList(db.Types, "Id", "Name", transaction.TypeId);
+            return View(transaction);
+        }
+
+        // GET: Transactions/Create
+        public ActionResult Create(int? householdId)
+        {
+            ApplicationDbContext context = new ApplicationDbContext();
+            Household household = db.Households.Find(householdId);
+            var ownAccounts = context.BankAccounts.Where(b => b.Household.Id == household.Id);
+
+            ViewBag.HouseholdId = householdId;
+            //ViewBag.BankAccountId = new SelectList(db.BankAccounts, "Id", "Name");
+            ViewBag.BankAccountId = new SelectList(ownAccounts, "Id", "Name");
+            //ViewBag.BankAccountId = id;
             ViewBag.CatagoryId = new SelectList(db.Catagories, "Id", "Name");
             ViewBag.TypeId = new SelectList(db.Types, "Id", "Name");
             ViewBag.EnteredbyId = User.Identity.GetUserId();
@@ -53,28 +105,23 @@ namespace Budgeter.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,BankAccountId,Payee,Description,Created,Amount,Deleted,TypeId,CatagoryId,EnteredById")] Transaction transaction, int id)
+        public ActionResult Create([Bind(Include = "Id,BankAccountId,Payee,Description,Created,Amount,Deleted,TypeId,CatagoryId,EnteredById")] Transaction transaction, int householdId)
         {
             if (ModelState.IsValid)
             {
-                transaction.BankAccountId = id;
                 var bankAccount = db.BankAccounts.Find(transaction.BankAccountId);
                 if (bankAccount != null)
-                {
+                { 
                     transaction.BankAccount = bankAccount;
                     transaction.EnteredBy = ViewBag.EnteredbyId;
-                    if (transaction.TypeId == 1)
-                    {
-                        transaction.BankAccount.Balance += transaction.Amount;
-                    }
-                    else if (transaction.TypeId == 2)
-                    {
-                        transaction.BankAccount.Balance -= transaction.Amount;
-                    }
+                    transaction.TypeId = 2;
+                    transaction.Created = DateTimeOffset.Now;
+                    transaction.Deleted = false;
+                    transaction.BankAccount.Balance -= transaction.Amount;
+                    db.Transactions.Add(transaction);
+                    db.SaveChanges();
+                    return RedirectToAction("Details", "Households", new { id = householdId });
                 }
-                db.Transactions.Add(transaction);
-                db.SaveChanges();
-                return RedirectToAction("Index", "BankAccounts");
             }
 
             ViewBag.BankAccountId = new SelectList(db.BankAccounts, "Id", "Name", transaction.BankAccountId);
@@ -84,17 +131,19 @@ namespace Budgeter.Controllers
         }
 
         // GET: Transactions/Edit/5
-        public ActionResult Edit(int? id)
+        // ///////////// Need to adjust the bank account balance(s) if amount is changed ///////////////////////
+        public ActionResult Edit(int householdId, int? transactionId)
         {
-            if (id == null)
+            if (transactionId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Transaction transaction = db.Transactions.Find(id);
+            Transaction transaction = db.Transactions.Find(transactionId);
             if (transaction == null)
             {
                 return HttpNotFound();
             }
+            ViewBag.HouseholdId = householdId;
             ViewBag.BankAccountId = new SelectList(db.BankAccounts, "Id", "Name", transaction.BankAccountId);
             ViewBag.CatagoryId = new SelectList(db.Catagories, "Id", "Name", transaction.CatagoryId);
             ViewBag.TypeId = new SelectList(db.Types, "Id", "Name", transaction.TypeId);
@@ -106,14 +155,15 @@ namespace Budgeter.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,BankAccountId,Payee,Description,Created,Amount,Deleted,TypeId,CatagoryId,EnteredById")] Transaction transaction)
+        public ActionResult Edit([Bind(Include = "Id,BankAccountId,Payee,Description,Created,Amount,Deleted,TypeId,CatagoryId,EnteredById")] Transaction transaction, int householdId)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(transaction).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Households", new { id = householdId });
             }
+            ViewBag.HouseholdId = householdId;
             ViewBag.BankAccountId = new SelectList(db.BankAccounts, "Id", "Name", transaction.BankAccountId);
             ViewBag.CatagoryId = new SelectList(db.Catagories, "Id", "Name", transaction.CatagoryId);
             ViewBag.TypeId = new SelectList(db.Types, "Id", "Name", transaction.TypeId);

@@ -63,7 +63,7 @@ namespace Budgeter.Controllers
                 bankAccount.Deleted = false;
                 db.BankAccounts.Add(bankAccount);
                 db.SaveChanges();
-                return RedirectToAction("Edit", "Households", new { id = bankAccount.HouseholdId });
+                return RedirectToAction("Details", "Households", new { id = bankAccount.HouseholdId });
             }
 
             ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", bankAccount.HouseholdId);
@@ -71,18 +71,18 @@ namespace Budgeter.Controllers
         }
 
         // GET: BankAccounts/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int householdId, int accountId)
         {
-            if (id == null)
+            if (accountId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            BankAccount bankAccount = db.BankAccounts.Find(id);
+            BankAccount bankAccount = db.BankAccounts.Find(accountId);
             if (bankAccount == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", bankAccount.HouseholdId);
+            ViewBag.HouseholdId = householdId;
             return View(bankAccount);
         }
 
@@ -91,13 +91,13 @@ namespace Budgeter.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,HouseholdId,Name,Balance,Deleted")] BankAccount bankAccount)
+        public ActionResult Edit([Bind(Include = "Id,HouseholdId,Name,Balance,Deleted")] BankAccount bankAccount, int householdId)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(bankAccount).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Households", new { id = householdId });
             }
             ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", bankAccount.HouseholdId);
             return View(bankAccount);

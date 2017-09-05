@@ -33,6 +33,16 @@ namespace Budgeter.Controllers
             {
                 return HttpNotFound();
             }
+            foreach (var bankAccount in household.BankAccounts)
+            {
+                //var total = household.total;
+                //var balance = bankAccount.Balance;
+                //total = total + balance;
+                if (bankAccount.Balance <= 0)
+                {
+                    ViewBag.OverdraftError = "You are in danger of overdrawing your account!";
+                }
+            }
             return View(household);
         }
 
@@ -158,6 +168,7 @@ namespace Budgeter.Controllers
         // GET: Households/Leave/5
         public ActionResult Leave(int? id)
         {
+            ViewBag.HouseholdId = id;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

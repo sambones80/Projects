@@ -35,7 +35,7 @@
         @Html.HiddenFor(model => model.Id)
         <div class="form-actions no-color">
             <input type="submit" value="Leave" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink(linkText: "Back to List", actionName: "Details", controllerName: "Households", routeValues: new { id = ViewBag.HouseholdId }, htmlAttributes: "")
         </div>
     }
 </div>

@@ -20,5 +20,6 @@ namespace Budgeter.Models
         public virtual ICollection<Budget> Budgets { get; set; }
         public virtual ICollection<ApplicationUser> Users { get; set; }
         public virtual ICollection<BankAccount> BankAccounts { get; set; }
+        //public double total { get; set; }
     }
 }

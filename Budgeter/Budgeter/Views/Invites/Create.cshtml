@@ -66,5 +66,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index", "Home")
+    @Html.ActionLink(linkText: "Back to List", actionName: "Details", controllerName: "Households", routeValues: new { id = ViewBag.HouseholdId }, htmlAttributes: "")
 </div>

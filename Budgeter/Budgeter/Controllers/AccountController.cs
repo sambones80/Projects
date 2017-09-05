@@ -97,9 +97,11 @@ namespace Budgeter.Controllers
         //
         // GET: /Account/InviteLogin
         [AllowAnonymous]
-        public ActionResult InviteLogin(string returnUrl, int id, string secret)
+        public ActionResult InviteLogin(int householdId, string secret)
         {
-            ViewBag.ReturnUrl = returnUrl;
+            //ViewBag.ReturnUrl = returnUrl;
+            ViewBag.HouseholdId = householdId;
+            ViewBag.Secret = secret;
             return View();
         }
 
@@ -108,7 +110,7 @@ namespace Budgeter.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> InviteLogin(InviteLoginViewModel model, string returnUrl, int householdId)
+        public async Task<ActionResult> InviteLogin(InviteLoginViewModel model, int householdId)
         {
             if (!ModelState.IsValid)
             {
@@ -121,20 +123,22 @@ namespace Budgeter.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    //return RedirectToLocal(returnUrl);
+                    // Find the user Id and assign it to a variable. User.Identity.GetUserId() will not work because the user is not logged in until this process is completed.
+                    var user = SignInManager.AuthenticationManager.AuthenticationResponseGrant.Identity.GetUserId();
+
+                    // Call the helper to assign var user to the household.
+                    HouseholdUsersHelper helper = new HouseholdUsersHelper(db);
+                    helper.AddUserToHousehold(householdId, user);
+                    return RedirectToAction("Index", "Home");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    //return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
-
-                    var user = User.Identity.GetUserId();
-
-                    HouseholdUsersHelper helper = new HouseholdUsersHelper(db);
-                    helper.AddUserToHousehold(householdId, user);
             }
         }
 
@@ -250,6 +254,7 @@ namespace Budgeter.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
+                    // Call the helper to assign var user to the household.
                     HouseholdUsersHelper helper = new HouseholdUsersHelper(db);
                     helper.AddUserToHousehold(householdId, user.Id);
 

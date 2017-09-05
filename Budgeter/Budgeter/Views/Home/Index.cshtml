@@ -39,7 +39,7 @@
         <tr>
             <td>
                 @*<a href="@Url.Action("Household", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Name)</a>*@
-                <a href="@Url.Action("Edit", "Households", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Name)</a>
+                <a href="@Url.Action("Details", "Households", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Name)</a>
             </td>
             <td>
                 @foreach (var user in item.Users)

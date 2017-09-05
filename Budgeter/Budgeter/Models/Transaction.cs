@@ -12,8 +12,9 @@ namespace Budgeter.Models
         public int BankAccountId { get; set; }
         public string Payee { get; set; }
         public string Description { get; set; }
+        [DisplayFormat(DataFormatString = "{0:M/d/yyyy h:mm tt}")]
         public DateTimeOffset Created { get; set; }
-        [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = false)]
         public double Amount { get; set; }
         public bool Deleted { get; set; }
         // Type: Deposit or Expense

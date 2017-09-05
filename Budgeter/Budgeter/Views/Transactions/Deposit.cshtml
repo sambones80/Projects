@@ -1,10 +1,10 @@
 ﻿@model Budgeter.Models.Transaction
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Add Deposit";
 }
 
-<h2>Create</h2>
+<h2>Add Deposit</h2>
 
 @using (Html.BeginForm()) 
 {
@@ -17,22 +17,23 @@
             @ViewBag.OverdraftError
         </p>
         @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
-        @*<input type="hidden" name="id" value="@ViewBag.BankAccountId" />*@
-        <div class="form-group">
+        <input type="hidden" name="accountId" value="@ViewBag.BankAccountId" />
+        <input type="hidden" name="householdId" value="@ViewBag.HouseholdId" />
+        @*<div class="form-group">
             @Html.LabelFor(model => model.BankAccountId, "BankAccountId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("BankAccountId", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.BankAccountId, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.Payee, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Payee, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Payee, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -76,13 +77,13 @@
             </div>
         </div>*@
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.CatagoryId, "CatagoryId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("CatagoryId", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.CatagoryId, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
         @*<div class="form-group">
             @Html.LabelFor(model => model.EnteredById, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -101,5 +102,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Details", "Households", new { id = ViewBag.HouseholdId }, "")
+    @Html.ActionLink("Back to List", "Index")
 </div>

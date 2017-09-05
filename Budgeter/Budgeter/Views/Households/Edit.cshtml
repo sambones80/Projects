@@ -19,7 +19,7 @@
         <div>
             @Html.ActionLink("Add Bank Account", "Create", "BankAccounts", new { id = Model.Id }, new { }) |
             @Html.ActionLink("Invite", "Create", "Invites", new { id = Model.Id }, new { }) |
-            @Html.ActionLink("Assign Users", "Assign", "Households", new { id = Model.Id }, new { }) |
+            @Html.ActionLink("Manage Users", "Assign", "Households", new { id = Model.Id }, new { }) |
             @Html.ActionLink("Leave Household", "Leave", "Households", new { id = Model.Id }, new { })
         </div>
 
@@ -50,9 +50,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index", "Home")
+    @Html.ActionLink("Back to List", "Details", new { id = Model.Id })
 </div>
-
-<table>
-
-</table>

@@ -15,7 +15,7 @@
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             Already registered button
-            @*@Html.ActionLink(linkText: "Already registered? Log in", actionName: "InviteRegister", controllerName: "Account", routeValues: new { id = ViewBag.HouseholdId, secret = ViewBag.Secret }, htmlAttributes: "")*@
+            @Html.ActionLink(linkText: "Already registered? Log in", actionName: "InviteLogin", controllerName: "Account", routeValues: new { householdId = ViewBag.HouseholdId, secret = ViewBag.Secret }, htmlAttributes: "")
             @*<a href="@Url.Action("LoginRegister", "Account", new { id = Model.HouseholdId } )">Log in</a>*@
         </div>
     </div>
