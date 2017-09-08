@@ -33,16 +33,21 @@ namespace Budgeter.Controllers
             {
                 return HttpNotFound();
             }
+
+            household.Total = 0;
+
             foreach (var bankAccount in household.BankAccounts)
             {
-                //var total = household.total;
-                //var balance = bankAccount.Balance;
-                //total = total + balance;
                 if (bankAccount.Balance <= 0)
                 {
                     ViewBag.OverdraftError = "You are in danger of overdrawing your account!";
                 }
+
+                var balance = bankAccount.Balance;
+                household.Total += balance;
+                //total = total + balance;
             }
+            db.SaveChanges();
             return View(household);
         }
 
@@ -64,10 +69,22 @@ namespace Budgeter.Controllers
                 string userId = User.Identity.GetUserId();
                 household.CreatedById = userId;
                 db.Households.Add(household);
+
+                HouseholdUsersHelper helper = new HouseholdUsersHelper(db);
+                helper.AddUserToHousehold(household.Id, userId);
+
+                Budget budget = new Budget
+                {
+                    HouseholdId = household.Id,
+                    household = db.Households.Find(household.Id),
+                    Name = household.Name + "'s Budget",
+                    Amount = 0
+                };
+                db.Budgets.Add(budget);
                 db.SaveChanges();
+
                 return RedirectToAction("Index", "Home");
             }
-
             return View(household);
         }
 
@@ -160,9 +177,10 @@ namespace Budgeter.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Household household = db.Households.Find(id);
-            db.Households.Remove(household);
+            household.Deleted = true;
+            db.Entry(household).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Households/Leave/5

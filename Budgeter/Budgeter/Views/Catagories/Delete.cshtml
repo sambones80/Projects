@@ -1,4 +1,4 @@
-﻿@model Budgeter.Models.BankAccount
+﻿@model Budgeter.Models.Catagory
 
 @{
     ViewBag.Title = "Delete";
@@ -6,18 +6,17 @@
 
 <h2>Delete</h2>
 
-<h3>Are you sure you want to delete @Html.DisplayFor(model => model.Name)?</h3>
+<h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>BankAccount</h4>
+    <h4>Catagory</h4>
     <hr />
     <dl class="dl-horizontal">
-
         <dt>
-            @Html.DisplayNameFor(model => model.Balance)
+            @Html.DisplayNameFor(model => model.Name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Balance)
+            @Html.DisplayFor(model => model.Name)
         </dd>
 
     </dl>
@@ -27,7 +26,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back", "Details", "Households", new { id = Model.HouseholdId }, new { })
+            @Html.ActionLink("Back to List", "Index")
         </div>
     }
 </div>

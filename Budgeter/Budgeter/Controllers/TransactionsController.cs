@@ -143,10 +143,14 @@ namespace Budgeter.Controllers
             {
                 return HttpNotFound();
             }
+
+            transaction.BankAccount = db.BankAccounts.Find(transaction.BankAccountId);
+
+            ViewBag.TempBalance = transaction.Amount;
             ViewBag.HouseholdId = householdId;
             ViewBag.BankAccountId = new SelectList(db.BankAccounts, "Id", "Name", transaction.BankAccountId);
             ViewBag.CatagoryId = new SelectList(db.Catagories, "Id", "Name", transaction.CatagoryId);
-            ViewBag.TypeId = new SelectList(db.Types, "Id", "Name", transaction.TypeId);
+            //ViewBag.TypeId = transaction.TypeId;
             return View(transaction);
         }
 
@@ -155,18 +159,39 @@ namespace Budgeter.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,BankAccountId,Payee,Description,Created,Amount,Deleted,TypeId,CatagoryId,EnteredById")] Transaction transaction, int householdId)
+        public ActionResult Edit([Bind(Include = "Id,BankAccountId,Payee,Description,Created,Amount,Deleted,TypeId,CatagoryId,EnteredById")] Transaction transaction, int householdId, double tempAmount)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(transaction).State = EntityState.Modified;
+                transaction.BankAccount = db.BankAccounts.Find(transaction.BankAccountId);
+                if (tempAmount != transaction.Amount)
+                {
+                    if (transaction.TypeId == 1)
+                    {
+                        transaction.BankAccount.Balance = transaction.BankAccount.Balance - tempAmount;
+                        transaction.BankAccount.Balance = transaction.BankAccount.Balance + transaction.Amount;
+                    }
+                    else
+                    {
+                        //if (transaction.BankAccount.Balance >= transaction.Amount)
+                        //{
+                            transaction.BankAccount.Balance = transaction.BankAccount.Balance + tempAmount;
+                            transaction.BankAccount.Balance = transaction.BankAccount.Balance - transaction.Amount;
+                        //}
+                        //else
+                        //{
+                        //    return RedirectToAction("Edit", "Transactions", new { id = transaction.Id });
+                        //}
+                    }
+                }
                 db.SaveChanges();
                 return RedirectToAction("Details", "Households", new { id = householdId });
             }
             ViewBag.HouseholdId = householdId;
             ViewBag.BankAccountId = new SelectList(db.BankAccounts, "Id", "Name", transaction.BankAccountId);
             ViewBag.CatagoryId = new SelectList(db.Catagories, "Id", "Name", transaction.CatagoryId);
-            ViewBag.TypeId = new SelectList(db.Types, "Id", "Name", transaction.TypeId);
+            //ViewBag.TypeId = new SelectList(db.Types, "Id", "Name", transaction.TypeId);
             return View(transaction);
         }
 

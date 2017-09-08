@@ -42,7 +42,7 @@
             </div>
         </div>*@
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.Deleted, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
@@ -50,16 +50,14 @@
                     @Html.ValidationMessageFor(model => model.Deleted, "", new { @class = "text-danger" })
                 </div>
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-default" /> |
+                @Html.ActionLink("Back", "Details", "Households", new { id = Model.HouseholdId }, new { }) |
+                @Html.ActionLink("Delete Account", "Delete", "Bankaccounts", new { id = Model.Id }, new { })
             </div>
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

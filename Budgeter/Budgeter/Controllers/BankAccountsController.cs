@@ -124,9 +124,11 @@ namespace Budgeter.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             BankAccount bankAccount = db.BankAccounts.Find(id);
-            db.BankAccounts.Remove(bankAccount);
+            int householdId = bankAccount.HouseholdId;
+            bankAccount.Deleted = true;
+            db.Entry(bankAccount).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "Households", new { id = householdId });
         }
 
         protected override void Dispose(bool disposing)

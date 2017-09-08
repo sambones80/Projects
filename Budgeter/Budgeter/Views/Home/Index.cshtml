@@ -26,15 +26,17 @@
 
     @foreach (var item in Model)
     {
-        foreach (var user in item.Users)
+        if (item.Deleted != true)
         {
-            if (user.Id == userId)
+            foreach (var user in item.Users)
             {
-                flag = true;
+                if (user.Id == userId)
+                {
+                    flag = true;
+                }
             }
-        }
-        if (flag)
-        {
+            if (flag)
+            {
 
         <tr>
             <td>
@@ -57,8 +59,8 @@
                 @Html.ActionLink("Invite", "Create", "Invites", new { id = item.Id }, new { })
             </td>*@
         </tr>
-            flag = false;
+                flag = false;
+            }
         }
     }
-
 </table>

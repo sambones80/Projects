@@ -197,6 +197,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BankAccountsController.cs" />
+    <Compile Include="Controllers\CatagoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HouseholdsController.cs" />
     <Compile Include="Controllers\InvitesController.cs" />
@@ -318,6 +319,11 @@
     <Content Include="Views\Households\Assign.cshtml" />
     <Content Include="Views\Home\Household.cshtml" />
     <Content Include="Views\Transactions\Deposit.cshtml" />
+    <Content Include="Views\Catagories\Create.cshtml" />
+    <Content Include="Views\Catagories\Delete.cshtml" />
+    <Content Include="Views\Catagories\Details.cshtml" />
+    <Content Include="Views\Catagories\Edit.cshtml" />
+    <Content Include="Views\Catagories\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
