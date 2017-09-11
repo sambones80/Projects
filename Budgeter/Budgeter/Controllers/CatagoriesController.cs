@@ -15,8 +15,9 @@ namespace Budgeter.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Catagories
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
+            ViewBag.HouseholdId = id;
             return View(db.Catagories.ToList());
         }
 

@@ -11,5 +11,6 @@ namespace Budgeter.Models
         public List<Transaction> MyTransactions { get; set; }
         public List<BankAccount> MyBankAccounts { get; set; }
         public List<Item> MyBudgetItems { get; set; }
+        public List<Catagory> MyCatagories { get; set; }
     }
 }

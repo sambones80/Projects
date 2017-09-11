@@ -131,7 +131,6 @@ namespace Budgeter.Controllers
         }
 
         // GET: Transactions/Edit/5
-        // ///////////// Need to adjust the bank account balance(s) if amount is changed ///////////////////////
         public ActionResult Edit(int householdId, int? transactionId)
         {
             if (transactionId == null)
@@ -144,11 +143,14 @@ namespace Budgeter.Controllers
                 return HttpNotFound();
             }
 
+            //transaction.BankAccount = db.BankAccounts.Find(transaction.BankAccountId);
             transaction.BankAccount = db.BankAccounts.Find(transaction.BankAccountId);
+            Household household = db.Households.Find(householdId);
 
-            ViewBag.TempBalance = transaction.Amount;
+            ViewBag.OriginalAmount = transaction.Amount;
+            ViewBag.OriginalAccountid = transaction.BankAccountId;
             ViewBag.HouseholdId = householdId;
-            ViewBag.BankAccountId = new SelectList(db.BankAccounts, "Id", "Name", transaction.BankAccountId);
+            ViewBag.BankAccountId = new SelectList(household.BankAccounts, "Id", "Name", transaction.BankAccountId);
             ViewBag.CatagoryId = new SelectList(db.Catagories, "Id", "Name", transaction.CatagoryId);
             //ViewBag.TypeId = transaction.TypeId;
             return View(transaction);
@@ -159,32 +161,40 @@ namespace Budgeter.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,BankAccountId,Payee,Description,Created,Amount,Deleted,TypeId,CatagoryId,EnteredById")] Transaction transaction, int householdId, double tempAmount)
+        public ActionResult Edit([Bind(Include = "Id,BankAccountId,Payee,Description,Created,Amount,Deleted,TypeId,CatagoryId,EnteredById")] Transaction transaction, int householdId, double originalAmount, int originalAccountId)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(transaction).State = EntityState.Modified;
                 transaction.BankAccount = db.BankAccounts.Find(transaction.BankAccountId);
-                if (tempAmount != transaction.Amount)
+                var oldBankAccount = db.BankAccounts.Find(originalAccountId);
+
+                if (transaction.Deleted == true)
                 {
-                    if (transaction.TypeId == 1)
+                    if (transaction.TypeId == 1) // Deposit
                     {
-                        transaction.BankAccount.Balance = transaction.BankAccount.Balance - tempAmount;
-                        transaction.BankAccount.Balance = transaction.BankAccount.Balance + transaction.Amount;
+                        oldBankAccount.Balance = oldBankAccount.Balance - originalAmount;
                     }
-                    else
+                    else // Withdrawal
                     {
-                        //if (transaction.BankAccount.Balance >= transaction.Amount)
-                        //{
-                            transaction.BankAccount.Balance = transaction.BankAccount.Balance + tempAmount;
-                            transaction.BankAccount.Balance = transaction.BankAccount.Balance - transaction.Amount;
-                        //}
-                        //else
-                        //{
-                        //    return RedirectToAction("Edit", "Transactions", new { id = transaction.Id });
-                        //}
+                        oldBankAccount.Balance = oldBankAccount.Balance + originalAmount;
                     }
                 }
+
+                else if (originalAccountId != transaction.BankAccountId || originalAmount != transaction.Amount) // If the bank account is changed or the amount is changed
+                {
+                    if (transaction.TypeId == 1) // Deposit
+                    {
+                        oldBankAccount.Balance = oldBankAccount.Balance - originalAmount;
+                        transaction.BankAccount.Balance = transaction.BankAccount.Balance + transaction.Amount;
+                    }
+                    else // Withdrawal
+                    {
+                        oldBankAccount.Balance = oldBankAccount.Balance + originalAmount;
+                        transaction.BankAccount.Balance = transaction.BankAccount.Balance - transaction.Amount;
+                    }
+                }
+
                 db.SaveChanges();
                 return RedirectToAction("Details", "Households", new { id = householdId });
             }
@@ -196,29 +206,33 @@ namespace Budgeter.Controllers
         }
 
         // GET: Transactions/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int householdId, int? transactionId)
         {
-            if (id == null)
+            if (transactionId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Transaction transaction = db.Transactions.Find(id);
+            Transaction transaction = db.Transactions.Find(transactionId);
             if (transaction == null)
             {
                 return HttpNotFound();
             }
+            ViewBag.HouseholdId = householdId;
             return View(transaction);
         }
 
         // POST: Transactions/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int householdId, int transactionId)
         {
-            Transaction transaction = db.Transactions.Find(id);
-            db.Transactions.Remove(transaction);
+            Transaction transaction = db.Transactions.Find(transactionId);
+            transaction.Deleted = true;
+            db.Entry(transaction).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            ViewBag.HouseholdId = householdId;
+            return RedirectToAction("Details", "Households", new { id = householdId });
         }
 
         protected override void Dispose(bool disposing)

@@ -160,7 +160,7 @@ namespace Budgeter.Models
     {
         public Household Household { get; set; }
         public System.Web.Mvc.MultiSelectList Users { get; set; }
-        public string[] SelectedUsers { get; set; }
+        public ApplicationUser[] SelectedUsers { get; set; }
     }
 
     public class ResetPasswordViewModel

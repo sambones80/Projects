@@ -23,5 +23,7 @@ namespace Budgeter.Models
         public virtual ICollection<BankAccount> BankAccounts { get; set; }
         [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
         public double Total { get; set; }
+        [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
+        public double TotalBudget { get; set; }
     }
 }

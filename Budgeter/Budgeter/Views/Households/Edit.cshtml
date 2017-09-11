@@ -15,6 +15,7 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.CreatedById)
 
         <div>
             @Html.ActionLink("Add Bank Account", "Create", "BankAccounts", new { id = Model.Id }, new { }) |

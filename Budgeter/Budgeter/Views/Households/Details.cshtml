@@ -116,29 +116,32 @@
                 {
                     foreach (var transaction in item.Transactions.OrderByDescending(t => t.Created))
                     {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => transaction.BankAccount.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => transaction.Catagory.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => transaction.Payee)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => transaction.Created)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => transaction.Amount)
-                            </td>
-                            <td>
-                                @Html.ActionLink(linkText: "Edit", actionName: "Edit", controllerName: "Transactions", routeValues: new { householdId = Model.Id, transactionId = transaction.Id }, htmlAttributes: "") |
-                                @Html.ActionLink(linkText: "Details", actionName: "Details", controllerName: "Transactions", routeValues: new { householdId = Model.Id, transactionId = transaction.Id }, htmlAttributes: "") |
-                                @*Implement Soft Delete*@
-                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                            </td>
-                        </tr>
+                        if (transaction.Deleted != true)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => transaction.BankAccount.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => transaction.Catagory.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => transaction.Payee)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => transaction.Created)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => transaction.Amount)
+                                </td>
+                                <td>
+                                    @Html.ActionLink(linkText: "Edit", actionName: "Edit", controllerName: "Transactions", routeValues: new { householdId = Model.Id, transactionId = transaction.Id }, htmlAttributes: "") |
+                                    @Html.ActionLink(linkText: "Details", actionName: "Details", controllerName: "Transactions", routeValues: new { householdId = Model.Id, transactionId = transaction.Id }, htmlAttributes: "") |
+                                    @*Implement Soft Delete*@
+                                    @Html.ActionLink("Delete", "Delete", "Transactions", new { householdId = Model.Id, transactionId = transaction.Id }, new { } )
+                                </td>
+                            </tr>
+                        }
                     }
                 }
 
@@ -149,32 +152,32 @@
             <div class="form-horizontal">
                 <div class="well well-lg">
                     <h4>Household Budget</h4>
+                    <div>
+                        <span class="badge">
+                            Total Budget
+                        </span>
+                        <p></p>
+                        @Html.DisplayFor(modelItem => Model.TotalBudget)
+                    </div>
                     @foreach (var budget in Model.Budgets.OrderBy(b => b.Name))
                     {
-                        <div>
-                            <span class="badge">
-                                Total Budget
-                            </span>
-                            <p></p>
-                            @budget.Amount
-                        </div>
-                            <p>
-                                @Html.ActionLink(linkText: "Add New Item", actionName: "Create", controllerName: "Items", routeValues: new { householdId = Model.Id, budgetId = budget.Id }, htmlAttributes: "") |
-                                @Html.ActionLink(linkText: "Manage Catagories", actionName: "Index", controllerName: "Catagories", routeValues: "", htmlAttributes: "")
-                            </p>
-                            <hr />
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    @*<small>by: </small>*@
+                        <p>
+                            @Html.ActionLink(linkText: "Add New Item", actionName: "Create", controllerName: "Items", routeValues: new { householdId = Model.Id, budgetId = budget.Id }, htmlAttributes: "") |
+                            @Html.ActionLink(linkText: "Manage Catagories", actionName: "Index", controllerName: "Catagories", routeValues: new { id = Model.Id }, htmlAttributes: "")
+                        </p>
+                        <hr />
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @*<small>by: </small>*@
                                     @foreach (var item in budget.Items)
                                     {
-                                        <p>
-                                            @Html.DisplayFor(ModelItem => item.Catagory.Name): @Html.DisplayFor(ModelItem => item.Amount)
-                                        </p>
+                                    <p>
+                                        @Html.DisplayFor(ModelItem => item.Catagory.Name): @Html.DisplayFor(ModelItem => item.Amount)
+                                    </p>
                                     }
-                                    <hr />
-                                </div>
+                                <hr />
                             </div>
+                        </div>
                     }
                 </div>
             </div>

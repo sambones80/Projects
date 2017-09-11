@@ -18,7 +18,8 @@
         @Html.HiddenFor(model => model.Created)
         @Html.HiddenFor(model => model.EnteredBy)
         @Html.HiddenFor(model => model.TypeId)
-        <input type="hidden" name="tempAmount" value="@ViewBag.TempBalance" />
+        <input type="hidden" name="originalAmount" value="@ViewBag.OriginalAmount" />
+        <input type="hidden" name="originalAccountId" value="@ViewBag.OriginalAccountId" />
 
         <div class="form-group">
             <label class="control-label col-md-2">Amount $</label>
@@ -85,7 +86,7 @@
         </div>*@
 
         <div class="form-group">
-            <label class="control-label col-md-2">Delete Transaction</label>
+            <label class="control-label col-md-2">Void Transaction</label>
             <div class="col-md-10">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.Deleted)

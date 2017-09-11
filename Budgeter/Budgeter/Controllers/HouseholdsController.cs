@@ -24,6 +24,7 @@ namespace Budgeter.Controllers
         // GET: Households/Details/5
         public ActionResult Details(int? id)
         {
+            HouseholdViewModel model = new HouseholdViewModel();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -38,15 +39,38 @@ namespace Budgeter.Controllers
 
             foreach (var bankAccount in household.BankAccounts)
             {
-                if (bankAccount.Balance <= 0)
+                if (bankAccount.Deleted != true)
                 {
-                    ViewBag.OverdraftError = "You are in danger of overdrawing your account!";
-                }
+                    if (bankAccount.Balance <= 0)
+                    {
+                        ViewBag.OverdraftError = "You are in danger of overdrawing your account!";
+                    }
 
-                var balance = bankAccount.Balance;
-                household.Total += balance;
-                //total = total + balance;
+                    var balance = bankAccount.Balance;
+                    household.Total += balance;
+                    //total = total + balance;
+                }
             }
+
+            household.TotalBudget = 0;
+
+            foreach (var budget in household.Budgets)
+            {
+                foreach (var item in budget.Items)
+                {
+                    var amount = item.Amount;
+                    household.TotalBudget += amount;
+                }
+            }
+
+            //foreach (var account in household.BankAccounts)
+            //{
+            //    foreach (var transaction in account.Transactions.Where(c => c.Catagory.Name = ))
+            //    {
+                    
+            //    }
+            //}
+
             db.SaveChanges();
             return View(household);
         }
@@ -96,8 +120,9 @@ namespace Budgeter.Controllers
             var model = new AssignUsersViewModel();
 
             model.Household = household;
-            model.SelectedUsers = helper.ListAssignedUsers(id).Select(u => u.Id).ToArray();
-            model.Users = new MultiSelectList(db.Users.Where(u => (u.DisplayName != "N/A" && u.DisplayName != "(Remove Assigned User)")).OrderBy(u => u.FirstName), "Id", "DisplayName", model.SelectedUsers);
+            model.SelectedUsers = helper.ListAssignedUsers(id).ToArray(); 
+            model.Users = new MultiSelectList(model.SelectedUsers.Where(u => (u.DisplayName != "N/A" && u.DisplayName != "(Remove Assigned User)")).OrderBy(u => u.FirstName), "Id", "DisplayName", model.SelectedUsers);
+            //model.Users = new MultiSelectList(db.Users.Where(u => (u.DisplayName != "N/A" && u.DisplayName != "(Remove Assigned User)")).OrderBy(u => u.FirstName), "Id", "DisplayName", model.SelectedUsers);
 
             return View(model);
         }
@@ -111,18 +136,22 @@ namespace Budgeter.Controllers
             var household = db.Households.Find(model.Household.Id);
             HouseholdUsersHelper helper = new HouseholdUsersHelper(db);
 
+            //foreach (var user in db.Users.Select(r => r.Id).ToList())
+            //{
+            //    helper.RemoveUserFromHousehold(household.Id, user);
+            //}
             foreach (var user in db.Users.Select(r => r.Id).ToList())
             {
-                helper.RemoveUserFromHousehold(household.Id, user);
-            }
-            if (model.SelectedUsers != null)
-            {
-                foreach (var user in model.SelectedUsers)
+                if (model.SelectedUsers != null)
                 {
-                    helper.AddUserToHousehold(household.Id, user);
+                    foreach (var item in model.SelectedUsers)
+                    {
+                        helper.RemoveUserFromHousehold(household.Id, item.Id);
+                    }
                 }
+                return RedirectToAction("Index", "Home");
             }
-            return RedirectToAction("Index", "Home");
+            return View(model);
         }
 
         // GET: Households/Edit/5
@@ -145,13 +174,13 @@ namespace Budgeter.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Deleted")] Household household)
+        public ActionResult Edit([Bind(Include = "Id,Name,CreatedById,Deleted")] Household household)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(household).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = household.Id  });
             }
             return View(household);
         }

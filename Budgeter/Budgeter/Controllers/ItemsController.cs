@@ -40,7 +40,7 @@ namespace Budgeter.Controllers
         public ActionResult Create(int householdId, int budgetId)
         {
             ViewBag.HouseholdId = householdId;
-            ViewBag.CatagoryId = new SelectList(db.Catagories, "Id", "Name");
+            ViewBag.CatagoryId = new SelectList(db.Catagories.Where(c => c.Name != "Income"), "Id", "Name");
             return View();
         }
 

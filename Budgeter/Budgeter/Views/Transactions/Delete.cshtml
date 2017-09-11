@@ -11,6 +11,9 @@
     <h4>Transaction</h4>
     <hr />
     <dl class="dl-horizontal">
+
+        <dt type="hidden" name="householdId" value="@ViewBag.HouseholdId" />
+
         <dt>
             @Html.DisplayNameFor(model => model.BankAccount.Name)
         </dt>
@@ -68,14 +71,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Deleted)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Deleted)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.EnteredById)
         </dt>
 
@@ -90,7 +85,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Back", "Details", "Households", new { id = ViewBag.HouseholdId }, new { } )
         </div>
     }
 </div>
