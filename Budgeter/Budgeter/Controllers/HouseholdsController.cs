@@ -29,15 +29,15 @@ namespace Budgeter.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Household household = db.Households.Find(id);
-            if (household == null)
+            model.household = db.Households.Find(id);
+            if (model.household == null)
             {
                 return HttpNotFound();
             }
 
-            household.Total = 0;
+            model.household.Total = 0;
 
-            foreach (var bankAccount in household.BankAccounts)
+            foreach (var bankAccount in model.household.BankAccounts)
             {
                 if (bankAccount.Deleted != true)
                 {
@@ -47,32 +47,66 @@ namespace Budgeter.Controllers
                     }
 
                     var balance = bankAccount.Balance;
-                    household.Total += balance;
+                    model.household.Total += balance;
                     //total = total + balance;
                 }
             }
 
-            household.TotalBudget = 0;
+            model.household.TotalBudget = 0;
 
-            foreach (var budget in household.Budgets)
+            foreach (var budget in model.household.Budgets)
             {
                 foreach (var item in budget.Items)
                 {
                     var amount = item.Amount;
-                    household.TotalBudget += amount;
+                    model.household.TotalBudget += amount;
                 }
             }
 
-            //foreach (var account in household.BankAccounts)
-            //{
-            //    foreach (var transaction in account.Transactions.Where(c => c.Catagory.Name = ))
-            //    {
-                    
-            //    }
-            //}
+            int catTotal = 0;
+
+            foreach (var catagory in db.Catagories)
+            {
+                catTotal++;
+            }
+
+            int catCount = 0;
+            model.MyCatagories = new int[catTotal - 1];
+
+            foreach (var budget in model.household.Budgets)
+            {
+                foreach (var item in budget.Items)
+                {
+                    model.MyCatagories[catCount] = item.Catagory.Id;
+                    catCount++;
+                }
+            }
+
+            model.CatagoryCount = catCount;
+
+            //double catagoryTotal = 0;
+            int transCount = 0;
+            model.CatagoryTotals = new double[catTotal - 1];
+
+            foreach (var catagory in model.MyCatagories)
+            {
+                foreach (var account in model.household.BankAccounts)
+                {
+                    foreach (var transaction in account.Transactions)
+                    {
+                        if (transaction.CatagoryId == catagory)
+                        {
+                            //model.MyTransactions.Add(transaction);
+                            //model.CatagoryTotals += transaction.Amount;
+                            model.CatagoryTotals[transCount] += transaction.Amount;
+                        }
+                    }
+                }
+                transCount++;
+            }
 
             db.SaveChanges();
-            return View(household);
+            return View(model);
         }
 
         // GET: Households/Create

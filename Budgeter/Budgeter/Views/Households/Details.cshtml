@@ -1,13 +1,14 @@
-﻿@model Budgeter.Models.Household
+﻿@model Budgeter.Models.HouseholdViewModel
 @using Microsoft.AspNet.Identity;
 
 @{
     ViewBag.Title = "Details";
+    int count = 0;
 }
 
 @{var userId = User.Identity.GetUserId();
 
-    <h3>@Html.DisplayFor(model => model.Name)</h3>
+    <h3>@Model.household.Name</h3>
     <hr />
 
     <div class="row">
@@ -15,40 +16,40 @@
             <div class="form-horizontal">
                 <div class="well well-lg">
                     <h4>Bank Accounts</h4>
-                    @if (userId == Model.CreatedById)
+                    @if (userId == Model.household.CreatedById)
                     {
-                        @Html.ActionLink(linkText: "Add New Account", actionName: "Create", controllerName: "BankAccounts", routeValues: new { id = Model.Id }, htmlAttributes: "")
+                        @Html.ActionLink(linkText: "Add New Account", actionName: "Create", controllerName: "BankAccounts", routeValues: new { id = Model.household.Id }, htmlAttributes: "")
                     }
                     <hr />
                     <div class="form-group">
-                        @foreach (var account in Model.BankAccounts.OrderBy(b => b.Name))
+                        @foreach (var account in Model.household.BankAccounts.OrderBy(b => b.Name))
                         {
                             if (account.Deleted != true)
                             {
-                            <div class="col-md-12">
-                                @*<small>by: </small>*@
-                                <span class="badge">
-                                    @account.Name
-                                </span>
-                                <p>
-                                    @if (account.Balance <= 0)
-                                    {
-                                    <p class="text-danger">Balance: @Html.DisplayFor(modelItem => account.Balance)</p>
-                                    }
-                                    else
-                                    {
-                                        <p class="text-success">Balance: @Html.DisplayFor(modelItem => account.Balance)</p>
-                                    }
-                                    </p>
+                                <div class="col-md-12">
+                                    @*<small>by: </small>*@
+                                    <span class="badge">
+                                        @account.Name
+                                    </span>
                                     <p>
-                                        @Html.ActionLink(linkText: "Add Deposit", actionName: "Deposit", controllerName: "Transactions", routeValues: new { householdId = Model.Id, accountId = account.Id }, htmlAttributes: "")
-                                        @if (userId == Model.CreatedById)
+                                        @if (account.Balance <= 0)
                                         {
-                                            <span>|</span> @Html.ActionLink(linkText: "Edit Account", actionName: "Edit", controllerName: "BankAccounts", routeValues: new { householdId = Model.Id, accountId = account.Id }, htmlAttributes: "")
+                                        <p class="text-danger">Balance: @Html.DisplayFor(modelItem => account.Balance)</p>
                                         }
-                                    </p>
-                                    <hr />
-                                </div>
+                                        else
+                                        {
+                                            <p class="text-success">Balance: @Html.DisplayFor(modelItem => account.Balance)</p>
+                                        }
+                                        </p>
+                                        <p>
+                                            @Html.ActionLink(linkText: "Add Deposit", actionName: "Deposit", controllerName: "Transactions", routeValues: new { householdId = Model.household.Id, accountId = account.Id }, htmlAttributes: "")
+                                            @if (userId == Model.household.CreatedById)
+                                            {
+                                                <span>|</span> @Html.ActionLink(linkText: "Edit Account", actionName: "Edit", controllerName: "BankAccounts", routeValues: new { householdId = Model.household.Id, accountId = account.Id }, htmlAttributes: "")
+                                            }
+                                        </p>
+                                        <hr />
+                                    </div>
                             }
                         }
                     </div>
@@ -57,13 +58,13 @@
                             Total of All Accounts
                         </span>
                         <p></p>
-                        @if (Model.Total <= 0)
+                        @if (Model.household.Total <= 0)
                         {
-                            <p class="text-danger">Balance: @Html.DisplayFor(modelItem => Model.Total)</p>
+                            <p class="text-danger">Balance: @Html.DisplayFor(modelItem => Model.household.Total)</p>
                         }
                         else
                         {
-                            <p class="text-success">Balance: @Html.DisplayFor(modelItem => Model.Total)</p>
+                            <p class="text-success">Balance: @Html.DisplayFor(modelItem => Model.household.Total)</p>
                         }
                     </div>
                 </div>
@@ -71,23 +72,23 @@
         </div>
         <div class="col-md-6">
             <div>
-                @if (userId == Model.CreatedById)
+                @if (userId == Model.household.CreatedById)
                 {
-                    @Html.ActionLink("Invite", "Create", "Invites", new { id = Model.Id }, new { }) <span> | </span>
-                    @Html.ActionLink("Manage Users", "Assign", "Households", new { id = Model.Id }, new { }) <span> | </span>
-                    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) <span> | </span>
+                    @Html.ActionLink("Invite", "Create", "Invites", new { id = Model.household.Id }, new { }) <span> | </span>
+                    @Html.ActionLink("Manage Users", "Assign", "Households", new { id = Model.household.Id }, new { }) <span> | </span>
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.household.Id }) <span> | </span>
                 }
                 @{
-                    if (userId == Model.CreatedById)
+                    if (userId == Model.household.CreatedById)
                     {
-                        @Html.ActionLink("Delete Household", "Delete", "Households", new { id = Model.Id }, new { })
+                        @Html.ActionLink("Delete Household", "Delete", "Households", new { id = Model.household.Id }, new { })
                     }
                     else
                     {
-                        @Html.ActionLink("Leave Household", "Leave", "Households", new { id = Model.Id }, new { })
+                        @Html.ActionLink("Leave Household", "Leave", "Households", new { id = Model.household.Id }, new { })
                     }
                 }
-                @Html.ActionLink("Add Transaction", "Create", "Transactions", new { householdId = Model.Id }, new { @class = "btn btn-default btn-sm btn-block" })
+                @Html.ActionLink("Add Transaction", "Create", "Transactions", new { householdId = Model.household.Id }, new { @class = "btn btn-default btn-sm btn-block" })
             </div>
             <p class="text-danger">
                 @ViewBag.OverdraftError
@@ -112,7 +113,7 @@
                     <th></th>
                 </tr>
 
-                @foreach (var item in Model.BankAccounts)
+                @foreach (var item in Model.household.BankAccounts)
                 {
                     foreach (var transaction in item.Transactions.OrderByDescending(t => t.Created))
                     {
@@ -135,10 +136,9 @@
                                     @Html.DisplayFor(modelItem => transaction.Amount)
                                 </td>
                                 <td>
-                                    @Html.ActionLink(linkText: "Edit", actionName: "Edit", controllerName: "Transactions", routeValues: new { householdId = Model.Id, transactionId = transaction.Id }, htmlAttributes: "") |
-                                    @Html.ActionLink(linkText: "Details", actionName: "Details", controllerName: "Transactions", routeValues: new { householdId = Model.Id, transactionId = transaction.Id }, htmlAttributes: "") |
-                                    @*Implement Soft Delete*@
-                                    @Html.ActionLink("Delete", "Delete", "Transactions", new { householdId = Model.Id, transactionId = transaction.Id }, new { } )
+                                    @Html.ActionLink(linkText: "Edit", actionName: "Edit", controllerName: "Transactions", routeValues: new { householdId = Model.household.Id, transactionId = transaction.Id }, htmlAttributes: "") |
+                                    @Html.ActionLink(linkText: "Details", actionName: "Details", controllerName: "Transactions", routeValues: new { householdId = Model.household.Id, transactionId = transaction.Id }, htmlAttributes: "")
+                                    @*@Html.ActionLink("Delete", "Delete", "Transactions", new { householdId = Model.household.Id, transactionId = transaction.Id }, new { })*@
                                 </td>
                             </tr>
                         }
@@ -157,13 +157,13 @@
                             Total Budget
                         </span>
                         <p></p>
-                        @Html.DisplayFor(modelItem => Model.TotalBudget)
+                        @Html.DisplayFor(modelItem => Model.household.TotalBudget)
                     </div>
-                    @foreach (var budget in Model.Budgets.OrderBy(b => b.Name))
+                    @foreach (var budget in Model.household.Budgets.OrderBy(b => b.Name))
                     {
                         <p>
-                            @Html.ActionLink(linkText: "Add New Item", actionName: "Create", controllerName: "Items", routeValues: new { householdId = Model.Id, budgetId = budget.Id }, htmlAttributes: "") |
-                            @Html.ActionLink(linkText: "Manage Catagories", actionName: "Index", controllerName: "Catagories", routeValues: new { id = Model.Id }, htmlAttributes: "")
+                            @Html.ActionLink(linkText: "Add New Item", actionName: "Create", controllerName: "Items", routeValues: new { householdId = Model.household.Id, budgetId = budget.Id }, htmlAttributes: "") |
+                            @Html.ActionLink(linkText: "Manage Catagories", actionName: "Index", controllerName: "Catagories", routeValues: new { id = Model.household.Id }, htmlAttributes: "")
                         </p>
                         <hr />
                         <div class="form-group">
@@ -171,9 +171,26 @@
                                 @*<small>by: </small>*@
                                     @foreach (var item in budget.Items)
                                     {
-                                    <p>
-                                        @Html.DisplayFor(ModelItem => item.Catagory.Name): @Html.DisplayFor(ModelItem => item.Amount)
-                                    </p>
+                                        <p>
+                                            @Html.DisplayFor(ModelItem => item.Catagory.Name): @Html.DisplayFor(ModelItem => item.Amount)
+                                        </p>
+                                        <p>
+                                            @for (int i = count; i < Model.CatagoryCount; i++)
+                                            {
+                                                if (Model.CatagoryCount != 0)
+                                                {
+                                                    var value = 100 * Model.CatagoryTotals[i] / item.Amount;
+                                                    <div class="progress">
+                                                        <div class="progress-bar" role="progressbar" aria-valuenow="@value"
+                                                             aria-valuemin="0" aria-valuemax="100" style="width:@value%">
+                                                            $@Html.DisplayFor(ModelItem => Model.CatagoryTotals[i])
+                                                        </div>
+                                                    </div>
+                                                    break;
+                                                }
+                                            }
+                                        </p>
+                                        count++;
                                     }
                                 <hr />
                             </div>
@@ -185,8 +202,8 @@
 
     </div>
 
-        <p>
-            @Html.ActionLink("Back to List", "Index", "Home")
-        </p>
+                <p>
+                    @Html.ActionLink("Back to List", "Index", "Home")
+                </p>
 
 }
