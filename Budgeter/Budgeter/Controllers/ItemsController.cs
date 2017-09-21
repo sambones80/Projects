@@ -17,7 +17,7 @@ namespace Budgeter.Controllers
         // GET: Items
         public ActionResult Index()
         {
-            var items = db.Items.Include(i => i.Budget).Include(i => i.Catagory);
+            var items = db.Items.Include(i => i.Budget).Include(i => i.Category);
             return View(items.ToList());
         }
 
@@ -39,8 +39,25 @@ namespace Budgeter.Controllers
         // GET: Items/Create
         public ActionResult Create(int householdId, int budgetId)
         {
+            Budget budget = db.Budgets.Find(budgetId);
+            List<Item> budgetItems = db.Items.Where(i => i.BudgetId == budgetId).ToList();
+            List<Category> allCats = db.Categories.ToList();
+            List<Category> usedCats = new List<Category>();
+            List<Category> listCats = db.Categories.ToList();
+
+            foreach (Category category in allCats)
+            {
+                foreach (Item budgetItem in budgetItems)
+                {
+                    if (category.Id == budgetItem.CategoryId)
+                    {
+                        listCats.Remove(category);
+                    }
+                }
+            }
+
             ViewBag.HouseholdId = householdId;
-            ViewBag.CatagoryId = new SelectList(db.Catagories.Where(c => c.Name != "Income"), "Id", "Name");
+            ViewBag.CategoryId = new SelectList(listCats.Where(c => c.Name != "Income"), "Id", "Name");
             return View();
         }
 
@@ -49,20 +66,20 @@ namespace Budgeter.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,CatagoryId,BudgetId,Amount,Deleted")] Item item, int householdId, int budgetId)
+        public ActionResult Create([Bind(Include = "Id,CategoryId,BudgetId,Amount,Deleted")] Item item, int householdId, int budgetId)
         {
             if (ModelState.IsValid)
             {
                 item.BudgetId = budgetId;
                 var budget = db.Budgets.Find(item.BudgetId);
-                var category = db.Catagories.Find(item.CatagoryId);
+                var category = db.Categories.Find(item.CategoryId);
                 db.Items.Add(item);
                 db.SaveChanges();
                 return RedirectToAction("Details", "Households", new { id = householdId });
             }
 
             ViewBag.BudgetId = new SelectList(db.Budgets, "Id", "Name", item.BudgetId);
-            ViewBag.CatagoryId = new SelectList(db.Catagories, "Id", "Name", item.CatagoryId);
+            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", item.CategoryId);
             return View(item);
         }
 
@@ -79,7 +96,7 @@ namespace Budgeter.Controllers
                 return HttpNotFound();
             }
             ViewBag.BudgetId = new SelectList(db.Budgets, "Id", "Name", item.BudgetId);
-            ViewBag.CatagoryId = new SelectList(db.Catagories, "Id", "Name", item.CatagoryId);
+            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", item.CategoryId);
             return View(item);
         }
 
@@ -88,7 +105,7 @@ namespace Budgeter.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,CatagoryId,BudgetId,Amount,Deleted")] Item item)
+        public ActionResult Edit([Bind(Include = "Id,CategoryId,BudgetId,Amount,Deleted")] Item item)
         {
             if (ModelState.IsValid)
             {
@@ -97,7 +114,7 @@ namespace Budgeter.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.BudgetId = new SelectList(db.Budgets, "Id", "Name", item.BudgetId);
-            ViewBag.CatagoryId = new SelectList(db.Catagories, "Id", "Name", item.CatagoryId);
+            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", item.CategoryId);
             return View(item);
         }
 

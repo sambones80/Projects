@@ -42,6 +42,8 @@ namespace Budgeter.Controllers
         // GET: Invites/Create
         public ActionResult Create(int id)
         {
+            Household household = db.Households.Find(id);
+            ViewBag.HouseholdName = household.Name;
             ViewBag.HouseholdId = id;
             return View();
         }
@@ -74,7 +76,7 @@ namespace Budgeter.Controllers
                 var svc = new PersonalEmail();
                 await svc.SendAsync(email);
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Details", "Households", new { id = id });
             }
 
             ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", invite.HouseholdId);

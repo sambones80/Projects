@@ -1,14 +1,34 @@
 ﻿@model Budgeter.Models.AssignUsersViewModel
 
 @{
-    ViewBag.Title = "Assign user to household";
+    ViewBag.Title = "Manage Users";
 }
-
-<h2>@Model.Household.Name</h2>
 
 <br />
 
-@using (Html.BeginForm("Assign", "Households", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+<div class="row">
+    <div class="col-sm-4 col-sm-offset-4 text-center">
+        <div class="well well-lg well-topspace">
+            <h2>@Model.Household.Name Users</h2>
+            @foreach (var user in Model.SelectedUsers)
+            {
+                <hr />
+                <div class="col-sm-12">
+                    <p>
+                        @user.DisplayName <span class="divider"> | </span>
+                        @Html.ActionLink("Remove User", "UnAssign", "Households", new { householdId = Model.Household.Id, userId = user.Id }, "")
+                    </p>
+                </div>
+            }
+            <p>
+                @Html.ActionLink("Back", "Details", "Households", new { Id = Model.Household.Id }, "")
+            </p>
+        </div>
+    </div>
+</div>
+
+
+@*@using (Html.BeginForm("Assign", "Households", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     <div>
         <h3>Assign to:</h3>
@@ -25,9 +45,8 @@
                 <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
             </li>
             <li>
-                @*<a href="@Url.Action("Index", "Home")" class="btn btn-danger"> <i class="fa fa-ban"></i> Cancel</a>*@
                 @Html.ActionLink("Back to List", "Details", new { id = Model.Household.Id })
             </li>
         </ul>
     </div>
-}
+}*@

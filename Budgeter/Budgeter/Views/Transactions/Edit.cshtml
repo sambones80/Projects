@@ -1,108 +1,56 @@
 ﻿@model Budgeter.Models.Transaction
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit Transaction";
 }
 
-<h2>Edit</h2>
+<div class="row">
+    <div class="col-sm-4 col-sm-offset-4">
+        <div class="well well-lg well-topspace">
+            <h3 class="text-center">Edit a Transaction</h3>
+            <hr />
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.Created)
+                @Html.HiddenFor(model => model.EnteredBy)
+                @Html.HiddenFor(model => model.TypeId)
+                <input type="hidden" name="originalAmount" value="@ViewBag.OriginalAmount" />
+                <input type="hidden" name="originalAccountId" value="@ViewBag.OriginalAccountId" />
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Transaction</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
-        @Html.HiddenFor(model => model.Created)
-        @Html.HiddenFor(model => model.EnteredBy)
-        @Html.HiddenFor(model => model.TypeId)
-        <input type="hidden" name="originalAmount" value="@ViewBag.OriginalAmount" />
-        <input type="hidden" name="originalAccountId" value="@ViewBag.OriginalAccountId" />
-
-        <div class="form-group">
-            <label class="control-label col-md-2">Amount $</label>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-2">Bank Account</label>
-            <div class="col-md-10">
-                @Html.DropDownList("BankAccountId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.BankAccountId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-2">Paid to</label>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Payee, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Payee, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        @*<div class="form-group">
-            <label class="control-label col-md-2">Date & Time</label>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Created, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Created, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
-        @*<div class="form-group">
-            <label class="control-label col-md-2">Type of Transaction</label>
-            <div class="col-md-10">
-                @Html.DropDownList("TypeId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.TypeId, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
-        <div class="form-group">
-            <label class="control-label col-md-2">Catagory</label>
-            <div class="col-md-10">
-                @Html.DropDownList("CatagoryId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CatagoryId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        @*<div class="form-group">
-            <label class="control-label col-md-2">Entered by</label>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.EnteredById, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.EnteredById, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
-        <div class="form-group">
-            <label class="control-label col-md-2">Void Transaction</label>
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Deleted)
-                    @Html.ValidationMessageFor(model => model.Deleted, "", new { @class = "text-danger" })
+                <div class="form-group login-form">
+                    @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control login-textbox" } })
+                    @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
                 </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+                <div class="form-group login-form">
+                    @Html.DropDownList("BankAccountId", null, htmlAttributes: new { @class = "form-control login-textbox" })
+                    @Html.ValidationMessageFor(model => model.BankAccountId, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group login-form">
+                    @Html.EditorFor(model => model.Payee, new { htmlAttributes = new { @class = "form-control login-textbox" } })
+                    @Html.ValidationMessageFor(model => model.Payee, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group login-form">
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control login-textbox" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group login-form">
+                    @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control login-textbox" })
+                    @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                </div>
+                <div class="checkbox">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        @Html.CheckBoxFor(model => model.Deleted)
+                        <label>Void Transaction</label>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <input type="submit" value="Save" class="btn btn-default" /><span class="divider"> | </span>
+                    @Html.ActionLink("Cancel", "Details", "Households", new { id = ViewBag.HouseholdId }, new { })
+                </div>
+            }
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink(linkText: "Back to List", actionName: "Details", controllerName: "Households", routeValues: new { id = ViewBag.HouseholdId }, htmlAttributes: "")
 </div>

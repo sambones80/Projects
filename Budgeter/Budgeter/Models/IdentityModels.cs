@@ -53,7 +53,7 @@ namespace Budgeter.Models
 
         public System.Data.Entity.DbSet<Budgeter.Models.BankAccount> BankAccounts { get; set; }
 
-        public System.Data.Entity.DbSet<Budgeter.Models.Catagory> Catagories { get; set; }
+        public System.Data.Entity.DbSet<Budgeter.Models.Category> Categories { get; set; }
 
         public System.Data.Entity.DbSet<Budgeter.Models.Type> Types { get; set; }
 

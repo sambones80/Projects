@@ -1,75 +1,79 @@
 ﻿@model Budgeter.Models.Transaction
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Transaction Details";
 }
 
-<h2>Details</h2>
+<div class="row">
+    <div class="col-sm-4 col-sm-offset-4">
+        <div class="well well-lg well-topspace">
+            <h3 class="text-center">@ViewBag.Title</h3>
+            <hr />
+            <div>
+                <dl class="dl-horizontal">
 
-<div>
-    <h4>Transaction</h4>
-    <hr />
-    <dl class="dl-horizontal">
+                    <dt>
+                        Date & Time
+                    </dt>
 
-        <dt>
-            Date & Time
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Created)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Created)
-        </dd>
+                    <dt>
+                        Amount
+                    </dt>
 
-        <dt>
-            Amount
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Amount)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Amount)
-        </dd>
+                    <dt>
+                        Paid to
+                    </dt>
 
-        <dt>
-            Paid to
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Payee)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Payee)
-        </dd>
+                    <dt>
+                        Description
+                    </dt>
 
-        <dt>
-            Description
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Description)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+                    <dt>
+                        Category
+                    </dt>
 
-        <dt>
-            Catagory
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Category.Name)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Catagory.Name)
-        </dd>
+                    <dt>
+                        Bank Account
+                    </dt>
 
-        <dt>
-            Bank Account
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.BankAccount.Name)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.BankAccount.Name)
-        </dd>
+                    <dt>
+                        Entered by
+                    </dt>
 
-        <dt>
-            Entered by
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.EnteredById)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.EnteredById)
-        </dd>
-
-    </dl>
+                </dl>
+            </div>
+            <p class="text-center">
+                @Html.ActionLink(linkText: "Edit", actionName: "Edit", controllerName: "Transactions", routeValues: new { householdId = ViewBag.HouseholdId, transactionId = Model.Id }, htmlAttributes: "")<span class="divider"> | </span>
+                @Html.ActionLink(linkText: "Back", actionName: "Details", controllerName: "Households", routeValues: new { id = ViewBag.HouseholdId }, htmlAttributes: "")
+            </p>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink(linkText: "Edit", actionName: "Edit", controllerName: "Transactions", routeValues: new { householdId = Model.Id, transactionId = Model.Id }, htmlAttributes: "") |
-    @Html.ActionLink(linkText: "Back to List", actionName: "Details", controllerName: "Households", routeValues: new { id = ViewBag.HouseholdId }, htmlAttributes: "")
-</p>

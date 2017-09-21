@@ -8,59 +8,33 @@
     bool flag = false;
 }
 
-<h2>My Households HOME</h2>
+<div class="row">
+    <div class="col-sm-4 col-sm-offset-4 text-center">
+        <div class="well well-lg well-topspace">
+            <h2>My Households</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create", "Households")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            Users
-        </th>
-        @*<th></th>*@
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        if (item.Deleted != true)
-        {
-            foreach (var user in item.Users)
+            <p>
+                <a href="@Url.Action("Create", "Households")" class="btn btn-default btn-block">Create New Household</a>
+            </p>
+            @foreach (var item in Model)
             {
-                if (user.Id == userId)
+                if (item.Deleted != true)
                 {
-                    flag = true;
+                    foreach (var user in item.Users)
+                    {
+                        if (user.Id == userId)
+                        {
+                            flag = true;
+                        }
+                    }
+                    if (flag)
+                    {
+                        <hr />
+                        <a href="@Url.Action("Details", "Households", new { id = item.Id })" class="h4">@Html.DisplayFor(modelItem => item.Name)</a>
+                        flag = false;
+                    }
                 }
             }
-            if (flag)
-            {
-
-        <tr>
-            <td>
-                @*<a href="@Url.Action("Household", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Name)</a>*@
-                <a href="@Url.Action("Details", "Households", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Name)</a>
-            </td>
-            <td>
-                @foreach (var user in item.Users)
-                {
-                    @user.DisplayName
-                    <br/>
-                }
-            </td>
-            @*<td>
-                    @Html.DisplayFor(modelItem => item.Deleted)
-                </td>*@
-            @*<td>
-                @Html.ActionLink("Edit", "Edit", "Households", new { id = item.Id }, new { }) |
-                @Html.ActionLink("Details", "Details", "Households", new { id = item.Id }, new { }) |
-                @Html.ActionLink("Invite", "Create", "Invites", new { id = item.Id }, new { })
-            </td>*@
-        </tr>
-                flag = false;
-            }
-        }
-    }
-</table>
+        </div>
+    </div>
+</div>

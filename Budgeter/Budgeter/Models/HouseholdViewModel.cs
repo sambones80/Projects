@@ -12,9 +12,9 @@ namespace Budgeter.Models
         public List<Transaction> MyTransactions { get; set; }
         public List<BankAccount> MyBankAccounts { get; set; }
         public List<Item> MyBudgetItems { get; set; }
-        public int[] MyCatagories { get; set; }
+        public int[] MyCategories { get; set; }
         [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
-        public double[] CatagoryTotals { get; set; }
-        public int CatagoryCount { get; set; }
+        public double[] CategoryTotals { get; set; }
+        public int CategoryCount { get; set; }
     }
 }

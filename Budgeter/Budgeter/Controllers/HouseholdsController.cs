@@ -65,40 +65,40 @@ namespace Budgeter.Controllers
 
             int catTotal = 0;
 
-            foreach (var catagory in db.Catagories)
+            foreach (var category in db.Categories)
             {
                 catTotal++;
             }
 
             int catCount = 0;
-            model.MyCatagories = new int[catTotal - 1];
+            model.MyCategories = new int[catTotal - 1];
 
             foreach (var budget in model.household.Budgets)
             {
                 foreach (var item in budget.Items)
                 {
-                    model.MyCatagories[catCount] = item.Catagory.Id;
+                    model.MyCategories[catCount] = item.Category.Id;
                     catCount++;
                 }
             }
 
-            model.CatagoryCount = catCount;
+            model.CategoryCount = catCount;
 
-            //double catagoryTotal = 0;
+            //double categoryTotal = 0;
             int transCount = 0;
-            model.CatagoryTotals = new double[catTotal - 1];
+            model.CategoryTotals = new double[catTotal - 1];
 
-            foreach (var catagory in model.MyCatagories)
+            foreach (var category in model.MyCategories)
             {
                 foreach (var account in model.household.BankAccounts)
                 {
                     foreach (var transaction in account.Transactions)
                     {
-                        if (transaction.CatagoryId == catagory)
+                        if (transaction.CategoryId == category)
                         {
                             //model.MyTransactions.Add(transaction);
-                            //model.CatagoryTotals += transaction.Amount;
-                            model.CatagoryTotals[transCount] += transaction.Amount;
+                            //model.CategoryTotals += transaction.Amount;
+                            model.CategoryTotals[transCount] += transaction.Amount;
                         }
                     }
                 }
@@ -188,6 +188,37 @@ namespace Budgeter.Controllers
             return View(model);
         }
 
+        // GET: Households/UnAssign/5
+        public ActionResult UnAssign(int householdId, string userId)
+        {
+            //var household = db.Households.Find(householdId);
+            //var user = db.Users.Find(userId);
+            //HouseholdUsersHelper helper = new HouseholdUsersHelper(db);
+            var model = new AssignUsersViewModel();
+
+            ViewBag.HouseholdId = householdId;
+            ViewBag.UserId = userId;
+
+            return View(model);
+        }
+
+        // POST: Households/UnAssign/5
+        [HttpPost]
+        public ActionResult UnAssign(AssignUsersViewModel model, int householdId, string userId)
+        {
+            if (ModelState.IsValid)
+            { 
+            var household = db.Households.Find(householdId);
+            var user = db.Users.Find(userId);
+            HouseholdUsersHelper helper = new HouseholdUsersHelper(db);
+
+            helper.RemoveUserFromHousehold(household.Id, user.Id);
+            return RedirectToAction("Assign", "Households", new { id = household.Id });
+            }
+            return View(model);
+        }
+
+
         // GET: Households/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -249,12 +280,13 @@ namespace Budgeter.Controllers
         // GET: Households/Leave/5
         public ActionResult Leave(int? id)
         {
+            Household household = db.Households.Find(id);
+            ViewBag.HouseholdName = household.Name;
             ViewBag.HouseholdId = id;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Household household = db.Households.Find(id);
             if (household == null)
             {
                 return HttpNotFound();

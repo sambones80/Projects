@@ -19,11 +19,11 @@ namespace Budgeter.Models
         public bool Deleted { get; set; }
         // Type: Deposit or Expense
         public int TypeId { get; set; }
-        public int CatagoryId { get; set; }
+        public int CategoryId { get; set; }
         public int EnteredById { get; set; }
         public virtual BankAccount BankAccount { get; set; }
         public virtual Budgeter.Models.Type Type { get; set; }
-        public virtual Catagory Catagory { get; set; }
+        public virtual Category Category { get; set; }
         public virtual ApplicationUser EnteredBy { get; set; }
     }
 }
