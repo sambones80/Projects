@@ -246,13 +246,15 @@
     <Content Include="img\Profile.jpg" />
     <Content Include="img\Uploads\1200px800px_NoLogo_CAM17951.jpg" />
     <Content Include="img\Uploads\blog pic.jpg" />
+    <Content Include="private.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="img\Sam Gray Resume 2017.pdf" />
-    <Content Include="private.config" />
     <None Include="Properties\PublishProfiles\sgray-portfolio - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\sgray-portfolio - Web Deploy.pubxml" />
     <Content Include="sass\_variables.sass" />

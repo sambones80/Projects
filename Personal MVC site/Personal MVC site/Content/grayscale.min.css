@@ -429,10 +429,6 @@ img::-moz-selection {
     font-size: 1.75em;
 }
 
-#profile-pic {
-    border-radius: 105px;
-}
-
 .back-to-top {
     margin: 0 auto;
     padding: 50px 0 0;
@@ -517,7 +513,7 @@ img::-moz-selection {
 
 .scroll-box-blog {
     color: #fff;
-    max-height: 288px;
+    max-height: 32.5rem;
     overflow-y: hidden;
 }
 
@@ -608,4 +604,60 @@ th {
     -moz-opacity: 60%;
     -webkit-opacity: 60%;
     z-index: 2;
+}
+
+@media (min-width:1200px)
+{
+    #sm-profile-pic {
+        display: none;
+    }
+}
+
+@media (max-width:1199px)
+{
+    #profile-pic {
+        display: none;
+    }
+}
+
+@media (max-width:767px)
+{
+    .blog-created {
+        text-align: left;
+    }
+}
+
+@media (max-width:991px)
+{
+    .blog-welcome-login {
+        text-align: left;
+    }
+}
+
+@media (max-width:649px)
+{
+    .blog-pic {
+        height: 160px;
+    }
+}
+
+@media (max-width:499px)
+{
+    .blog-pic {
+        height: auto;
+    }
+
+    .blog-img {
+        padding-left: 0;
+    }
+}
+
+#profile-pic {
+    border-radius: 105px;
+}
+
+#sm-profile-pic {
+    border-radius: 105px;
+    float: left;
+    margin: 0 15px 15px -15px;
 }

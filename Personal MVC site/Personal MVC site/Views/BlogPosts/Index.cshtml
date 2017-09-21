@@ -57,14 +57,14 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-md-8 text-right">
+            <div class="col-md-8 text-right blog-welcome-login">
                 @if (Request.IsAuthenticated)
                 {
                     <p class="lower-blog-head">Welcome: @User.Identity.Name</p>
                 }
                 else
                 {
-                    <a href='@Url.Action("Login", "Account")' class="lower-blog-head-login">Welcome guest. Please log in if you would like to comment.</a>
+                    <a href='@Url.Action("Login", "Account")' class="lower-blog-head-login">Welcome guest. Please <strong>log in</strong> if you would like to comment.</a>
                 }
             </div>
         </div>
@@ -77,7 +77,7 @@
             foreach (var blogPost in Model)
             {
                 <div class="row">
-                    <div class="col-lg-1 col-lg-offset-1 post-info">
+                    <div class="col-md-1 col-md-offset-1 post-info">
                         <div>
                             <img src="~/img/Profile.jpg" id="profile-pic" height="80" alt="Sam's Picture" />
                         </div>
@@ -94,22 +94,23 @@
                             }
                         }
                     </div>
-                    <div class="col-lg-9 blog-block">
+                    <div class="col-md-9 blog-block">
                         <a href='@Url.Action("Details", new { slug = blogPost.Slug })' class="blog-hov">
                             <div class="row">
-                                <div class="col-lg-12 post-head">
+                                <div class="col-sm-12 post-head">
                                     <div class="row">
                                         <div class="col-sm-6">
+                                            <img src="~/img/Profile.jpg" id="sm-profile-pic" height="60" alt="Sam's Picture" />
                                             <h2 class="text-left">@Html.DisplayFor(modelBlogPost => blogPost.Title)</h2>
                                         </div>
-                                        <div class="col-sm-6 text-right scroll-box-blog">
+                                        <div class="col-sm-6 text-right scroll-box-blog blog-created">
                                             <p>@Html.DisplayFor(modelBlogPost => blogPost.Created)</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-12 post-body">
+                                <div class="col-sm-12 post-body">
                                     <div class="row">
                                         <div class="col-md-12 text-left scroll-box-blog">
                                             @if (blogPost.MediaURL != null)

@@ -222,7 +222,7 @@ namespace Personal_MVC_site.Controllers
                 //await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
                 try
                 {
-                    var email = new MailMessage(ConfigurationManager.AppSettings["username"], ConfigurationManager.AppSettings["emailfrom"])
+                    var email = new MailMessage(ConfigurationManager.AppSettings["username"], user.Email)
                     {
                         Subject = "Reset Password",
                         Body = string.Format("Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>"),

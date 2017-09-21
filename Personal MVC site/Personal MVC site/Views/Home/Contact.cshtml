@@ -35,7 +35,7 @@
                     <a href='@Url.Action("Index")#contact' class="page-scroll top-nav">Contact</a>
                 </li>
                 <li>
-                    @Html.ActionLink("Blog", "Index", "BlogPosts", new { @class = "page-scroll top-nav" })
+                    @Html.ActionLink("Blog", "Index", "BlogPosts", new { @class = "page-scroll top-nav" }, "")
                 </li>
             </ul>
         </div>
@@ -83,7 +83,16 @@
             </div>
             <div class="form-group">
                 <div class="col-md-10 col-md-offset-2">
-                    <input type="submit" class="btn btn-default" value="send" />
+                    <ul class="list-inline">
+                        <li>
+                            <button type="submit" class="btn btn-default">
+                                <i class="fa fa-send-o"></i> Send
+                            </button>
+                        </li>
+                        <li>
+                            <a href='@Url.Action("Index")#contact' class="btn btn-default"><i class="fa fa-ban"></i> Cancel</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
