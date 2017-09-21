@@ -14,6 +14,7 @@ namespace Budgeter.Models
         [DisplayFormat(DataFormatString = "{0:M/d/yyyy h:mm tt}")]
         public DateTimeOffset Created { get; set; }
         public string SentById { get; set; }
+        [Required]
         public string ToEmail { get; set; }
         public string Secret { get; set; }
         public virtual Household Household { get; set; }

@@ -11,6 +11,7 @@
             <hr />
             @using (Html.BeginForm())
             {
+                @Html.AntiForgeryToken()
                 <input type="hidden" name="accountId" value="@ViewBag.BankAccountId" />
                 <input type="hidden" name="householdId" value="@ViewBag.HouseholdId" />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -23,7 +24,10 @@
                     @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
                 </div>
                 <div class="text-center">
-                    <input type="submit" value="Add Deposit" class="btn btn-default" /><span class="divider"> | </span>
+                    <button type="submit" class="btn btn-default">
+                        <i class="fa fa-check-square-o"></i> Save
+                    </button>
+                    <span class="divider"> | </span>
                     @Html.ActionLink("Cancel", "Details", "Households", new { id = ViewBag.HouseholdId }, new { })
                 </div>
             }

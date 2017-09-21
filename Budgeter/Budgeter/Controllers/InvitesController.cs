@@ -79,7 +79,7 @@ namespace Budgeter.Controllers
                 return RedirectToAction("Details", "Households", new { id = id });
             }
 
-            ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", invite.HouseholdId);
+            ViewBag.HouseholdId = id;
             return View(invite);
         }
 

@@ -66,7 +66,7 @@ namespace Budgeter.Controllers
                 return RedirectToAction("Details", "Households", new { id = bankAccount.HouseholdId });
             }
 
-            //ViewBag.HouseholdId = id;
+            ViewBag.HouseholdId = id;
             return View(bankAccount);
         }
 

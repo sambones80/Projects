@@ -20,33 +20,8 @@
                     </p>
                 </div>
             }
-            <p>
-                @Html.ActionLink("Back", "Details", "Households", new { Id = Model.Household.Id }, "")
-            </p>
+            <br />
+            <a href="@Url.Action("Details", "Households", new { Id = Model.Household.Id })" class="btn btn-default"><i class="fa fa-angle-left"></i> Back</a>
         </div>
     </div>
 </div>
-
-
-@*@using (Html.BeginForm("Assign", "Households", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    <div>
-        <h3>Assign to:</h3>
-        @Html.HiddenFor(model => model.Household.Id, new { })
-        <br />
-        <form>
-            <div class="form-group">
-                <label>Assign to:</label>
-                @Html.ListBox("SelectedUsers", Model.Users, htmlAttributes: new { @class = "form-control", id = "mySelect", size = "20" })
-            </div>
-        </form>
-        <ul class="list-inline">
-            <li>
-                <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
-            </li>
-            <li>
-                @Html.ActionLink("Back to List", "Details", new { id = Model.Household.Id })
-            </li>
-        </ul>
-    </div>
-}*@

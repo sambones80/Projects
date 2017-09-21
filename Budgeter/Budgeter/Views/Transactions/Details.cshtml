@@ -71,7 +71,8 @@
                 </dl>
             </div>
             <p class="text-center">
-                @Html.ActionLink(linkText: "Edit", actionName: "Edit", controllerName: "Transactions", routeValues: new { householdId = ViewBag.HouseholdId, transactionId = Model.Id }, htmlAttributes: "")<span class="divider"> | </span>
+                <a href="@Url.Action("Edit", "Transactions", new { householdId = ViewBag.HouseholdId, transactionId = Model.Id })" class="btn btn-default"><i class="fa fa-pencil-square-o"></i> Edit</a>
+                <span class="divider"> | </span>
                 @Html.ActionLink(linkText: "Back", actionName: "Details", controllerName: "Households", routeValues: new { id = ViewBag.HouseholdId }, htmlAttributes: "")
             </p>
         </div>

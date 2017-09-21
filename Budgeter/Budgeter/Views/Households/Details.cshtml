@@ -62,7 +62,7 @@
                                     {
                                         <p class="text-success">Balance: @Html.DisplayFor(modelItem => account.Balance)</p>
                                     }
-                                    @Html.ActionLink(linkText: "Add Deposit", actionName: "Deposit", controllerName: "Transactions", routeValues: new { householdId = Model.household.Id, accountId = account.Id }, htmlAttributes: new { @class = "btn btn-default btn-small" } )
+                                    <a href="@Url.Action("Deposit", "Transactions", new { householdId = Model.household.Id, accountId = account.Id })" class="btn btn-default btn-small"><i class="fa fa-money"></i> Deposit</a>
                                     @if (userId == Model.household.CreatedById)
                                     {
                                         <span class="divider">|</span> @Html.ActionLink(linkText: "Edit Account", actionName: "Edit", controllerName: "BankAccounts", routeValues: new { householdId = Model.household.Id, accountId = account.Id }, htmlAttributes: "")
@@ -101,7 +101,7 @@
                 Transactions
             </div>
             <div class="panel-body">
-                @Html.ActionLink("Add Transaction", "Create", "Transactions", new { householdId = Model.household.Id }, new { @class = "btn btn-default btn-block" })
+                <a href="@Url.Action("Create", "Transactions", new { householdId = Model.household.Id })" class="btn btn-default btn-block"><i class="fa fa-shopping-cart"></i> Add Transaction</a>
                 <br />
                 <div class="table-responsive">
                     <table class="table table-striped table-bordered table-hover" id="dataTables-transactions">

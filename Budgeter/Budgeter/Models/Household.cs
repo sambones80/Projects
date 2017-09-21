@@ -15,6 +15,7 @@ namespace Budgeter.Models
             this.BankAccounts = new HashSet<BankAccount>();
         }
         public int Id { get; set; }
+        [Required]
         public string Name { get; set; }
         public string CreatedById { get; set; }
         public bool Deleted { get; set; }

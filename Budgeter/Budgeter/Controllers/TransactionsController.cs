@@ -80,6 +80,7 @@ namespace Budgeter.Controllers
             ViewBag.BankAccountId = new SelectList(db.BankAccounts, "Id", "Name", transaction.BankAccountId);
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", transaction.CategoryId);
             ViewBag.TypeId = new SelectList(db.Types, "Id", "Name", transaction.TypeId);
+            ViewBag.HouseholdId = householdId;
             return View(transaction);
         }
 
