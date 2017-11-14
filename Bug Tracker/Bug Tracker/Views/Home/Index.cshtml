@@ -391,11 +391,11 @@
                                 </thead>
                                 <tbody>
                                     @if (Model != null)
-                    {
-                        foreach (var item in Model.RelevantTickets.OrderBy(t => t.Title))
-                        {
-                            if (item.Deleted == false)
-                            {
+                                    {
+                                        foreach (var item in Model.RelevantTickets.OrderBy(t => t.Title))
+                                        {
+                                            if (item.Deleted == false)
+                                            {
                                                 <tr>
                                                     <td class="col-sm-2">
                                                         <a href="@Url.Action("Edit", "Tickets", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Title)</a>
@@ -455,9 +455,9 @@
                                 </thead>
                                 <tbody>
                                     @foreach (var item in Model.RelevantProjects.OrderBy(p => p.Title))
-                    {
-                        if (item.Deleted == false)
-                        {
+                                    {
+                                        if (item.Deleted == false)
+                                        {
                                             <tr>
                                                 <td class="col-sm-2 click">
                                                     <a href="@Url.Action("Details", "Projects", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Title)</a>
@@ -515,11 +515,11 @@
                                 </thead>
                                 <tbody>
                                     @if (Model != null)
-                    {
-                        foreach (var item in Model.RelevantTickets.OrderBy(t => t.Title))
-                        {
-                            if (item.Deleted == false)
-                            {
+                                    {
+                                        foreach (var item in Model.RelevantTickets.OrderBy(t => t.Title))
+                                        {
+                                            if (item.Deleted == false)
+                                            {
                                                 <tr>
                                                     <td class="col-sm-2">
                                                         <a href="@Url.Action("Edit", "Tickets", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Title)</a>
